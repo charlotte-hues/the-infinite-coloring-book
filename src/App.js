@@ -6,8 +6,7 @@ import {
   Circles,
   Diagonal,
   CrossGrid,
-  Square,
-  Gem
+  Square
 } from "./components//Patterns/AllSidePatterns/AllSidePatterns";
 import styled from "styled-components";
 
@@ -21,14 +20,19 @@ function App() {
   return (
     <PatternWrapper>
       <Circles />
-      <CrossGrid />
+      <CrossGrid>
+        <Gems.Letter>A</Gems.Letter>
+      </CrossGrid>
+      <CrossGrid>
+        <Gems.Diamond />
+      </CrossGrid>
       <Square />
-      <Diagonal>
+      <Diagonal rotate="tL">
         <Gems.Diamond />
       </Diagonal>
-      <CrossGrid />
       <Corner.Curved rotate="tR" background />
-      <Corner.Square rotate="tR" background />
+      <Corner.Square rotate="tL" background />
+      <Diagonal />
       Hues Basic Template
     </PatternWrapper>
   );

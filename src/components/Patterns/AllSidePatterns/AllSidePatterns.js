@@ -10,16 +10,25 @@ export const Circles = props => (
   </SVG>
 );
 
-export const CrossGrid = props => (
-  <SVG viewBox="0 0 40 40">
-    <path d="M0 10H40" />
-    <path d="M0 20H40" />
-    <path d="M0 30H40" />
-    <path d="M10 40L10 0" />
-    <path d="M20 40L20 0" />
-    <path d="M30 40L30 0" />
-  </SVG>
-);
+export const CrossGrid = props => {
+  console.log(props.children.props.children);
+  return (
+    <SVG viewBox="0 0 40 40">
+      {props.children}
+      <path
+        d="M0 10H40M0 20H40M0 30H40M10 40L10 0M20 40V0M30 40V0"
+        mask={
+          props.children
+            ? "url(#" +
+              props.children.type.name +
+              props.children.props.children +
+              ")"
+            : null
+        }
+      />
+    </SVG>
+  );
+};
 
 export const Square = props => (
   <SVG viewBox="0 0 40 40">
@@ -28,20 +37,21 @@ export const Square = props => (
   </SVG>
 );
 
-export const Diagonal = props => (
-  <SVG viewBox="0 0 40 40">
-    {props.children}
-    <DiagonalPath
-      d="M0 10L10 0M0 20L20 0M0 30L30 0M0 40L40 0M10 40L40 10M40 20L20 40M30 40L40 30"
-      mask="url(#Mask)"
-    />
-  </SVG>
-);
-
-export const Gem = props => (
-  <defs>
-    <clipPath id="Mask">
-      <circle width="10" height="10" />
-    </clipPath>
-  </defs>
-);
+export const Diagonal = props => {
+  return (
+    <SVG viewBox="0 0 40 40" rotate={props.rotate}>
+      {props.children}
+      <DiagonalPath
+        d="M0 10L10 0M0 20L20 0M0 30L30 0M0 40L40 0M10 40L40 10M40 20L20 40M30 40L40 30"
+        mask={
+          props.children
+            ? "url(#" +
+              props.children.type.name +
+              props.children.props.children +
+              ")"
+            : null
+        }
+      />
+    </SVG>
+  );
+};
