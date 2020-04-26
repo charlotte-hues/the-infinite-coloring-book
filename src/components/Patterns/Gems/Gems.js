@@ -1,7 +1,6 @@
 import React from "react";
 
 const ClippingMask = props => {
-  console.log(props.children);
   return (
     <React.Fragment>
       <mask

@@ -1,16 +1,14 @@
 import styled, { css } from "styled-components";
 
-const stroke = css`
-  stroke-width: 2;
-  stroke: orange;
-  fill: none;
-`;
-
+//Should maybe be global styles
 const sharedStyles = css`
-  width: 80px;
-  height: 80px;
+  stroke-width: 2;
+  width: auto;
+  height: auto;
   padding: 0;
   display: inline-block;
+  stroke: orange;
+  fill: none;
 `;
 
 const corner = {
@@ -22,13 +20,10 @@ const corner = {
 
 export const SVG = styled.svg`
   ${sharedStyles};
-  ${props => (props.noStroke ? null : stroke)};
   transform: rotate(${props => (props.rotate ? corner[props.rotate] : "0deg")});
 `;
 
 export const DiagonalPath = styled.path`
   stroke-width: 1.5;
   stroke-linecap: square;
-  stroke: orange;
-  fill: none;
 `;

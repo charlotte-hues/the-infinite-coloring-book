@@ -1,17 +1,7 @@
 import React from "react";
 import { SVG, DiagonalPath } from "../Styles/Styles";
 
-export const Circles = props => (
-  <SVG viewBox="0 0 40 40">
-    <circle cx="10" cy="30" r="9" />
-    <circle cx="10" cy="10" r="9" />
-    <circle cx="30" cy="10" r="9" />
-    <circle cx="30" cy="30" r="9" />
-  </SVG>
-);
-
 export const CrossGrid = props => {
-  console.log(props.children.props.children);
   return (
     <SVG viewBox="0 0 40 40">
       {props.children}
@@ -29,13 +19,6 @@ export const CrossGrid = props => {
     </SVG>
   );
 };
-
-export const Square = props => (
-  <SVG viewBox="0 0 40 40">
-    <path d="M30 10H1V39H30V10Z" />
-    <DiagonalPath d="M0 10L10 0M10 10L20 0M20 10L30 0M30 20L40 10M30 10L40 0M30 30L40 20M30 40L40 30" />
-  </SVG>
-);
 
 export const Diagonal = props => {
   return (
@@ -55,3 +38,19 @@ export const Diagonal = props => {
     </SVG>
   );
 };
+
+export const Square = props => (
+  <SVG viewBox="0 0 40 40" rotate={props.rotate}>
+    <path d="M30 10H1V39H30V10Z" />
+    <DiagonalPath d="M0 10L10 0M10 10L20 0M20 10L30 0M30 20L40 10M30 10L40 0M30 30L40 20M30 40L40 30" />
+  </SVG>
+);
+
+export const Circles = props => (
+  <SVG viewBox="0 0 40 40">
+    <circle cx="10" cy="30" r="9" />
+    <circle cx="10" cy="10" r="9" />
+    <circle cx="30" cy="10" r="9" />
+    <circle cx="30" cy="30" r="9" />
+  </SVG>
+);
