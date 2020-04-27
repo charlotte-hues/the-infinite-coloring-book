@@ -1,21 +1,22 @@
 import React from "react";
 import * as Backgrounds from "./Backgrounds/Backgrounds";
 import * as Symmetrical from "./Symmetrical/Symmetrical";
-
-export const Diagonal = props => <Backgrounds.Diagonal />;
+import { SVG } from "./Styles/Styles";
 
 export const allPatterns = { ...Backgrounds, ...Symmetrical };
 
 const patternsArr = [];
 for (let pattern in allPatterns) {
-  patternsArr.push(pattern);
+  patternsArr.push({ pattern: allPatterns[pattern] });
 }
-console.log(allPatterns);
 
 const Pattern = props => {
-  const pattern = patternsArr[props];
-
-  return allPatterns.BoxCross();
+  const RandPattern = patternsArr[props.num].pattern;
+  return (
+    <SVG click={props.click} id={props.id} rotation={props.rotation}>
+      <RandPattern rotate={props.rotate} />
+    </SVG>
+  );
 };
 
 export default Pattern;

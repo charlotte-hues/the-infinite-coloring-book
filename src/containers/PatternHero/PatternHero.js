@@ -39,6 +39,7 @@ const PatternHero = props => {
   const [maxNo, setMaxNo] = useState(initialMaxNo.length - 1);
   const [columns, setColumns] = useState(6);
   const [patterns, setPatterns] = useState([]);
+  const [rotation, setRotation] = useState("tL");
 
   useEffect(() => {
     const newPattern = [];
@@ -48,8 +49,24 @@ const PatternHero = props => {
     setPatterns(newPattern);
   }, [columns]);
 
+  const clickHandler = e => {
+    const updatedPattern = [...patterns];
+    console.log(updatedPattern[e.target.id].num);
+    updatedPattern[e.target.id].num = getRandNum(maxNo);
+    console.log(updatedPattern);
+    console.log(patterns);
+  };
+
   const tiledPatterns = patterns.map((pattern, i) => {
-    return <Pattern />;
+    return (
+      <Pattern
+        key={i}
+        id={i}
+        num={getRandNum(maxNo)}
+        click={clickHandler}
+        rotation={rotation}
+      />
+    );
   });
 
   return <PatternWrapper columns={columns}>{tiledPatterns}</PatternWrapper>;

@@ -1,3 +1,4 @@
+import React from "react";
 import styled, { css } from "styled-components";
 
 //Should maybe be global styles
@@ -18,10 +19,29 @@ const corner = {
   tL: "270deg"
 };
 
-export const SVG = styled.svg`
+export const StyledSVG = styled.svg`
   ${sharedStyles};
-  transform: rotate(${props => (props.rotate ? corner[props.rotate] : "0deg")});
+  transform: rotate(
+    ${props => (props.rotation ? corner[props.rotation] : "0deg")}
+  );
+  position: relative;
 `;
+
+const SvgButton = styled.rect`
+  width: 100%;
+  height: 100%;
+  fill: #fff;
+  fill-opacity: 0;
+  stroke: #fff;
+  stroke-opacity: 0;
+`;
+
+export const SVG = props => (
+  <StyledSVG viewBox="0 0 40 40" rotation={props.rotation}>
+    {props.children}
+    <SvgButton onClick={props.click} id={props.id} />
+  </StyledSVG>
+);
 
 export const DiagonalPath = styled.path`
   stroke-width: 1.5;
