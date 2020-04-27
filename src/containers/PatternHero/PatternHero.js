@@ -1,13 +1,11 @@
-import React from "react";
-import * as Corner from "../../components/Patterns/Corners/Corners";
-import * as Gems from "../../components/Patterns/Gems/Gems";
-import * as All from "../../components//Patterns/AllSidePatterns/AllSidePatterns";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Pattern, { allPatterns } from "../../components/Tiles/Patterns";
 
 const PatternWrapper = styled.div`
   width: 100vw;
   display: grid;
-  grid: auto-flow / repeat(6, 1fr);
+  grid: auto-flow / repeat(${props => props.columns}, 1fr);
 
   @media only screen and (max-width: 600px) {
     grid: auto-flow / repeat(4, 1fr);
@@ -30,63 +28,31 @@ const PatternWrapper = styled.div`
   }
 `;
 
-const initialState = [
-  {
-    type: "corner",
-    rotation: "tL",
-    currentModule: Corner.Curved
-  },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal },
-  { type: "all", rotation: "tR", currentModule: All.CrossGrid },
-  { type: "all", rotation: "tR", currentModule: All.Circles },
-  {
-    type: "gem",
-    rotation: "tL",
-    currentModule: All.Diagonal,
-    children: Gems.Diamond
-  },
-  { type: "all", rotation: "tL", currentModule: All.CrossGrid },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal },
-  { type: "all", rotation: "tR", currentModule: All.Diagonal }
-];
+const initialMaxNo = [];
+for (const _ in allPatterns) {
+  initialMaxNo.push(" ");
+}
+
+const getRandNum = number => Math.floor(Math.random() * Math.floor(number));
 
 const PatternHero = props => {
-  const Patterns = initialState.map((pattern, i) => {
-    console.log(pattern.type);
-    return (
-      <pattern.currentModule
-        id={i}
-        type={pattern.type}
-        rotate={pattern.rotation}
-        key={i}
-      >
-        {pattern.children !== undefined ? <pattern.children /> : null}
-      </pattern.currentModule>
-    );
+  const [maxNo, setMaxNo] = useState(initialMaxNo.length - 1);
+  const [columns, setColumns] = useState(6);
+  const [patterns, setPatterns] = useState([]);
+
+  useEffect(() => {
+    const newPattern = [];
+    for (let i = 0; i <= columns * 3 - 1; i++) {
+      newPattern.push({ id: i, num: getRandNum(maxNo) });
+    }
+    setPatterns(newPattern);
+  }, [columns]);
+
+  const tiledPatterns = patterns.map((pattern, i) => {
+    return <Pattern />;
   });
 
-  return (
-    <PatternWrapper>
-      {Patterns}
-      {/* <All.Circles />
-      <All.CrossGrid>
-        <Gems.Letter>A</Gems.Letter>
-      </All.CrossGrid>
-      <All.CrossGrid>
-        <Gems.Diamond />
-      </All.CrossGrid>
-      <All.Square />
-      <All.Diagonal rotate="tR">
-        <Gems.Diamond />
-      </All.Diagonal>
-      <Corner.Curved rotate="tR" background />
-      <Corner.Square rotate="tR" background />
-      <All.Diagonal /> */}
-    </PatternWrapper>
-  );
+  return <PatternWrapper columns={columns}>{tiledPatterns}</PatternWrapper>;
 };
 
 export default PatternHero;

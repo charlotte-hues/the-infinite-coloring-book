@@ -5,11 +5,11 @@ const ClippingMask = props => {
     <React.Fragment>
       <mask
         id={props.children._owner.type.name + props.children.props.children}
-        viewBox="0 0 40 40"
+        viewBox="1 1 39 39"
         fill="black"
         stroke="none"
       >
-        <rect width="100%" height="100%" fill="white" />
+        <rect width="100%" height="100%" fill="white" stroke="white" />
         {props.children}
       </mask>
       {props.children}
@@ -20,6 +20,12 @@ const ClippingMask = props => {
 export const Circle = props => (
   <ClippingMask>
     <circle cx="20" cy="20" r="10" />
+  </ClippingMask>
+);
+
+export const Diamond = props => (
+  <ClippingMask>
+    <path d="M20 6L6 20L20 34L34 20L20 6Z" />
   </ClippingMask>
 );
 
@@ -37,11 +43,5 @@ export const Letter = props => (
     >
       {props.children}
     </text>
-  </ClippingMask>
-);
-
-export const Diamond = props => (
-  <ClippingMask>
-    <path d="M20 6L6 20L20 34L34 20L20 6Z" />
   </ClippingMask>
 );
