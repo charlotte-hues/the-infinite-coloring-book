@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/tile-pattern-react/static/css/main.5490df0e.chunk.css",
+    "main.js": "/tile-pattern-react/static/js/main.2b8b65c4.chunk.js",
+    "main.js.map": "/tile-pattern-react/static/js/main.2b8b65c4.chunk.js.map",
+    "runtime-main.js": "/tile-pattern-react/static/js/runtime-main.e2209b31.js",
+    "runtime-main.js.map": "/tile-pattern-react/static/js/runtime-main.e2209b31.js.map",
+    "static/js/2.45b54284.chunk.js": "/tile-pattern-react/static/js/2.45b54284.chunk.js",
+    "static/js/2.45b54284.chunk.js.map": "/tile-pattern-react/static/js/2.45b54284.chunk.js.map",
+    "index.html": "/tile-pattern-react/index.html",
+    "precache-manifest.b441c5495e133df5f7f778b0eb4d78d2.js": "/tile-pattern-react/precache-manifest.b441c5495e133df5f7f778b0eb4d78d2.js",
+    "service-worker.js": "/tile-pattern-react/service-worker.js",
+    "static/css/main.5490df0e.chunk.css.map": "/tile-pattern-react/static/css/main.5490df0e.chunk.css.map",
+    "static/js/2.45b54284.chunk.js.LICENSE.txt": "/tile-pattern-react/static/js/2.45b54284.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e2209b31.js",
+    "static/js/2.45b54284.chunk.js",
+    "static/css/main.5490df0e.chunk.css",
+    "static/js/main.2b8b65c4.chunk.js"
+  ]
+}
