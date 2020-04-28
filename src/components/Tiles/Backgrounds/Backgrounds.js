@@ -1,6 +1,6 @@
 import React from "react";
-import * as Gems from "../Masks/Masks";
-import { DiagonalPath } from "../Styles/Styles";
+import * as Gems from "./Masks/Masks";
+import { DiagonalPath, RotationGroup } from "../Styles/Styles";
 
 const maskProps = child => {
   return child ? "url(#" + child.type.name + child.props.children + ")" : null;
@@ -17,6 +17,12 @@ export const Diagonal = props => {
     </React.Fragment>
   );
 };
+
+export const Diagonal2 = props => (
+  <RotationGroup rotate="90deg">
+    <Diagonal />
+  </RotationGroup>
+);
 
 export const CrossHatch = props => {
   return (

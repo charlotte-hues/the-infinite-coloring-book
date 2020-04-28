@@ -8,7 +8,7 @@ const sharedStyles = css`
   height: auto;
   padding: 0;
   display: inline-block;
-  stroke: orange;
+
   fill: none;
 `;
 
@@ -21,9 +21,7 @@ const corner = {
 
 export const StyledSVG = styled.svg`
   ${sharedStyles};
-  transform: rotate(
-    ${props => (props.rotation ? corner[props.rotation] : "0deg")}
-  );
+  stroke: ${props => (props.patternColor ? props.patternColor : "orange")};
   position: relative;
 `;
 
@@ -36,10 +34,15 @@ const SvgButton = styled.rect`
   stroke-opacity: 0;
 `;
 
+export const RotationGroup = styled.g`
+  transform-origin: 50% 50%;
+  transform: rotate(${props => (props.rotate ? props.rotate : "0deg")});
+`;
+
 export const SVG = props => (
-  <StyledSVG viewBox="0 0 40 40" rotation={props.rotation}>
+  <StyledSVG viewBox="0 0 40 40" patternColor={props.patternColor}>
     {props.children}
-    <SvgButton onClick={props.click} id={props.id} />
+    <SvgButton onClick={props.click} id={props.id} name={props.name} />
   </StyledSVG>
 );
 
