@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import PatternHero from "./containers/PatternHero/PatternHero";
+import EditPattern from "./containers/EditPattern/EditPattern";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -27,7 +27,7 @@ function App() {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <PatternHero />
+      <EditPattern />
     </React.Fragment>
   );
 }
