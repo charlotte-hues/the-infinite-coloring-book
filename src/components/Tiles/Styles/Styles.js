@@ -12,13 +12,6 @@ const sharedStyles = css`
   fill: none;
 `;
 
-const corner = {
-  tR: "0deg",
-  bR: "90deg",
-  bL: "180deg",
-  tL: "270deg"
-};
-
 export const StyledSVG = styled.svg`
   ${sharedStyles};
   stroke: ${props => (props.patternColor ? props.patternColor : "orange")};
