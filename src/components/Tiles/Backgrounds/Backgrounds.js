@@ -2,8 +2,8 @@ import React from "react";
 import * as Gems from "./Masks/Masks";
 import { DiagonalPath, RotationGroup } from "../Styles/Styles";
 
-const maskProps = child => {
-  return child ? "url(#" + child.type.name + child.props.children + ")" : null;
+const maskProps = mask => {
+  return mask ? "url(#" + mask + ")" : null;
 };
 
 export const Diagonal = props => {
@@ -12,7 +12,7 @@ export const Diagonal = props => {
       {props.children}
       <DiagonalPath
         d="M0 10L10 0M0 20L20 0M0 30L30 0M0 40L40 0M10 40L40 10M40 20L20 40M30 40L40 30"
-        mask={maskProps(props.children)}
+        mask={maskProps(props.mask)}
       />
     </React.Fragment>
   );
@@ -30,7 +30,7 @@ export const CrossHatch = props => {
       {props.children}
       <DiagonalPath
         d="M0 40L40 8.74227e-07M0 0L40 40M0 10L10 8.74227e-07L40 30L30 40L0 10ZM0 20L20 8.74227e-07L40 20L20 40L0 20ZM0 30L30 8.74227e-07L40 10L10 40L0 30Z"
-        mask={maskProps(props.children)}
+        mask={maskProps(props.mask)}
       />
     </React.Fragment>
   );
@@ -44,19 +44,19 @@ export const Square = props => (
 );
 
 export const CrossHatchWithCircle = props => (
-  <CrossHatch>
-    <Gems.Circle />
+  <CrossHatch mask="crosscircle">
+    <Gems.Circle mask="crosscircle" />
   </CrossHatch>
 );
 
 export const DiagonalWithDiamond = props => (
-  <Diagonal>
-    <Gems.Diamond />
+  <Diagonal mask="diagdiamond">
+    <Gems.Diamond mask="diagdiamond" />
   </Diagonal>
 );
 
 export const DiagonalWithCircle = props => (
-  <Diagonal>
-    <Gems.Circle />
+  <Diagonal mask="diagcircle">
+    <Gems.Circle mask="diagcircle" />
   </Diagonal>
 );
