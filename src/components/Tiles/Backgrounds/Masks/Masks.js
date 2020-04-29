@@ -4,7 +4,11 @@ const ClippingMask = props => {
   return (
     <React.Fragment>
       <mask
-        id={props.children._owner.type.name + props.children.props.children}
+        id={
+          props.children
+            ? props.children._owner.type.name + props.children.props.children
+            : "Mask"
+        }
         viewBox="1 1 39 39"
         fill="black"
         stroke="none"

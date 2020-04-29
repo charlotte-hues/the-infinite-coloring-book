@@ -1,5 +1,5 @@
 import React from "react";
-// import * as Gems from "./Masks/Masks";
+import * as Gems from "./Masks/Masks";
 import { DiagonalPath, RotationGroup } from "../Styles/Styles";
 
 const maskProps = child => {
@@ -43,20 +43,20 @@ export const Square = props => (
   </React.Fragment>
 );
 
-// export const CrossHatchWithCircle = props => (
-//   <CrossHatch>
-//     <Gems.Circle />
-//   </CrossHatch>
-// );
+export const CrossHatchWithCircle = props => (
+  <CrossHatch>
+    <Gems.Circle />
+  </CrossHatch>
+);
 
-// export const DiagonalWithDiamond = props => (
-//   <Diagonal>
-//     <Gems.Diamond />
-//   </Diagonal>
-// );
+export const DiagonalWithDiamond = props => (
+  <Diagonal>
+    <Gems.Diamond />
+  </Diagonal>
+);
 
-// export const DiagonalWithCircle = props => (
-//   <Diagonal>
-//     <Gems.Circle />
-//   </Diagonal>
-// );
+export const DiagonalWithCircle = props => (
+  <Diagonal>
+    <Gems.Circle />
+  </Diagonal>
+);
