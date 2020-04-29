@@ -7,25 +7,26 @@ const PrintPreview = styled.div`
   padding: 10px;
   margin: auto;
   margin-top: 5vh;
-  width: 35vw;
+  width: 500px;
+  width: 600px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   background: ${props =>
     props.backgroundColor ? props.backgroundColor : "white"};
 
   @media only screen and (max-width: 600px) {
-    width: 85vw;
+    width: 380px;
   }
   @media only screen and (min-width: 600px) {
-    width: 65vw;
+    width: 510px;
   }
   @media only screen and (min-width: 768px) {
-    width: 55vw;
+    width: 500px;
   }
   @media only screen and (min-width: 992px) {
-    width: 45vw;
+    width: 500px;
   }
   @media only screen and (min-width: 1200px) {
-    width: 30vw;
+    width: 500px;
   }
   @media print {
     width: 100%;
