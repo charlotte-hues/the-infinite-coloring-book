@@ -15,7 +15,9 @@ const sharedStyles = css`
 export const StyledSVG = styled.svg`
   ${sharedStyles};
   stroke: ${props => (props.patternColor ? props.patternColor : "orange")};
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const SvgButton = styled.rect`
