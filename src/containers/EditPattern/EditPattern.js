@@ -1,33 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { allPatterns } from "../../components/Tiles/Tiles";
-import EditablePattern from "../../components/EditablePattern/EditabledPattern";
+import EditablePattern from "../../components/EditablePattern/EditablePattern";
 import styled from "styled-components";
 
 const PrintPreview = styled.div`
   padding: 10px;
   margin: auto;
-  margin-top: 5vh;
-  width: 500px;
-  width: 600px;
+  margin-top: 5%;
+  width: 35%;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
   background: ${props =>
     props.backgroundColor ? props.backgroundColor : "white"};
 
   @media only screen and (max-width: 600px) {
-    width: 380px;
+    width: 85%;
   }
   @media only screen and (min-width: 600px) {
-    width: 510px;
+    width: 65%;
   }
   @media only screen and (min-width: 768px) {
-    width: 500px;
+    width: 55%;
   }
   @media only screen and (min-width: 992px) {
-    width: 500px;
+    width: 45%;
   }
   @media only screen and (min-width: 1200px) {
-    width: 500px;
+    width: 30%;
   }
+  @media screen and (max-device-width: 480px) {
+    width: 85%;
+  }
+
   @media print {
     width: 100%;
     margin: 0;
