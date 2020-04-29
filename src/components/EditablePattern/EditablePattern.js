@@ -15,9 +15,6 @@ const PrintName = styled.footer`
 const PatternWrapper = styled.div`
   display: grid;
   grid: auto-flow / repeat(${props => props.columns}, 1fr);
-  @media screen and (max-device-width: 480px) {
-    width: 85%;
-  }
 `;
 
 const EditablePattern = props => {

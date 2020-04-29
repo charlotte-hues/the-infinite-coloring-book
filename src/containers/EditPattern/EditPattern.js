@@ -28,7 +28,7 @@ const PrintPreview = styled.div`
     width: 30%;
   }
   @media screen and (max-device-width: 480px) {
-    width: 85%;
+    width: 90%;
   }
 
   @media print {
