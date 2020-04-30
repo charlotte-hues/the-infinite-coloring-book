@@ -61,7 +61,12 @@ const PatternHero = props => {
   const [backgroundColor] = useState("#F5F5F5");
   const [label] = useState("Charlotte");
 
-  // const randomiseHandler = () => {};
+  const randomiseHandler = () => {
+    const newRandomPattern = [...patterns].map(pattern => {
+      return { ...pattern, num: getRandNum(maxNo) };
+    });
+    setPatterns(newRandomPattern);
+  };
 
   // const openPrintModal = () => {};
 
@@ -104,6 +109,7 @@ const PatternHero = props => {
           switchTile={switchTileHandler}
         />
       </PrintPreview>
+      <button onClick={randomiseHandler}>RANDOMISE</button>
     </React.Fragment>
   );
 };
