@@ -26,6 +26,7 @@ const SvgWrapper = styled.div`
   height: auto;
   padding-top: 100%;
   position: relative;
+  cursor: pointer;
 `;
 
 const Pattern = props => {
