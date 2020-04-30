@@ -85,7 +85,11 @@ const PatternHero = props => {
 
   const switchTileHandler = e => {
     const updatedPattern = [...patterns];
-    updatedPattern[e.target.id].num = getRandNum(maxNo);
+    let newNum = getRandNum(maxNo);
+    while (patterns[e.target.id].num === newNum) {
+      newNum = getRandNum(maxNo);
+    }
+    updatedPattern[e.target.id].num = newNum;
     setPatterns(updatedPattern);
   };
 
