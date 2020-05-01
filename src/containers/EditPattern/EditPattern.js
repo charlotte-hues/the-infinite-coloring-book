@@ -6,29 +6,40 @@ import styled from "styled-components";
 const PrintPreview = styled.div`
   padding: 10px;
   margin: auto;
-  margin-top: 5%;
-  width: 35%;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 10vh;
+  // width: 35%;
+  height: 80vh;
+  width: auto;
+
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
+    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
+    0 8px 16px rgba(0, 0, 0, 0.11);
   background: ${props =>
     props.backgroundColor ? props.backgroundColor : "white"};
 
   @media only screen and (max-width: 600px) {
     width: 85%;
+    height: auto;
   }
   @media only screen and (min-width: 600px) {
-    width: 65%;
+    width: 80%;
+    height: auto;
   }
   @media only screen and (min-width: 768px) {
-    width: 55%;
+    height: 80vh;
+    width: 60vh;
   }
   @media only screen and (min-width: 992px) {
-    width: 45%;
+    height: 80vh;
+    width: 60vh;
   }
   @media only screen and (min-width: 1200px) {
-    width: 30%;
+    height: 80vh;
+    width: 60vh;
   }
   @media screen and (max-device-width: 480px) {
     width: 90%;
+    height: auto;
   }
 
   @media print {
@@ -57,8 +68,8 @@ const PatternHero = props => {
   const [patterns, setPatterns] = useState([{ num: getRandNum(maxNo) }]);
   const [columns] = useState(6);
   const [rows] = useState(8);
-  const [patternColor] = useState("#2c3e50");
-  const [backgroundColor] = useState("#F5F5F5");
+  const [patternColor] = useState("var(--red)");
+  const [backgroundColor] = useState("rgba(255,255,255,0.6)");
   const [label] = useState("Charlotte");
 
   const randomiseHandler = () => {
