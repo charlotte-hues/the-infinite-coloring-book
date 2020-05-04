@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import PatternContextProvider, {
+  PatternContext
+} from "../../context/PatternContext";
 import { allPatterns } from "../../components/Tiles/Tiles";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import styled from "styled-components";
-import Button from "../../components/UI/Button/Button";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
 
 const Container = styled.div`
@@ -21,30 +23,36 @@ for (const _ in allPatterns) {
   initialMaxNo.push(_);
 }
 
-const initialOrientation = {
-  portrait: [
-    [5, 7],
-    [6, 8]
-  ],
-  landscape: [
-    [7, 5],
-    [8, 6]
-  ],
-  square: [
-    [5, 5],
-    [6, 6]
-  ]
-};
+// const initialOrientation = {
+//   portrait: [
+//     [5, 7],
+//     [6, 8]
+//   ],
+//   landscape: [
+//     [7, 5],
+//     [8, 6]
+//   ],
+//   square: [
+//     [5, 5],
+//     [6, 6]
+//   ]
+// };
 
 const maxNo = initialMaxNo.length;
 
 const getRandNum = number => Math.floor(Math.random() * Math.floor(number));
 
 const EditPattern = props => {
+  const patternContext = useContext(PatternContext);
+  const { updateComplexity, orientation, columns, rows } = patternContext;
+  console.log(patternContext);
+
   const [patterns, setPatterns] = useState([{ num: getRandNum(maxNo) }]);
-  const [orientation] = useState(initialOrientation.portrait[0]);
-  const [columns] = useState(orientation[0]);
-  const [rows] = useState(orientation[1]);
+  // const [complexity] = useState(0);
+  // const [orientation] = useState(initialOrientation.portrait[complexity]);
+  // const [columns] = useState(initialOrientation[orientation][complexity][0]);
+  // const [rows] = useState(initialOrientation[orientation][complexity][1]);
+
   const [patternColor] = useState("var(--trim)");
   const [backgroundColor] = useState("var(--surface)");
   const [label] = useState("Charlotte");
@@ -61,6 +69,7 @@ const EditPattern = props => {
   const updateComplexityHandler = () => {};
 
   useEffect(() => {
+    updateComplexity(1);
     const newPattern = [];
     for (let i = 0; i <= columns * rows - 1; i++) {
       newPattern.push({ num: getRandNum(maxNo) });
@@ -79,7 +88,7 @@ const EditPattern = props => {
   };
 
   return (
-    <React.Fragment>
+    <PatternContextProvider>
       <Container>
         <PrintPreview
           backgroundColor={backgroundColor}
@@ -91,13 +100,13 @@ const EditPattern = props => {
           orientation={orientation}
         />
         <PatternControls
-          size={orientation}
+          // size={orientation}
           updateOrientation={switchOrientationHandler}
           updateComplexity={updateComplexityHandler}
           randomise={randomiseHandler}
         />
       </Container>
-    </React.Fragment>
+    </PatternContextProvider>
   );
 };
 

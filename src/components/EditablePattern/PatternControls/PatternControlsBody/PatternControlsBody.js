@@ -9,8 +9,6 @@ const StyledDiv = styled.div`
 `;
 
 const PatternControlsBody = props => {
-  console.log(props);
-
   return (
     <StyledDiv>
       <NewPattern

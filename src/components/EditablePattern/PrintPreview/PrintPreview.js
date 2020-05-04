@@ -65,7 +65,7 @@ const PrintPreview = props => {
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
-      orientation={orientation}
+      orientation={props.orientation}
     >
       <EditablePattern
         columns={props.columns}
