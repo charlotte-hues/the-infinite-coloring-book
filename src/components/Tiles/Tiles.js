@@ -22,7 +22,7 @@ for (let pattern in allPatterns) {
 
 const SvgWrapper = styled.div`
   display: block;
-  width: 100%;
+  width: auto;
   height: auto;
   padding-top: 100%;
   position: relative;

@@ -4,12 +4,11 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   :root {
-    --white: #f5f5f5;
-    --green: #2F544E;
-    --black: #050404;
-    --background: #E2D7C5;
+    --surface: #F7F3EE;
+    --trim: #E1DBD2;
+    --black: #483E3B;
+    --background: #F0EAE1;
     --orange: #C74F33;
-    --red: #BE1808;
   }
 
   * {
@@ -19,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   body {
+    color: var(--black);
     background: var(--background);
     margin: 0;
     font-family: 'Patua One', cursive;

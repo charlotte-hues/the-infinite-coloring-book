@@ -1,57 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { allPatterns } from "../../components/Tiles/Tiles";
-import EditablePattern from "../../components/EditablePattern/EditablePattern";
+import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import styled from "styled-components";
+import Button from "../../components/UI/Button/Button";
+import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
 
-const PrintPreview = styled.div`
-  padding: 10px;
-  margin: auto;
-  margin-top: 10vh;
-  // width: 35%;
-  height: 80vh;
-  width: auto;
-
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
-    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
-    0 8px 16px rgba(0, 0, 0, 0.11);
-  background: ${props =>
-    props.backgroundColor ? props.backgroundColor : "white"};
-
-  @media only screen and (max-width: 600px) {
-    width: 85%;
-    height: auto;
-  }
-  @media only screen and (min-width: 600px) {
-    width: 80%;
-    height: auto;
-  }
-  @media only screen and (min-width: 768px) {
-    height: 80vh;
-    width: 60vh;
-  }
-  @media only screen and (min-width: 992px) {
-    height: 80vh;
-    width: 60vh;
-  }
-  @media only screen and (min-width: 1200px) {
-    height: 80vh;
-    width: 60vh;
-  }
-  @media screen and (max-device-width: 480px) {
-    width: 90%;
-    height: auto;
-  }
-
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: space-around;
+  align-items: center;
   @media print {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    background: #fff;
-    box-shadow: none;
-
-    @page {
-      margin: 1cm;
-    }
+    height: auto;
   }
 `;
 
@@ -60,16 +21,32 @@ for (const _ in allPatterns) {
   initialMaxNo.push(_);
 }
 
+const initialOrientation = {
+  portrait: [
+    [5, 7],
+    [6, 8]
+  ],
+  landscape: [
+    [7, 5],
+    [8, 6]
+  ],
+  square: [
+    [5, 5],
+    [6, 6]
+  ]
+};
+
 const maxNo = initialMaxNo.length;
 
 const getRandNum = number => Math.floor(Math.random() * Math.floor(number));
 
-const PatternHero = props => {
+const EditPattern = props => {
   const [patterns, setPatterns] = useState([{ num: getRandNum(maxNo) }]);
-  const [columns] = useState(6);
-  const [rows] = useState(8);
-  const [patternColor] = useState("var(--red)");
-  const [backgroundColor] = useState("rgba(255,255,255,0.6)");
+  const [orientation] = useState(initialOrientation.portrait[0]);
+  const [columns] = useState(orientation[0]);
+  const [rows] = useState(orientation[1]);
+  const [patternColor] = useState("var(--trim)");
+  const [backgroundColor] = useState("var(--surface)");
   const [label] = useState("Charlotte");
 
   const randomiseHandler = () => {
@@ -79,17 +56,9 @@ const PatternHero = props => {
     setPatterns(newRandomPattern);
   };
 
-  // const openPrintModal = () => {};
+  const switchOrientationHandler = () => {};
 
-  // const closePrintModal = () => {};
-
-  // const openLoginModal = () => {};
-
-  // const closeLoginModal = () => {};
-
-  // const switchOrientationHandler = () => {};
-
-  // const updateComplexityHandler = () => {};
+  const updateComplexityHandler = () => {};
 
   useEffect(() => {
     const newPattern = [];
@@ -111,18 +80,25 @@ const PatternHero = props => {
 
   return (
     <React.Fragment>
-      <PrintPreview backgroundColor={backgroundColor}>
-        <EditablePattern
+      <Container>
+        <PrintPreview
+          backgroundColor={backgroundColor}
           columns={columns}
           patternColor={patternColor}
           label={label}
           patterns={patterns}
           switchTile={switchTileHandler}
+          orientation={orientation}
         />
-      </PrintPreview>
-      <button onClick={randomiseHandler}>RANDOMISE</button>
+        <PatternControls
+          size={orientation}
+          updateOrientation={switchOrientationHandler}
+          updateComplexity={updateComplexityHandler}
+          randomise={randomiseHandler}
+        />
+      </Container>
     </React.Fragment>
   );
 };
 
-export default PatternHero;
+export default EditPattern;
