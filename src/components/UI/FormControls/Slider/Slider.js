@@ -1,4 +1,6 @@
 import React from "react";
+import FormControlWrapper from "../FormControlWrapper/FormControlWrapper";
+import Label from "../Label/Label";
 import styled from "styled-components";
 
 const RangeSlider = styled.input`
@@ -32,7 +34,7 @@ const RangeSlider = styled.input`
     border-radius: 50%;
     background: var(--orange);
     cursor: pointer;
-    margin-top: -7px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    margin-top: -6px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
   }
   
   /* All the same stuff for Firefox */
@@ -97,8 +99,15 @@ const RangeSlider = styled.input`
 
 `;
 
-const slider = props => {
-  return <RangeSlider type="range" min={props.min} max={props.max} />;
-};
+const slider = props => (
+  <RangeSlider
+    type="range"
+    name={props.label}
+    min={props.min}
+    max={props.max}
+    value={props.value}
+    onInput={props.onInput}
+  />
+);
 
 export default slider;

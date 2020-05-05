@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PatternContext } from "../../context/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 
@@ -20,7 +21,9 @@ const PatternWrapper = styled.div`
 `;
 
 const EditablePattern = props => {
-  const { columns, patternColor, label, patterns, switchTile } = props;
+  const { patterns, columns, switchTile, patternColor, label } = useContext(
+    PatternContext
+  );
 
   const tiledPatterns = patterns.map((pattern, i) => {
     return (
@@ -28,8 +31,8 @@ const EditablePattern = props => {
         key={i}
         id={i}
         patternColor={patternColor}
-        num={pattern.num}
-        click={switchTile}
+        num={patterns[i]}
+        click={() => switchTile(i)}
       />
     );
   });
@@ -37,7 +40,7 @@ const EditablePattern = props => {
   return (
     <PatternWrapper columns={columns}>
       {tiledPatterns}
-      <PrintName color={props.patternColor}>{label}</PrintName>
+      <PrintName color={patternColor}>{label}</PrintName>
     </PatternWrapper>
   );
 };

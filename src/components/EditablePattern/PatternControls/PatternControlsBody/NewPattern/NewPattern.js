@@ -1,12 +1,19 @@
-import React from "react";
-import Slider from "../../../../UI/Slider/Slider";
+import React, { useContext } from "react";
+import { PatternContext } from "../../../../../context/PatternContext";
+import OrientationSelect from "./OrientationSelect/OrientationSelect";
+import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
 import Button from "../../../../UI/Button/Button";
 
-const NewPattern = props => (
-  <React.Fragment>
-    <Slider min="0" max="2" />
-    <Button onClick={props.randomise}>Randomise</Button>
-  </React.Fragment>
-);
+const NewPattern = props => {
+  const { newPattern } = useContext(PatternContext);
+
+  return (
+    <React.Fragment>
+      <OrientationSelect />
+      <ComplexitySlider />
+      <Button onClick={newPattern}>Randomise</Button>
+    </React.Fragment>
+  );
+};
 
 export default NewPattern;

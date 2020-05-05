@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
+import { PatternContext } from "../../../context/PatternContext";
 import EditablePattern from "../EditablePattern";
 import styled from "styled-components";
 
 const PrintPreviewContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   padding: 18px;
+  justify-items: center;
   width: ${props => (props.orientation === "landscape" ? "610px" : "440px")};
-  height: ${props => (props.orientation === "portrait" ? "auto" : "auto")};
-
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
-    0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
-    0 8px 16px rgba(0, 0, 0, 0.11);
-  background: ${props =>
-    props.backgroundColor ? props.backgroundColor : "white"};
+  height: ${props =>
+    props.orientation === "portrait"
+      ? "610px"
+      : props.orientation === "landscape"
+      ? "490px"
+      : "440px"};
+  box-shadow: var(--shadow);
+  background: var(--surface);
 
   //   @media only screen and (max-width: 600px) {
   //     width: 85%;
@@ -55,25 +61,14 @@ const PrintPreviewContainer = styled.div`
 `;
 
 const PrintPreview = props => {
-  let orientation = "portrait";
-  if (props.orientation[0] > props.orientation[1]) {
-    orientation = "landscape";
-  }
-  if (props.orientation[0] === props.orientation[1]) {
-    orientation = "square";
-  }
+  const { orientation } = useContext(PatternContext);
+
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
-      orientation={props.orientation}
+      orientation={orientation}
     >
-      <EditablePattern
-        columns={props.columns}
-        patternColor={props.patternColor}
-        label={props.label}
-        patterns={props.patterns}
-        switchTile={props.switchTile}
-      />
+      <EditablePattern />
     </PrintPreviewContainer>
   );
 };

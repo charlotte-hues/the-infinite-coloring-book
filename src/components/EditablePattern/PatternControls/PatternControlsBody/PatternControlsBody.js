@@ -3,9 +3,12 @@ import styled from "styled-components";
 import NewPattern from "./NewPattern/NewPattern";
 
 const StyledDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%:
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  padding: 25px;
 `;
 
 const PatternControlsBody = props => {

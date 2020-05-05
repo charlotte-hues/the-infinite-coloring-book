@@ -4,8 +4,12 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background: var(--surface);
+  width: 400px;
   height: 300px;
-  padding: 6px;
+  box-shadow: var(--shadow);
+  @media print {
+    display: none;
+  }
 `;
 
 const PatternControls = props => {
