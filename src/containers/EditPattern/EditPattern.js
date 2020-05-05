@@ -10,6 +10,7 @@ const Container = styled.div`
   display: flex;
   height: 100vh;
   width: 80vw;
+  margin: auto;
   justify-content: space-around;
   align-items: center;
   @media print {
