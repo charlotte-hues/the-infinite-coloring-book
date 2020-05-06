@@ -13,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   @media print {
     height: auto;
+    width: auto;
   }
 `;
 
@@ -20,6 +21,9 @@ const PreviewArea = styled.div`
   display: flex;
   justify-content: center;
   width: 650px;
+  @media print {
+    width: 90%;
+  }
 `;
 
 const EditPattern = props => {
