@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/tile-pattern-print/precache-manifest.621a3861f6934b2b0b1bf75c5e765270.js"
+  "/tile-pattern-print/precache-manifest.b7a8479a1866625d747590af76d55165.js"
 );
 
 self.addEventListener('message', (event) => {
