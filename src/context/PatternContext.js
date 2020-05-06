@@ -36,14 +36,17 @@ const randPatternArray = (columns, rows) => {
 export const PatternContext = React.createContext();
 
 const PatternContextProvider = props => {
-  const [patterns, setPatterns] = useLocalStorage("patterns", [4]);
+  const [patterns, setPatterns] = useLocalStorage(
+    "patterns",
+    randPatternArray(4, 5)
+  );
   const [orientation, setOrientation] = useLocalStorage(
     "orientation",
     "portrait"
   );
   const [complexity, setComplexity] = useLocalStorage("complexity", 0);
   const [patternColor] = useLocalStorage("patternColour", "var(--trim)");
-  const [label] = useState("Charlotte");
+  const [label] = useLocalStorage("label", "Charlotte");
 
   const [columns, setColumns] = useState();
 
