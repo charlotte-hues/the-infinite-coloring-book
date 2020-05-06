@@ -5,13 +5,15 @@ import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
 import Button from "../../../../UI/Button/Button";
 
 const NewPattern = props => {
-  const { newPattern } = useContext(PatternContext);
+  const { newPattern, orientation, complexity } = useContext(PatternContext);
 
   return (
     <React.Fragment>
       <OrientationSelect />
       <ComplexitySlider />
-      <Button onClick={newPattern}>Randomise</Button>
+      <Button onClick={() => newPattern(orientation, complexity)}>
+        Randomise
+      </Button>
     </React.Fragment>
   );
 };
