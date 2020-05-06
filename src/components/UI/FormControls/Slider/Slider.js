@@ -1,6 +1,4 @@
 import React from "react";
-import FormControlWrapper from "../FormControlWrapper/FormControlWrapper";
-import Label from "../Label/Label";
 import styled from "styled-components";
 
 const RangeSlider = styled.input`
@@ -107,6 +105,7 @@ const slider = props => (
     max={props.max}
     value={props.value}
     onInput={props.onInput}
+    onChange={() => {}}
   />
 );
 

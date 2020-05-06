@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React from "react";
 import PatternContextProvider from "../../context/PatternContext";
-import { allPatterns } from "../../components/Tiles/Tiles";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import styled from "styled-components";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
-import getRandNum from "../../utility/getRandNum";
 
 const Container = styled.div`
   display: flex;
@@ -23,13 +21,6 @@ const PreviewArea = styled.div`
   justify-content: center;
   width: 650px;
 `;
-
-const initialMaxNo = [];
-for (const _ in allPatterns) {
-  initialMaxNo.push(_);
-}
-
-const maxNo = initialMaxNo.length;
 
 const EditPattern = props => {
   return (

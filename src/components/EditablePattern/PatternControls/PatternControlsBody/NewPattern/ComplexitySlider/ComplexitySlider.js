@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { PatternContext } from "../../../../../../context/PatternContext";
 import SingleLineInput from "../../SingleLineInput/SingleLineInput";
 import Slider from "../../../../../UI/FormControls/Slider/Slider";
 
 const ComplexitySlider = props => {
-  const [complexityValue, setComplexityValue] = useState(0);
-  const { updateComplexity } = useContext(PatternContext);
+  const { updateComplexity, complexity } = useContext(PatternContext);
 
   const updateComplexityHandler = e => {
-    setComplexityValue(e.target.value);
     updateComplexity(e.target.value);
   };
 
@@ -17,7 +15,7 @@ const ComplexitySlider = props => {
       <Slider
         min={0}
         max={2}
-        value={complexityValue}
+        value={complexity}
         onInput={updateComplexityHandler}
       />
     </SingleLineInput>

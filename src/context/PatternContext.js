@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 import getRandNum from "../utility/getRandNum";
 import { allPatterns } from "../components/Tiles/Tiles";
 
@@ -26,34 +27,42 @@ const initialOrientation = {
   ]
 };
 
+const randPatternArray = (columns, rows) => {
+  return Array.from({
+    length: columns * rows
+  }).map(x => getRandNum(maxNo));
+};
+
 export const PatternContext = React.createContext();
 
 const PatternContextProvider = props => {
-  const [patterns, setPatterns] = useState([4]);
-  const [orientation, setOrientation] = useState("portrait");
-  const [complexity, setComplexity] = useState(0);
-  const [columns, setCols] = useState(4);
-  const [rows, setRows] = useState(5);
-  const [patternColor] = useState("var(--trim)");
+  const [patterns, setPatterns] = useLocalStorage("patterns", [4]);
+  const [orientation, setOrientation] = useLocalStorage(
+    "orientation",
+    "portrait"
+  );
+  const [complexity, setComplexity] = useLocalStorage("complexity", 0);
+  const [patternColor] = useLocalStorage("patternColour", "var(--trim)");
   const [label] = useState("Charlotte");
 
-  const updateComplexityHandler = val => {
-    setComplexity(val);
-    setCols(initialOrientation[orientation][val][0]);
-    setRows(initialOrientation[orientation][val][1]);
+  const [columns, setColumns] = useState();
+
+  const updateComplexityHandler = newComplexity => {
+    setComplexity(newComplexity);
+    generateRandomPattern(orientation, newComplexity);
   };
 
-  const updateOrientationHandler = orientation => {
-    setOrientation(orientation);
-    setCols(initialOrientation[orientation][complexity][0]);
-    setRows(initialOrientation[orientation][complexity][1]);
+  const updateOrientationHandler = newOrientation => {
+    setOrientation(newOrientation);
+    generateRandomPattern(newOrientation, complexity);
   };
 
-  const generateRandomPattern = () => {
-    const randPatternArray = Array.from({ length: columns * rows }).map(x =>
-      getRandNum(maxNo)
+  const generateRandomPattern = (orientation, complexity) => {
+    const newPattern = randPatternArray(
+      initialOrientation[orientation][complexity][0],
+      initialOrientation[orientation][complexity][1]
     );
-    setPatterns(randPatternArray);
+    setPatterns(newPattern);
   };
 
   const switchTileHandler = index => {
@@ -67,8 +76,8 @@ const PatternContextProvider = props => {
   };
 
   useEffect(() => {
-    generateRandomPattern();
-  }, [columns, rows]);
+    setColumns(initialOrientation[orientation][complexity][0]);
+  }, [orientation, complexity]);
 
   return (
     <PatternContext.Provider
@@ -78,6 +87,7 @@ const PatternContextProvider = props => {
         label,
         orientation,
         columns,
+        complexity,
 
         switchTile: switchTileHandler,
         updateComplexity: updateComplexityHandler,

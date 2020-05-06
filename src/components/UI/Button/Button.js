@@ -1,7 +1,21 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const sharedStyles = css`
+  background: rgba(245, 245, 245, 0);
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const StyledButton = styled.button`
+  ${sharedStyles}
   border: 2px solid var(--black);
   color: var(--black);
   background: rgba(245, 245, 245, 0);
@@ -11,7 +25,7 @@ const StyledButton = styled.button`
   min-width: 100px;
   max-width: 500px;
   font-family: "Patua One", cursive;
-  cursor: pointer;
+
   transition: all 0.2s ease-in;
 
   &:hover {
@@ -25,17 +39,10 @@ const StyledButton = styled.button`
 `;
 
 const StyledIconButton = styled.button`
+  ${sharedStyles}
   width: 60px;
   height: 60px;
-  // padding: 5px;
   border: 0;
-  border-radius: 50%;
-  background: rgba(245, 245, 245, 0);
-  cursor: pointer;
-
-  &:disabled {
-    cursor: default;
-  }
 `;
 
 const Button = props => {

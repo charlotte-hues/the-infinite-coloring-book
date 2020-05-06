@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PatternControlsBody from "./PatternControlsBody/PatternControlsBody";
 import styled from "styled-components";
 
@@ -7,16 +7,16 @@ const Container = styled.div`
   width: 400px;
   height: 300px;
   box-shadow: var(--shadow);
+  margin: 10px;
   @media print {
     display: none;
   }
 `;
 
 const PatternControls = props => {
-  const [active, setActive] = useState(null);
   return (
     <Container>
-      <PatternControlsBody {...props} />
+      <PatternControlsBody />
     </Container>
   );
 };
