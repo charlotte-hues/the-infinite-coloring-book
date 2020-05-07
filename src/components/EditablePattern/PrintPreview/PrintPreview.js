@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PatternContext } from "../../../context/PatternContext";
 import EditablePattern from "../EditablePattern";
 import styled from "styled-components";
@@ -9,6 +9,7 @@ const PrintPreviewContainer = styled.div`
   flex-direction: column;
   padding: 18px;
   justify-items: center;
+  margin: 10px;
   width: ${props => (props.orientation === "landscape" ? "610px" : "440px")};
   height: ${props =>
     props.orientation === "portrait"
@@ -19,10 +20,37 @@ const PrintPreviewContainer = styled.div`
   box-shadow: var(--shadow);
   background: var(--surface);
 
-  //   @media only screen and (max-width: 600px) {
-  //     width: 85%;
-  //     height: auto;
-  //   }
+  @media only screen and (max-width: 1200px) {
+    width: ${props => (props.orientation === "landscape" ? "610px" : "400px")};
+    height: ${props =>
+      props.orientation === "portrait"
+        ? "540px"
+        : props.orientation === "landscape"
+        ? "490px"
+        : "400px"};
+  }
+
+  @media only screen and (max-width: 780px) {
+    width: ${props =>
+      props.orientation === "landscape" && props.windowWidth
+        ? `${props.windowWidth - 30}px`
+        : `${props.windowWidth - 30}px`};
+    height: ${props =>
+      props.orientation === "portrait" && props.windowWidth
+        ? `${(props.windowWidth - 30) * 1.39}px`
+        : props.orientation === "landscape"
+        ? `${(props.windowWidth - 30) * 0.8}px`
+        : `${props.windowWidth - 30}px`};
+    max-width: ${props =>
+      props.orientation === "landscape" ? "610px" : "400px"};
+    max-height: ${props =>
+      props.orientation === "portrait"
+        ? "540px"
+        : props.orientation === "landscape"
+        ? "490px"
+        : "400px"};
+  }
+
   //   @media only screen and (min-width: 600px) {
   //     width: 80%;
   //     height: auto;
@@ -62,12 +90,20 @@ const PrintPreviewContainer = styled.div`
 `;
 
 const PrintPreview = props => {
+  const [windowWidth, setWindowWidth] = useState(document.body.clientWidth);
   const { orientation } = useContext(PatternContext);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setWindowWidth(document.body.clientWidth);
+    });
+  }, []);
 
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
       orientation={orientation}
+      windowWidth={windowWidth}
     >
       <EditablePattern />
     </PrintPreviewContainer>

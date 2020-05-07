@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Container = styled.div`
   background: var(--surface);
   width: 400px;
-  height: 300px;
+  height: 250px;
   box-shadow: var(--shadow);
   margin: 10px;
   @media print {

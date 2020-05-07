@@ -9,11 +9,18 @@ const Container = styled.div`
   height: 100vh;
   width: 80vw;
   margin: auto;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: 1200px) {
+    flex-direction: column;
+    align-content: center;
+    width: 100%;
+  }
+
   @media print {
     height: auto;
-    width: auto;
+    width: 100%;
   }
 `;
 
@@ -21,6 +28,10 @@ const PreviewArea = styled.div`
   display: flex;
   justify-content: center;
   width: 650px;
+  @media only screen and (max-width: 1200px) {
+    width: auto;
+    height: auto;
+  }
   @media print {
     width: 90%;
   }
