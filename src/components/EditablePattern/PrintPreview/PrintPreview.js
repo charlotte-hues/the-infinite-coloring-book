@@ -51,27 +51,6 @@ const PrintPreviewContainer = styled.div`
         : "400px"};
   }
 
-  //   @media only screen and (min-width: 600px) {
-  //     width: 80%;
-  //     height: auto;
-  //   }
-  //   @media only screen and (min-width: 768px) {
-  //     height: 100%;
-  //     width: auto;
-  //   }
-  //   @media only screen and (min-width: 992px) {
-  //     height: 100%;
-  //     width: 100%;
-  //   }
-  //   @media only screen and (min-width: 1200px) {
-  //     height: 100%;
-  //     width: auto;
-  //   }
-  //   @media screen and (max-device-width: 480px) {
-  //     width: 90%;
-  //     height: auto;
-  //   }
-
   @media print {
     display: block;
     width: 100%;

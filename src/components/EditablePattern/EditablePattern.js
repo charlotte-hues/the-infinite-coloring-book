@@ -7,9 +7,10 @@ const PrintName = styled.footer`
   display: none;
   @media print {
     display: block;
+    position: absolute;
     color: ${props => (props.color ? props.color : "grey")};
     text-align: left;
-    margin-top: 10px;
+    bottom: 0;
   }
 `;
 
@@ -38,10 +39,10 @@ const EditablePattern = props => {
   });
 
   return (
-    <PatternWrapper columns={columns}>
-      {tiledPatterns}
+    <React.Fragment>
+      <PatternWrapper columns={columns}>{tiledPatterns}</PatternWrapper>
       <PrintName color={patternColor}>{label}</PrintName>
-    </PatternWrapper>
+    </React.Fragment>
   );
 };
 

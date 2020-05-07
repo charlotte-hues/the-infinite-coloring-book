@@ -27,13 +27,15 @@ const Container = styled.div`
 const PreviewArea = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 650px;
   @media only screen and (max-width: 1200px) {
     width: auto;
     height: auto;
   }
   @media print {
-    width: 90%;
+    width: 100%;
+    padding: 0 7%;
   }
 `;
 
