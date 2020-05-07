@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f3c4f4946aadb31f93e25802e84f756f",
+    "revision": "68a6c6a32d7ff78eaa3842f93ef3fb6f",
     "url": "/tile-pattern-print/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/tile-pattern-print/static/js/2.666153c0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "033e4f15afe2bfaf445c",
-    "url": "/tile-pattern-print/static/js/main.075867c4.chunk.js"
+    "revision": "dbf6fafa69ad0f4058e1",
+    "url": "/tile-pattern-print/static/js/main.59b55db0.chunk.js"
   },
   {
     "revision": "38895cbdcfeed888f9cd",
