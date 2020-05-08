@@ -1,15 +1,8 @@
 import React, { useContext, useState } from "react";
-import styled from "styled-components";
 import { PatternContext } from "../../../../../../context/PatternContext";
 import SingleLineInput from "../../SingleLineInput/SingleLineInput";
-import { IconButton } from "../../../../../UI/Button/Button";
+import { IconButton, IconsContainer } from "../../../../../UI/Button/Button";
 import { OrientationIcons } from "../../../IconButtons/IconButtons";
-
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-`;
 
 const orientations = ["portrait", "landscape", "square"];
 
@@ -25,19 +18,20 @@ const OrientationSelect = props => {
   const orientationButtons = orientations.map(orientation => {
     const active = activeOrientation === orientation;
     return (
-      <IconButton
-        key={orientation}
-        disabled={active}
-        onClick={() => updateOrientationHandler(orientation)}
-      >
-        <OrientationIcons orientation={orientation} active={active} />
-      </IconButton>
+      <li key={orientation}>
+        <IconButton
+          disabled={active}
+          onClick={() => updateOrientationHandler(orientation)}
+        >
+          <OrientationIcons orientation={orientation} active={active} />
+        </IconButton>
+      </li>
     );
   });
 
   return (
     <SingleLineInput label="orientation:">
-      <ButtonsContainer>{orientationButtons}</ButtonsContainer>
+      <IconsContainer>{orientationButtons}</IconsContainer>
     </SingleLineInput>
   );
 };

@@ -15,10 +15,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   * {
-    box-sizing: border-box;
-    list-style-type: none;
+    box-sizing: border-box;    
     text-decoration: none;
   }
+
+  ul { margin: 0;
+     padding: 0;
+     list-style-type: none;
+     }  
   
   body {
     color: var(--black);

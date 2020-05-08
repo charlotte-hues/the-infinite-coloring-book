@@ -21,10 +21,10 @@ const PrintPreviewContainer = styled.div`
   background: var(--surface);
 
   @media only screen and (max-width: 1200px) {
-    width: ${props => (props.orientation === "landscape" ? "610px" : "400px")};
+    width: ${props => (props.orientation === "landscape" ? "610px" : "380px")};
     height: ${props =>
       props.orientation === "portrait"
-        ? "540px"
+        ? "500px"
         : props.orientation === "landscape"
         ? "490px"
         : "400px"};
@@ -42,10 +42,10 @@ const PrintPreviewContainer = styled.div`
         ? `${(props.windowWidth - 30) * 0.8}px`
         : `${props.windowWidth - 30}px`};
     max-width: ${props =>
-      props.orientation === "landscape" ? "610px" : "400px"};
+      props.orientation === "landscape" ? "610px" : "380px"};
     max-height: ${props =>
       props.orientation === "portrait"
-        ? "540px"
+        ? "500px"
         : props.orientation === "landscape"
         ? "490px"
         : "400px"};

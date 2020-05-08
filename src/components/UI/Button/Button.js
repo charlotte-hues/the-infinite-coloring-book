@@ -55,4 +55,13 @@ export const IconButton = props => (
   </StyledIconButton>
 );
 
+export const IconsContainer = styled.ul`
+  display: flex;
+  flex-direction: ${props =>
+    props.direction === "vertical" ? "column" : "row"};
+  justify-content: space-between;
+  width: ${props => (props.direction === "vertical" ? "auto" : "100%")};
+  height: ${props => (props.direction === "vertical" ? "100%" : "auto")};
+`;
+
 export default Button;
