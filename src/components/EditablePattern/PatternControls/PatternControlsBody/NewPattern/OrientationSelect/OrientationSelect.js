@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import { PatternContext } from "../../../../../../context/PatternContext";
 import SingleLineInput from "../../SingleLineInput/SingleLineInput";
-import { IconButton, IconsContainer } from "../../../../../UI/Button/Button";
-import { OrientationIcons } from "../../../IconButtons/IconButtons";
+import {
+  IconButton,
+  IconsContainer
+} from "../../../../../UI/Button/IconButton";
+import { OrientationIcons } from "../../../PatternControlIconButtons/PatternControlIconButtons";
 
 const orientations = ["portrait", "landscape", "square"];
 

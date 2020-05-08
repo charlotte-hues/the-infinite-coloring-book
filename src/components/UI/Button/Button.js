@@ -1,21 +1,9 @@
 import React from "react";
-import styled, { css } from "styled-components";
-
-const sharedStyles = css`
-  background: rgba(245, 245, 245, 0);
-  cursor: pointer;
-
-  &:disabled {
-    cursor: default;
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
+import styled from "styled-components";
+import sharedButtonStyles from "./sharedButtonStyles";
 
 const StyledButton = styled.button`
-  ${sharedStyles}
+  ${sharedButtonStyles}
   border: 2px solid var(--black);
   color: var(--black);
   background: rgba(245, 245, 245, 0);
@@ -38,30 +26,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledIconButton = styled.button`
-  ${sharedStyles}
-  width: 60px;
-  height: 60px;
-  border: 0;
-`;
-
 const Button = props => {
   return <StyledButton onClick={props.onClick}>{props.children}</StyledButton>;
 };
-
-export const IconButton = props => (
-  <StyledIconButton onClick={props.onClick} disabled={props.disabled}>
-    {props.children}
-  </StyledIconButton>
-);
-
-export const IconsContainer = styled.ul`
-  display: flex;
-  flex-direction: ${props =>
-    props.direction === "vertical" ? "column" : "row"};
-  justify-content: space-between;
-  width: ${props => (props.direction === "vertical" ? "auto" : "100%")};
-  height: ${props => (props.direction === "vertical" ? "100%" : "auto")};
-`;
 
 export default Button;
