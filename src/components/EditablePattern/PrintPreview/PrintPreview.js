@@ -19,6 +19,7 @@ const PrintPreviewContainer = styled.div`
       : "440px"};
   box-shadow: var(--shadow);
   background: var(--surface);
+  transition: all 0.5s ease;
 
   @media only screen and (max-width: 1200px) {
     width: ${props => (props.orientation === "landscape" ? "610px" : "380px")};
@@ -84,7 +85,7 @@ const PrintPreview = props => {
       orientation={orientation}
       windowWidth={windowWidth}
     >
-      <EditablePattern />
+      <EditablePattern orientation={orientation} />
     </PrintPreviewContainer>
   );
 };

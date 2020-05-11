@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { PatternContext } from "../../context/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
@@ -18,13 +18,37 @@ const PatternWrapper = styled.div`
   display: grid;
   grid: auto-flow / repeat(${props => props.columns}, 1fr);
   height: auto;
-  width: auto;
+  width: 100%;
+  opacity: ${props => (props.visible ? 1 : 0)};
+  animation: ${props => (props.visible ? "in 0.5s ease-in" : null)};
+
+  @keyframes in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 const EditablePattern = props => {
   const { patterns, columns, switchTile, patternColor, label } = useContext(
     PatternContext
   );
+  const { orientation } = props;
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    setVisible(false);
+    fadeInAfterChange();
+  }, [orientation]);
+
+  const fadeInAfterChange = () => {
+    setTimeout(() => {
+      setVisible(true);
+    }, 200);
+  };
 
   const tiledPatterns = patterns.map((pattern, i) => {
     return (
@@ -40,7 +64,9 @@ const EditablePattern = props => {
 
   return (
     <React.Fragment>
-      <PatternWrapper columns={columns}>{tiledPatterns}</PatternWrapper>
+      <PatternWrapper visible={visible} columns={columns}>
+        {tiledPatterns}
+      </PatternWrapper>
       <PrintName color={patternColor}>{label}</PrintName>
     </React.Fragment>
   );
