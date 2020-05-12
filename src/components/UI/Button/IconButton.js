@@ -5,10 +5,10 @@ import sharedButtonStyles from "./sharedButtonStyles";
 const StyledIconButton = styled.button`
   ${sharedButtonStyles}
   position: relative;
-  width: 60px;
   height: 100%;
   border: 0;
   padding: 4px;
+  max-height: 40px;
 
   &:after {
     position: absolute;
@@ -50,8 +50,13 @@ export const IconsContainer = styled.ul`
   justify-content: space-between;
   width: ${props => (props.direction === "vertical" ? "auto" : "100%")};
   height: ${props => (props.direction === "vertical" ? "100%" : "44px")};
-  padding-bottom: ${props => (props.heading ? "6px" : "0")};
-  border-bottom: ${props => (props.heading ? "2px solid var(--trim)" : "none")};
+  padding-bottom: 0px;
+  border-bottom: none;
+`;
+
+export const IconsHeadContainer = styled(IconsContainer)`
+  padding-bottom: ${props => (props.open ? "6px" : "8px")};
+  border-bottom: ${props => (props.open ? "2px solid var(--trim)" : "none")};
 `;
 
 export default IconButton;

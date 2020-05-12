@@ -1,19 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import styled from "styled-components";
 import PatternControlsHeader from "./PatternControlsHeader/PatternControlsHeader";
 import PatternControlsBody from "./PatternControlsBody/PatternControlsBody";
 
 const Container = styled.div`
+  z-index: 10;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  width: 345px;
+  width: 90vw;
+  max-width: 345px;
   height: 220px;
+  min-height: 220px;
   padding: 6px 25px 10px;
   background: var(--surface);
   box-shadow: var(--shadow);
   margin: 10px;
+  transition: all 0.5s ease;
+
+  @media only screen and (max-width: 680px) {
+    position: absolute;
+    height: ${props => (props.open ? "220px" : "50px")};
+    min-height: initial;
+    margin: auto;
+    bottom: 20px;
+  }
+
+  /* Ipad Portrait */
+  @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
+    position: absolute;
+    bottom: 20px;
+    width: 40vw;
+    height: ${props => (props.open ? "220px" : "50px")};
+    min-height: initial;
+    max-width: initial;
+  }
+
   @media print {
     display: none;
   }
@@ -21,18 +44,24 @@ const Container = styled.div`
 
 const PatternControls = props => {
   const [active, setActive] = useState("new");
+  const [open, setOpen] = useState(false);
+  const ref = useRef();
+
+  useOnClickOutside(ref, () => setOpen(false));
 
   const switchControlBodyHandler = group => {
     setActive(group);
+    setOpen(true);
   };
 
   return (
-    <Container>
+    <Container open={open} ref={ref}>
       <PatternControlsHeader
+        open={open}
         active={active}
         onClick={switchControlBodyHandler}
       />
-      <PatternControlsBody active={active} />
+      <PatternControlsBody active={active} open={open} />
     </Container>
   );
 };

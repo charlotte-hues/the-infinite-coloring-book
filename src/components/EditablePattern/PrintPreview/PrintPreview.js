@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { PatternContext } from "../../../context/PatternContext";
 import EditablePattern from "../EditablePattern";
 import styled from "styled-components";
@@ -34,15 +34,15 @@ const PrintPreviewContainer = styled.div`
   @media only screen and (max-width: 780px) {
     padding: 10px;
     width: ${props =>
-      props.orientation === "landscape" && props.windowWidth
-        ? `${props.windowWidth - 30}px`
-        : `${props.windowWidth - 30}px`};
+      props.orientation === "landscape"
+        ? "calc(100vw - 30px)"
+        : "calc(100vw - 30px)"};
     height: ${props =>
-      props.orientation === "portrait" && props.windowWidth
-        ? `${(props.windowWidth - 30) * 1.39}px`
+      props.orientation === "portrait"
+        ? "calc((100vw - 30px) * 1.39)"
         : props.orientation === "landscape"
-        ? `${(props.windowWidth - 30) * 0.8}px`
-        : `${props.windowWidth - 30}px`};
+        ? "calc((100vw - 30px) * 0.8)"
+        : "calc(100vw - 30px)"};
     max-width: ${props =>
       props.orientation === "landscape" ? "610px" : "340px"};
     max-height: ${props =>
@@ -51,6 +51,17 @@ const PrintPreviewContainer = styled.div`
         : props.orientation === "landscape"
         ? "480px"
         : "340px"};
+  }
+
+  /* Ipad Portrait */
+  @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
+    width: ${props => (props.orientation === "landscape" ? "90vw" : "75vw")};
+    height: ${props =>
+      props.orientation === "portrait"
+        ? "calc(75vw * 1.39)"
+        : props.orientation === "landscape"
+        ? "calc(90vw * 0.8)"
+        : "75vw"};
   }
 
   @media print {
@@ -71,20 +82,12 @@ const PrintPreviewContainer = styled.div`
 `;
 
 const PrintPreview = props => {
-  const [windowWidth, setWindowWidth] = useState(document.body.clientWidth);
   const { orientation } = useContext(PatternContext);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWindowWidth(document.body.clientWidth);
-    });
-  }, []);
 
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
       orientation={orientation}
-      windowWidth={windowWidth}
     >
       <EditablePattern orientation={orientation} />
     </PrintPreviewContainer>

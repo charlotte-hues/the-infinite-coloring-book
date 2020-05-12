@@ -3,7 +3,7 @@ import styled from "styled-components";
 import ToolBar from "../../components/Navigation/Toolbar/Toolbar";
 
 const Main = styled.main`
-  height: 94vh;
+  height: 93vh;
 `;
 
 const Layout = props => {

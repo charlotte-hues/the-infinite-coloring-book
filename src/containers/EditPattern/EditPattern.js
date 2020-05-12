@@ -14,6 +14,7 @@ const Container = styled.div`
 
   @media only screen and (max-width: 1200px) {
     flex-direction: column;
+    justify-content: start;
     align-content: center;
     align-items: center;
     width: 100%;
@@ -21,6 +22,7 @@ const Container = styled.div`
 
   @media only screen and (max-width: 780px) {
     justify-content: start;
+    align-items: center;
   }
 
   @media print {

@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
   
   body {
     color: var(--black);
+    overflow: none;
     background: var(--background);
     margin: 0;
     font-family: 'Patua One', cursive;
