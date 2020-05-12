@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "./hoc/Layout/Layout";
 import EditPattern from "./containers/EditPattern/EditPattern";
 import { createGlobalStyle } from "styled-components";
 
@@ -36,10 +37,10 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <React.Fragment>
+    <Layout>
       <GlobalStyle />
       <EditPattern />
-    </React.Fragment>
+    </Layout>
   );
 }
 

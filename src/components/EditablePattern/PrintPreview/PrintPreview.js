@@ -10,28 +10,29 @@ const PrintPreviewContainer = styled.div`
   padding: 18px;
   justify-items: center;
   margin: 10px;
-  width: ${props => (props.orientation === "landscape" ? "610px" : "440px")};
+  width: ${props => (props.orientation === "landscape" ? "660px" : "490px")};
   height: ${props =>
     props.orientation === "portrait"
-      ? "610px"
+      ? "660px"
       : props.orientation === "landscape"
-      ? "490px"
-      : "440px"};
+      ? "500px"
+      : "490px"};
   box-shadow: var(--shadow);
   background: var(--surface);
   transition: all 0.5s ease;
 
   @media only screen and (max-width: 1200px) {
-    width: ${props => (props.orientation === "landscape" ? "610px" : "380px")};
+    width: ${props => (props.orientation === "landscape" ? "580px" : "370px")};
     height: ${props =>
       props.orientation === "portrait"
-        ? "500px"
+        ? "480px"
         : props.orientation === "landscape"
-        ? "490px"
-        : "400px"};
+        ? "450px"
+        : "370px"};
   }
 
   @media only screen and (max-width: 780px) {
+    padding: 10px;
     width: ${props =>
       props.orientation === "landscape" && props.windowWidth
         ? `${props.windowWidth - 30}px`
@@ -43,13 +44,13 @@ const PrintPreviewContainer = styled.div`
         ? `${(props.windowWidth - 30) * 0.8}px`
         : `${props.windowWidth - 30}px`};
     max-width: ${props =>
-      props.orientation === "landscape" ? "610px" : "380px"};
+      props.orientation === "landscape" ? "610px" : "340px"};
     max-height: ${props =>
       props.orientation === "portrait"
-        ? "500px"
+        ? "450px"
         : props.orientation === "landscape"
-        ? "490px"
-        : "400px"};
+        ? "480px"
+        : "340px"};
   }
 
   @media print {

@@ -1,6 +1,6 @@
 import React from "react";
-import Label from "../../../../UI/FormControls/Label/Label";
-import FormControlWrapper from "../../../../UI/FormControls/FormControlWrapper/FormControlWrapper";
+import Label from "../../FormControls/Label/Label";
+import FormControlWrapper from "../../FormControls/FormControlWrapper/FormControlWrapper";
 
 const SingleLineInput = props => (
   <FormControlWrapper>

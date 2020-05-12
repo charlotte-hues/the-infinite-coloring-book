@@ -6,16 +6,21 @@ import PatternControls from "../../components/EditablePattern/PatternControls/Pa
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: 100%;
   width: 80vw;
   margin: auto;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   @media only screen and (max-width: 1200px) {
     flex-direction: column;
     align-content: center;
+    align-items: center;
     width: 100%;
+  }
+
+  @media only screen and (max-width: 780px) {
+    justify-content: start;
   }
 
   @media print {

@@ -8,8 +8,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  width: 380px;
-  height: 250px;
+  width: 345px;
+  height: 220px;
   padding: 6px 25px 10px;
   background: var(--surface);
   box-shadow: var(--shadow);

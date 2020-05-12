@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { PatternContext } from "../../../../../../context/PatternContext";
-import SingleLineInput from "../../SingleLineInput/SingleLineInput";
+import SingleLineInput from "../../Inputs/SingleLineInput/SingleLineInput";
 import {
   IconButton,
   IconsContainer

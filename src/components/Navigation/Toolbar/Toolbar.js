@@ -1,15 +1,23 @@
 import React from "react";
+import styled from "styled-components";
+import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 
-const toolbar = props => (
-  <header>
-    <div onClick={props.drawerToggleClicked}>{/* Hamburger Icon */}</div>
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 20px;
+  height: 6vh;
+`;
 
-    <div>{/* Logo */}</div>
+const toolbar = props => (
+  <Header>
+    <Logo />
     <nav>
       <NavigationItems />
     </nav>
-  </header>
+  </Header>
 );
 
 export default toolbar;

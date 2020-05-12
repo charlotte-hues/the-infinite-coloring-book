@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { PatternContext } from "../../../../../../context/PatternContext";
-import SingleLineInput from "../../SingleLineInput/SingleLineInput";
-import Slider from "../../../../../UI/FormControls/Slider/Slider";
+import SingleLineInput from "../../Inputs/SingleLineInput/SingleLineInput";
+import Slider from "../../FormControls/Slider/Slider";
 
 const ComplexitySlider = props => {
   const { updateComplexity, complexity } = useContext(PatternContext);

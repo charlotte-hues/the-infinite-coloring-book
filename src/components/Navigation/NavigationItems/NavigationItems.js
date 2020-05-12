@@ -2,7 +2,7 @@ import React from "react";
 import NavigationItem from "./NavigationItem/NavigationItem.js";
 
 const navigationItems = props => (
-  <ul className={classes.NavigationItems}>
+  <ul>
     <NavigationItem link="/pattern-maker" active>
       Pattern Creator
     </NavigationItem>

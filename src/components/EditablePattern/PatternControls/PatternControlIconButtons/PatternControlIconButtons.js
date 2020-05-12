@@ -22,11 +22,6 @@ const OrientationIconStyle = css`
   }
 `;
 
-const SVG = styled.svg`
-  stroke: var(--black);
-  ${sharedStyles}
-`;
-
 const OrientationSVG = styled.svg`
   ${sharedStyles}
   ${OrientationIconStyle}
@@ -48,6 +43,11 @@ export const OrientationIcons = props => {
   );
 };
 
+const GroupSVG = styled.svg`
+  stroke: var(--black);
+  ${sharedStyles}
+`;
+
 export const GroupIcons = props => {
   let GroupIcon;
   switch (props.type) {
@@ -68,12 +68,12 @@ export const GroupIcons = props => {
   }
 
   return (
-    <SVG
+    <GroupSVG
       viewBox="0 0 32 32"
       xmlns="http://www.w3.org/2000/svg"
       active={props.active}
     >
       {GroupIcon}
-    </SVG>
+    </GroupSVG>
   );
 };
