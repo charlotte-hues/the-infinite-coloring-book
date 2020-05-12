@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import styled from "styled-components";
 import PatternControlsHeader from "./PatternControlsHeader/PatternControlsHeader";
@@ -21,7 +21,7 @@ const Container = styled.div`
 
   @media only screen and (max-width: 680px) {
     position: absolute;
-    height: ${props => (props.open ? "220px" : "50px")};
+    height: ${props => (props.open ? "250px" : "50px")};
     min-height: initial;
     margin: auto;
     bottom: 20px;
@@ -32,7 +32,7 @@ const Container = styled.div`
     position: absolute;
     bottom: 20px;
     width: 40vw;
-    height: ${props => (props.open ? "220px" : "50px")};
+    height: ${props => (props.open ? "250px" : "50px")};
     min-height: initial;
     max-width: initial;
   }
@@ -44,8 +44,24 @@ const Container = styled.div`
 
 const PatternControls = props => {
   const [active, setActive] = useState("new");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [mobile, setMobile] = useState(false);
   const ref = useRef();
+
+  useEffect(() => {
+    if (document.body.clientWidth <= 680) {
+      setMobile(true);
+    }
+    window.addEventListener("resize", () => {
+      if (document.body.clientWidth <= 680) {
+        setMobile(true);
+      } else setMobile(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    mobile ? setOpen(false) : setOpen(true);
+  }, [mobile]);
 
   useOnClickOutside(ref, () => setOpen(false));
 

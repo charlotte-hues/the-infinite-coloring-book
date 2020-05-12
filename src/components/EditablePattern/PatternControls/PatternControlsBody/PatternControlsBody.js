@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: start;
+  justify-content: space-between;
   width: 100%;
 
   @media only screen and (max-width: 680px) {

@@ -33,13 +33,18 @@ const StyledIconButton = styled.button`
   }
 `;
 
+const IconContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 export const IconButton = props => (
   <StyledIconButton
     onClick={props.onClick}
     disabled={props.disabled}
     heading={props.heading}
   >
-    {props.children}
+    <IconContainer>{props.children}</IconContainer>
   </StyledIconButton>
 );
 
