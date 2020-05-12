@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/the-infinite-coloring-book/static/js/main.180c3a02.chunk.js",
-    "main.js.map": "/the-infinite-coloring-book/static/js/main.180c3a02.chunk.js.map",
+    "main.js": "/the-infinite-coloring-book/static/js/main.5dcfcd10.chunk.js",
+    "main.js.map": "/the-infinite-coloring-book/static/js/main.5dcfcd10.chunk.js.map",
     "runtime-main.js": "/the-infinite-coloring-book/static/js/runtime-main.91d59900.js",
     "runtime-main.js.map": "/the-infinite-coloring-book/static/js/runtime-main.91d59900.js.map",
     "static/js/2.404a9f5b.chunk.js": "/the-infinite-coloring-book/static/js/2.404a9f5b.chunk.js",
     "static/js/2.404a9f5b.chunk.js.map": "/the-infinite-coloring-book/static/js/2.404a9f5b.chunk.js.map",
     "index.html": "/the-infinite-coloring-book/index.html",
-    "precache-manifest.ea0289ed8728ffa573a6b4c82e232871.js": "/the-infinite-coloring-book/precache-manifest.ea0289ed8728ffa573a6b4c82e232871.js",
+    "precache-manifest.37fcbf8a22b41c72edef62163a6abae2.js": "/the-infinite-coloring-book/precache-manifest.37fcbf8a22b41c72edef62163a6abae2.js",
     "service-worker.js": "/the-infinite-coloring-book/service-worker.js",
     "static/js/2.404a9f5b.chunk.js.LICENSE.txt": "/the-infinite-coloring-book/static/js/2.404a9f5b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.91d59900.js",
     "static/js/2.404a9f5b.chunk.js",
-    "static/js/main.180c3a02.chunk.js"
+    "static/js/main.5dcfcd10.chunk.js"
   ]
 }
