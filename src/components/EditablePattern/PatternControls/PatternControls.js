@@ -12,7 +12,7 @@ const Container = styled.div`
   width: 90vw;
   max-width: 345px;
   height: 220px;
-  min-height: 220px;
+  min-height: 250px;
   padding: 6px 25px 10px;
   background: var(--surface);
   box-shadow: var(--shadow);

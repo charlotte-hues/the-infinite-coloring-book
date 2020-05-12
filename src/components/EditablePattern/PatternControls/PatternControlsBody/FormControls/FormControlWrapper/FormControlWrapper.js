@@ -6,8 +6,7 @@ const StyledDiv = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
-  margin-top: 12px;
+  margin: 20px 0 0;
 `;
 
 const formControlWrapper = props => {

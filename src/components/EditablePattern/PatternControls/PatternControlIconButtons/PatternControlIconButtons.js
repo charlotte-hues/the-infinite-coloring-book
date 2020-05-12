@@ -10,8 +10,9 @@ import * as Group from "./Group Icons/GroupIcons";
 const sharedStyles = css`
   width: 100%;
   height: 100%;
-  max-width: 40px;
-  max-height: 40px;
+  display: inline-block;
+  max-height: 32px;
+  padding: 0;
   fill: none;
   stroke-width: 2;
 `;

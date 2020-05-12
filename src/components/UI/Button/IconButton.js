@@ -6,6 +6,7 @@ const StyledIconButton = styled.button`
   ${sharedButtonStyles}
   position: relative;
   height: 100%;
+  width: 100%;
   border: 0;
   padding: 4px;
   max-height: 40px;
@@ -33,9 +34,12 @@ const StyledIconButton = styled.button`
   }
 `;
 
-const IconContainer = styled.div`
-  width: 100%;
-  height: 100%;
+const IconWrapper = styled.div`
+  height: auto;
+  width: auto;
+  max-width: 32px;
+  max-height: 32px;
+  padding: 0;
 `;
 
 export const IconButton = props => (
@@ -44,7 +48,7 @@ export const IconButton = props => (
     disabled={props.disabled}
     heading={props.heading}
   >
-    <IconContainer>{props.children}</IconContainer>
+    <IconWrapper>{props.children}</IconWrapper>
   </StyledIconButton>
 );
 
