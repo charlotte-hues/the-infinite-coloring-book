@@ -5,10 +5,9 @@ import sharedButtonStyles from "./sharedButtonStyles";
 const StyledIconButton = styled.button`
   ${sharedButtonStyles}
   position: relative;
-  height: 100%;
-  width: 100%;
+  height: 40px;
   border: 0;
-  padding: 4px;
+  padding: 4px 0;
   max-height: 40px;
 
   &:after {
@@ -16,13 +15,13 @@ const StyledIconButton = styled.button`
     content: "";
     height: 2px;
     /* adjust this to move up and down. you may have to adjust the line height of the paragraph if you move it down a lot. */
-    bottom: -8px;
+    bottom: -10px;
 
     /* center - (optional) use with adjusting width   */
     margin: 0 auto;
     left: 0;
     right: 0;
-    width: ${props => (props.disabled && props.heading ? "80%" : "0%")};
+    width: ${props => (props.disabled && props.heading ? "100%" : "0%")};
     background: var(--orange);
 
     /* optional animation */
@@ -34,21 +33,13 @@ const StyledIconButton = styled.button`
   }
 `;
 
-const IconWrapper = styled.div`
-  height: auto;
-  width: auto;
-  max-width: 32px;
-  max-height: 32px;
-  padding: 0;
-`;
-
 export const IconButton = props => (
   <StyledIconButton
     onClick={props.onClick}
     disabled={props.disabled}
     heading={props.heading}
   >
-    <IconWrapper>{props.children}</IconWrapper>
+    {props.children}
   </StyledIconButton>
 );
 
@@ -58,13 +49,14 @@ export const IconsContainer = styled.ul`
     props.direction === "vertical" ? "column" : "row"};
   justify-content: space-between;
   width: ${props => (props.direction === "vertical" ? "auto" : "100%")};
-  height: ${props => (props.direction === "vertical" ? "100%" : "44px")};
+  height: ${props => (props.direction === "vertical" ? "100%" : "auto")};
   padding-bottom: 0px;
   border-bottom: none;
 `;
 
 export const IconsHeadContainer = styled(IconsContainer)`
-  padding-bottom: ${props => (props.open ? "6px" : "8px")};
+  height: 60px;
+  padding-bottom: 8px;
   border-bottom: ${props => (props.open ? "2px solid var(--trim)" : "none")};
 `;
 

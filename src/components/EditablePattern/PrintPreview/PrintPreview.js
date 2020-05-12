@@ -39,7 +39,7 @@ const PrintPreviewContainer = styled.div`
         : "calc(100vw - 30px)"};
     height: ${props =>
       props.orientation === "portrait"
-        ? "calc((100vw - 30px) * 1.39)"
+        ? "calc((100vw - 30px) * 1.4)"
         : props.orientation === "landscape"
         ? "calc((100vw - 30px) * 0.8)"
         : "calc(100vw - 30px)"};
@@ -55,13 +55,13 @@ const PrintPreviewContainer = styled.div`
 
   /* Ipad Portrait */
   @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation: portrait) {
-    width: ${props => (props.orientation === "landscape" ? "90vw" : "75vw")};
+    width: ${props => (props.orientation === "landscape" ? "90vw" : "70vw")};
     height: ${props =>
       props.orientation === "portrait"
-        ? "calc(75vw * 1.39)"
+        ? "calc(70vw * 1.4)"
         : props.orientation === "landscape"
         ? "calc(90vw * 0.8)"
-        : "75vw"};
+        : "70vw"};
   }
 
   @media print {

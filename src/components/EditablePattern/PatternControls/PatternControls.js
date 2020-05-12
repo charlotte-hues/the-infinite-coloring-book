@@ -9,6 +9,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 350px;
   width: 90vw;
   max-width: 345px;
   height: 220px;
@@ -44,14 +45,14 @@ const Container = styled.div`
 
 const PatternControls = props => {
   const [active, setActive] = useState("new");
-  const [open, setOpen] = useState(true);
-  const [mobile, setMobile] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [mobile, setMobile] = useState(true);
   const ref = useRef();
 
   useEffect(() => {
     if (document.body.clientWidth <= 680) {
       setMobile(true);
-    }
+    } else setMobile(false);
     window.addEventListener("resize", () => {
       if (document.body.clientWidth <= 680) {
         setMobile(true);

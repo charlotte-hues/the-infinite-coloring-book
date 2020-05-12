@@ -27,7 +27,7 @@ const StyledDiv = styled.div`
 
 const PatternControlsBody = props => {
   const [isVisible, setIsVisible] = useState(false);
-  let activeGroup;
+  let activeGroup = null;
   switch (props.active) {
     case "new":
       activeGroup = (
@@ -64,10 +64,12 @@ const PatternControlsBody = props => {
   if (!isVisible) {
     activeGroup = null;
   }
+  console.log(props.open);
 
   useEffect(() => {
     if (props.open) {
       setTimeout(() => {
+        console.log("set is visible - true");
         setIsVisible(true);
       }, 300);
     } else setIsVisible(false);
