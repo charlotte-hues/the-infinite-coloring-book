@@ -63,7 +63,9 @@ const PatternControls = props => {
     mobile ? setOpen(false) : setOpen(true);
   }, [mobile]);
 
-  useOnClickOutside(ref, () => setOpen(false));
+  useOnClickOutside(ref, () => {
+    mobile && setOpen(false);
+  });
 
   const switchControlBodyHandler = group => {
     setActive(group);
