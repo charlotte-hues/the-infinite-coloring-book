@@ -6,12 +6,12 @@ import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorI
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
 const colors = [
-  "var(--background)",
-  "var(--trim)",
+  "#F0EAE1",
+  "#E1DBD2",
   "#989391",
-  "var(--black)",
+  "#483E3B",
   "black",
-  "var(--orange)",
+  "#C74F33",
   "#2F544E",
   "#182B70",
   "#9A1003",

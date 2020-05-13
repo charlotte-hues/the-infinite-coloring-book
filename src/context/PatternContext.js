@@ -49,7 +49,7 @@ const PatternContextProvider = props => {
   const [complexity, setComplexity] = useLocalStorage("complexity", 0);
   const [patternColor, setPatternColor] = useLocalStorage(
     "patternColour",
-    "var(--trim)"
+    "#E1DBD2"
   );
   const [label] = useLocalStorage("label", "Charlotte");
 
