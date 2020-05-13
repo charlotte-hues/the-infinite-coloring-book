@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import getRandNum from "../utility/getRandNum";
 import { allPatterns } from "../components/Tiles/Tiles";
+import { saveAsPng } from "save-html-as-image";
 
 const initialMaxNo = [];
 for (const _ in allPatterns) {
@@ -36,6 +37,7 @@ const randPatternArray = (columns, rows) => {
 export const PatternContext = React.createContext();
 
 const PatternContextProvider = props => {
+  const DownloadableImageRef = useRef();
   const [patterns, setPatterns] = useLocalStorage(
     "patterns",
     randPatternArray(4, 5)
@@ -75,6 +77,15 @@ const PatternContextProvider = props => {
     setPatterns(newPattern);
   };
 
+  const downloadImageHandler = () => {
+    saveAsPng(DownloadableImageRef.current, {
+      filename: "the-infinite-coloring-book",
+      printDate: false
+    }).then(() => {
+      window.location.reload();
+    });
+  };
+
   const switchTileHandler = index => {
     const updatedPattern = [...patterns];
     let newNum = getRandNum(maxNo);
@@ -89,6 +100,8 @@ const PatternContextProvider = props => {
     setColumns(initialOrientation[orientation][complexity][0]);
   }, [orientation, complexity]);
 
+  console.log(DownloadableImageRef);
+
   return (
     <PatternContext.Provider
       value={{
@@ -98,12 +111,14 @@ const PatternContextProvider = props => {
         orientation,
         columns,
         complexity,
+        DownloadableImageRef,
 
         switchTile: switchTileHandler,
         updateComplexity: updateComplexityHandler,
         updateOrientation: updateOrientationHandler,
         updateColor: updateColorHandler,
-        newPattern: generateRandomPattern
+        newPattern: generateRandomPattern,
+        downloadImage: downloadImageHandler
       }}
     >
       {props.children}

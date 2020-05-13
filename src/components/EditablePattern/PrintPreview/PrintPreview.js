@@ -1,9 +1,8 @@
-import React, { useContext, createRef, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { PatternContext } from "../../../context/PatternContext";
 import EditablePattern from "../EditablePattern";
 import DownloadablePattern from "../DownloadablePattern";
 import styled from "styled-components";
-import { saveAsPng } from "save-html-as-image";
 
 const PrintPreviewContainer = styled.div`
   display: flex;
@@ -93,41 +92,17 @@ const ImageWrapper = styled.div`
 
 const PrintPreview = props => {
   const { orientation } = useContext(PatternContext);
-  const [downloadImage, setDownloadImage] = useState(false);
-  const [needsRefresh, setNeedsRefresh] = useState(false);
-  const ref = createRef();
 
   let DownloadableImage = (
     <ImageWrapper>
-      <DownloadablePattern ref={ref} />
+      <DownloadablePattern />
     </ImageWrapper>
   );
-
-  const downloadImageHandler = () => setDownloadImage(true);
-
-  useEffect(() => {
-    if (downloadImage) {
-      saveAsPng(ref.current, {
-        filename: "the-infinite-coloring-book",
-        printDate: false
-      }).then(blob => {
-        setDownloadImage(false);
-        setNeedsRefresh(true);
-      });
-    }
-  }, [downloadImage, ref]);
-
-  useEffect(() => {
-    if (needsRefresh) {
-      window.location.reload();
-    }
-  }, [needsRefresh]);
 
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
       orientation={orientation}
-      onClick={downloadImageHandler}
     >
       {DownloadableImage}
       <EditablePattern orientation={orientation} />

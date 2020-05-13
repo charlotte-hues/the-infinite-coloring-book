@@ -3,17 +3,6 @@ import { PatternContext } from "../../context/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 
-const PrintName = styled.footer`
-  display: none;
-  @media print {
-    display: block;
-    position: absolute;
-    color: ${props => (props.color ? props.color : "grey")};
-    text-align: left;
-    bottom: 0;
-  }
-`;
-
 const PatternWrapper = styled.div`
   display: grid;
   grid: auto-flow / repeat(${props => props.columns}, 1fr);
@@ -31,8 +20,10 @@ const PatternWrapper = styled.div`
   }
 `;
 
-const EditablePattern = React.forwardRef((props, ref) => {
-  const { patterns, columns, patternColor, label } = useContext(PatternContext);
+const EditablePattern = props => {
+  const { patterns, columns, patternColor, DownloadableImageRef } = useContext(
+    PatternContext
+  );
 
   const tiledPatterns = patterns.map((pattern, i) => {
     return (
@@ -42,12 +33,11 @@ const EditablePattern = React.forwardRef((props, ref) => {
 
   return (
     <React.Fragment>
-      <PatternWrapper columns={columns} ref={ref}>
+      <PatternWrapper columns={columns} ref={DownloadableImageRef}>
         {tiledPatterns}
       </PatternWrapper>
-      <PrintName color={patternColor}>{label}</PrintName>
     </React.Fragment>
   );
-});
+};
 
 export default EditablePattern;
