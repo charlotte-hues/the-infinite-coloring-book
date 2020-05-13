@@ -1,6 +1,6 @@
 {
   "homepage": "http://charlotte-hues.github.io/the-infinite-coloring-book",
-  "name": "tile-pattern-react",
+  "name": "the-infinite-coloring-book",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
