@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
 import { PatternContext } from "../../../../../../context/PatternContext";
-import SingleLineInput from "../../Inputs/SingleLineInput/SingleLineInput";
-import {
-  IconButton,
-  IconsContainer
-} from "../../../../../UI/Button/IconButton";
-import { OrientationIcons } from "../../../PatternControlIconButtons/PatternControlIconButtons";
+import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
+import IconButton from "../../../../../UI/Button/IconButton";
+import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
+import OrientationIcons from "../../../PatternControlsInputs/Inputs/ControlIcons/OrientationIcons/OrientationIcons";
 
 const orientations = ["portrait", "landscape", "square"];
 
@@ -33,9 +31,9 @@ const OrientationSelect = props => {
   });
 
   return (
-    <SingleLineInput label="orientation:">
+    <InputWrapper label="orientation:">
       <IconsContainer>{orientationButtons}</IconsContainer>
-    </SingleLineInput>
+    </InputWrapper>
   );
 };
 

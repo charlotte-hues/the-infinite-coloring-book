@@ -25,7 +25,7 @@ const Container = styled.div`
     height: ${props => (props.open ? "250px" : "50px")};
     min-height: initial;
     margin: auto;
-    bottom: 20px;
+    bottom: 2vh;
   }
 
   /* Ipad Portrait */

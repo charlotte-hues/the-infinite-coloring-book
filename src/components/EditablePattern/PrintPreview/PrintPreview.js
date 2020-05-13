@@ -47,7 +47,7 @@ const PrintPreviewContainer = styled.div`
       props.orientation === "landscape" ? "610px" : "340px"};
     max-height: ${props =>
       props.orientation === "portrait"
-        ? "450px"
+        ? "458px"
         : props.orientation === "landscape"
         ? "480px"
         : "340px"};

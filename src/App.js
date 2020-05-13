@@ -20,19 +20,31 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
 
-  ul { margin: 0;
-     padding: 0;
-     list-style-type: none;
-     }
+  
   
   body {
     color: var(--black);
-    overflow: none;
+    overflow: hidden;
     background: var(--background);
     margin: 0;
     font-family: 'Patua One', cursive;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
+  }
+
+  ul { margin: 0;
+    padding: 0;
+    list-style-type: none;
+    }
+
+  button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 `;
 

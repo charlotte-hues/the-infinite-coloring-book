@@ -1,6 +1,7 @@
 import React from "react";
-import { IconButton, IconsHeadContainer } from "../../../UI/Button/IconButton";
-import { GroupIcons } from "../PatternControlIconButtons/PatternControlIconButtons";
+import IconButton from "../../../UI/Button/IconButton";
+import IconsHeadContainer from "../PatternControlsInputs/InputWrapper/IconContainers/IconsHeadContainer";
+import GroupIcons from "../PatternControlsInputs/Inputs/ControlIcons/GroupIcons/GroupIcons";
 
 const groups = ["new", "color", "save", "print"];
 

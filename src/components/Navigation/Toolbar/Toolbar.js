@@ -8,6 +8,7 @@ const Header = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 8px 20px;
+  min-height: 40px;
   height: 7vh;
 `;
 

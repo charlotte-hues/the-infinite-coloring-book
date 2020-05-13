@@ -1,13 +1,13 @@
 import React from "react";
-import FormControlWrapper from "../FormControls/FormControlWrapper/FormControlWrapper";
+import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../UI/Button/Button";
 
 const Print = props => {
   return (
     <React.Fragment>
-      <FormControlWrapper>
+      <InputWrapper>
         <Button onClick={() => {}}>Print</Button>
-      </FormControlWrapper>
+      </InputWrapper>
     </React.Fragment>
   );
 };

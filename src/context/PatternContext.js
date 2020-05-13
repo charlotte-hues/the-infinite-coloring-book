@@ -45,7 +45,10 @@ const PatternContextProvider = props => {
     "portrait"
   );
   const [complexity, setComplexity] = useLocalStorage("complexity", 0);
-  const [patternColor] = useLocalStorage("patternColour", "var(--trim)");
+  const [patternColor, setPatternColor] = useLocalStorage(
+    "patternColour",
+    "var(--trim)"
+  );
   const [label] = useLocalStorage("label", "Charlotte");
 
   const [columns, setColumns] = useState();
@@ -58,6 +61,10 @@ const PatternContextProvider = props => {
   const updateOrientationHandler = newOrientation => {
     setOrientation(newOrientation);
     generateRandomPattern(newOrientation, complexity);
+  };
+
+  const updateColorHandler = newColor => {
+    setPatternColor(newColor);
   };
 
   const generateRandomPattern = (orientation, complexity) => {
@@ -95,6 +102,7 @@ const PatternContextProvider = props => {
         switchTile: switchTileHandler,
         updateComplexity: updateComplexityHandler,
         updateOrientation: updateOrientationHandler,
+        updateColor: updateColorHandler,
         newPattern: generateRandomPattern
       }}
     >

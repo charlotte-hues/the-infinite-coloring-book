@@ -64,12 +64,10 @@ const PatternControlsBody = props => {
   if (!isVisible) {
     activeGroup = null;
   }
-  console.log(props.open);
 
   useEffect(() => {
     if (props.open) {
       setTimeout(() => {
-        console.log("set is visible - true");
         setIsVisible(true);
       }, 300);
     } else setIsVisible(false);

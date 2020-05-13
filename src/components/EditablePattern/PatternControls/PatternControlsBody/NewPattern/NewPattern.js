@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { PatternContext } from "../../../../../context/PatternContext";
 import OrientationSelect from "./OrientationSelect/OrientationSelect";
 import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
-import FormControlWrapper from "../FormControls/FormControlWrapper/FormControlWrapper";
+import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../UI/Button/Button";
 
 const NewPattern = props => {
@@ -12,11 +12,11 @@ const NewPattern = props => {
     <React.Fragment>
       <OrientationSelect />
       <ComplexitySlider />
-      <FormControlWrapper>
+      <InputWrapper>
         <Button onClick={() => newPattern(orientation, complexity)}>
           Randomise
         </Button>
-      </FormControlWrapper>
+      </InputWrapper>
     </React.Fragment>
   );
 };

@@ -9,6 +9,7 @@ const StyledIconButton = styled.button`
   border: 0;
   padding: 4px 0;
   max-height: 40px;
+  margin: 10px;
 
   &:after {
     position: absolute;
@@ -42,22 +43,5 @@ export const IconButton = props => (
     {props.children}
   </StyledIconButton>
 );
-
-export const IconsContainer = styled.ul`
-  display: flex;
-  flex-direction: ${props =>
-    props.direction === "vertical" ? "column" : "row"};
-  justify-content: space-between;
-  width: ${props => (props.direction === "vertical" ? "auto" : "100%")};
-  height: ${props => (props.direction === "vertical" ? "100%" : "auto")};
-  padding-bottom: 0px;
-  border-bottom: none;
-`;
-
-export const IconsHeadContainer = styled(IconsContainer)`
-  height: 60px;
-  padding-bottom: 8px;
-  border-bottom: ${props => (props.open ? "2px solid var(--trim)" : "none")};
-`;
 
 export default IconButton;
