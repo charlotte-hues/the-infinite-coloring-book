@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e812ed9256bf106237b0902c49838714",
+    "revision": "ef03636765d820f346b504cb7ee14d52",
     "url": "/the-infinite-coloring-book/index.html"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/the-infinite-coloring-book/static/js/2.404a9f5b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "31a7e6bfbda08677d81d",
-    "url": "/the-infinite-coloring-book/static/js/main.9dd8724f.chunk.js"
+    "revision": "ec038362aae7ffd0bb4c",
+    "url": "/the-infinite-coloring-book/static/js/main.90c1b445.chunk.js"
   },
   {
     "revision": "ba30670d6a6853dd32f2",
