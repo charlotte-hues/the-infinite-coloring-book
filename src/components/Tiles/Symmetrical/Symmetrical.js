@@ -47,7 +47,7 @@ export const CrossGridWithCircles = props => (
 
 export const SquareCorners = props => (
   <React.Fragment>
-    <path d="M-1 10H7M41 10H33M-1 30H7M41 30H33M10 41V33M10 -1V7M30 41V33M30 -1V7" />
+    <path d="M-1 10H6M41 10H34M-1 30H6M41 30H34M10 41V34M10 -1V6M30 41V34M30 -1V6" />
     <rect x="6" y="24" width="10" height="10" />
     <rect x="6" y="6" width="10" height="10" />
     <rect x="24" y="24" width="10" height="10" />

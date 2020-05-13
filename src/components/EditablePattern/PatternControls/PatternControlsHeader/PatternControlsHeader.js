@@ -5,7 +5,7 @@ import GroupIcons from "../PatternControlsInputs/Inputs/ControlIcons/GroupIcons/
 
 const groups = ["new", "color", "save", "print"];
 
-const PatternControlsHeader = props => {
+const PatternControlsHeader = React.forwardRef((props, ref) => {
   const groupButtons = groups.map(group => {
     const active = props.active === group && props.open;
     return (
@@ -22,8 +22,10 @@ const PatternControlsHeader = props => {
   });
 
   return (
-    <IconsHeadContainer open={props.open}>{groupButtons}</IconsHeadContainer>
+    <IconsHeadContainer ref={ref} open={props.open}>
+      {groupButtons}
+    </IconsHeadContainer>
   );
-};
+});
 
 export default PatternControlsHeader;

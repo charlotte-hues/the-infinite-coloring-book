@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 //Should maybe be global styles
 const sharedStyles = css`
-  stroke-width: 2;
+  stroke-width: 1;
   width: auto;
   height: auto;
   padding: 0;
@@ -34,14 +34,25 @@ export const RotationGroup = styled.g`
   transform: rotate(${props => (props.rotate ? props.rotate : "0deg")});
 `;
 
-export const SVG = props => (
-  <StyledSVG viewBox="0 0 40 40" patternColor={props.patternColor}>
-    {props.children}
-    <SvgButton onClick={props.click} id={props.id} name={props.name} />
-  </StyledSVG>
-);
+export const SVG = props => {
+  return (
+    <StyledSVG
+      viewBox="0 0 40 40"
+      patternColor={props.patternColor}
+      fill="none"
+      strokeWidth="1"
+      stroke={props.patternColor}
+      width="100%"
+      height="100%"
+      backgroundSize="40px"
+    >
+      {props.children}
+      <SvgButton onClick={props.click} id={props.id} name={props.name} />
+    </StyledSVG>
+  );
+};
 
 export const DiagonalPath = styled.path`
-  stroke-width: 1.5;
+  stroke-width: 1;
   stroke-linecap: square;
 `;
