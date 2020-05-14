@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../../../../context/PatternContext/PatternContext";
+import {
+  StateContext,
+  DispatchContext
+} from "../../../../../../context/PatternContext/PatternContext";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Slider from "../../../PatternControlsInputs/Inputs/Slider/Slider";
 
 const ComplexitySlider = props => {
-  const { updateComplexity, complexity } = useContext(PatternContext);
+  const { complexity } = useContext(StateContext);
+  const { updateComplexity } = useContext(DispatchContext);
 
   const updateComplexityHandler = e => {
     updateComplexity(e.target.value);

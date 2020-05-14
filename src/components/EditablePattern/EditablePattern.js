@@ -1,5 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { PatternContext } from "../../context/PatternContext/PatternContext";
+import {
+  StateContext,
+  DispatchContext
+} from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 
@@ -34,10 +37,10 @@ const PatternWrapper = styled.div`
 `;
 
 const EditablePattern = React.forwardRef((props, ref) => {
-  const { patterns, columns, switchTile, patternColor, label } = useContext(
-    PatternContext
+  const { switchTile } = useContext(DispatchContext);
+  const { patterns, columns, patternColor, label, orientation } = useContext(
+    StateContext
   );
-  const { orientation } = props;
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {

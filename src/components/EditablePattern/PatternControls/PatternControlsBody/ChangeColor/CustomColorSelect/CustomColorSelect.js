@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
-import { PatternContext } from "../../../../../../context/PatternContext/PatternContext";
+import {
+  StateContext,
+  DispatchContext
+} from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
 import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
@@ -13,17 +15,9 @@ const defaultColors = [
   ["black", "#F7F3EE"]
 ];
 
-const Picker = styled.input`
-  border: 2px solid #e1dbd2;
-  height: 34px;
-  width: 34px;
-  background: none;
-  border-radius: 2px;
-  padding: 0 1px;
-`;
-
 const DefaultColorSelect = props => {
-  const { updatePatternColor, patternColor } = useContext(PatternContext);
+  const { updatePatternColor } = useContext(DispatchContext);
+  const { patternColor } = useContext(StateContext);
 
   const colorButtons = defaultColors.map(color => {
     console.log(color);

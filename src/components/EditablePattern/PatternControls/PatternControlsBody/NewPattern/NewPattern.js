@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../../../context/PatternContext/PatternContext";
+import {
+  StateContext,
+  DispatchContext
+} from "../../../../../context/PatternContext/PatternContext";
 import OrientationSelect from "./OrientationSelect/OrientationSelect";
 import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../UI/Button/Button";
 
 const NewPattern = props => {
-  const { newPattern, orientation, complexity } = useContext(PatternContext);
+  const { newPattern } = useContext(DispatchContext);
+  const { orientation, complexity } = useContext(StateContext);
 
   return (
     <React.Fragment>

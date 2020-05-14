@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../context/PatternContext/PatternContext";
+import { StateContext } from "../../../context/PatternContext/PatternContext";
 import EditablePattern from "../EditablePattern";
-import DownloadablePattern from "../DownloadablePattern";
 import styled from "styled-components";
 
 const PrintPreviewContainer = styled.div`
@@ -82,29 +81,14 @@ const PrintPreviewContainer = styled.div`
   }
 `;
 
-const ImageWrapper = styled.div`
-  position: absolute;
-  width: 1920px;
-  height: 1920px;
-  opacity: 0;
-  z-index: -100;
-`;
-
 const PrintPreview = props => {
-  const { orientation } = useContext(PatternContext);
-
-  let DownloadableImage = (
-    <ImageWrapper>
-      <DownloadablePattern />
-    </ImageWrapper>
-  );
+  const { orientation } = useContext(StateContext);
 
   return (
     <PrintPreviewContainer
       backgroundColor={props.backgroundColor}
       orientation={orientation}
     >
-      {DownloadableImage}
       <EditablePattern orientation={orientation} />
     </PrintPreviewContainer>
   );

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../context/PatternContext/PatternContext";
+import { StateContext } from "../../../../../../context/PatternContext/PatternContext";
 import styled from "styled-components";
-import Pattern from "../Tiles/Tiles";
+import Pattern from "../../../../../Tiles/Tiles";
 
 const PatternWrapper = styled.div`
   display: grid;
@@ -11,10 +11,8 @@ const PatternWrapper = styled.div`
   background-color: var(--surface);
 `;
 
-const EditablePattern = props => {
-  const { patterns, columns, patternColor, DownloadableImageRef } = useContext(
-    PatternContext
-  );
+const EditablePattern = React.forwardRef((props, ref) => {
+  const { patterns, columns, patternColor } = useContext(StateContext);
 
   const tiledPatterns = patterns.map((pattern, i) => {
     return (
@@ -24,11 +22,11 @@ const EditablePattern = props => {
 
   return (
     <React.Fragment>
-      <PatternWrapper columns={columns} ref={DownloadableImageRef}>
+      <PatternWrapper columns={columns} ref={ref}>
         {tiledPatterns}
       </PatternWrapper>
     </React.Fragment>
   );
-};
+});
 
 export default EditablePattern;

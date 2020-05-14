@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../UI/Button/Button";
-import { PatternContext } from "../../../../../context/PatternContext/PatternContext";
+// import { StateContext } from "../../../../../context/PatternContext/PatternContext";
 
 const Print = props => {
-  const { downloadImage } = useContext(PatternContext);
+  // const { label } = useContext(StateContext);
   return (
     <React.Fragment>
       <InputWrapper>

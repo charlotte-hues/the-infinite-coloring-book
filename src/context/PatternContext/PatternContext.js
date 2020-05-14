@@ -1,23 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import getRandNum from "../../utility/getRandNum";
 import orientations from "./DefaultValues/Orientations/Orientations";
-import { allPatterns } from "../../components/Tiles/Tiles";
+import randPatternArray, {
+  maxNo
+} from "./DefaultValues/RandPatternArray/RandPatternArray";
+import getRandNum from "../../utility/getRandNum";
 import { saveAsPng } from "save-html-as-image";
 
-const initialMaxNo = [];
-for (const _ in allPatterns) {
-  initialMaxNo.push(_);
-}
-const maxNo = initialMaxNo.length;
-
-const randPatternArray = (columns, rows) => {
-  return Array.from({
-    length: columns * rows
-  }).map(x => getRandNum(maxNo));
-};
-
-export const PatternContext = React.createContext();
+export const StateContext = React.createContext();
+export const DispatchContext = React.createContext();
 
 const PatternContextProvider = props => {
   const DownloadableImageRef = useRef();
@@ -67,12 +58,14 @@ const PatternContextProvider = props => {
     setPatterns(newPattern);
   };
 
-  const downloadImageHandler = (e, name = "the-infinite-coloring-book") => {
-    saveAsPng(DownloadableImageRef.current, {
+  const downloadImageHandler = (
+    e,
+    name = "the-infinite-coloring-book",
+    ref
+  ) => {
+    saveAsPng(ref, {
       filename: name,
       printDate: false
-    }).then(() => {
-      window.location.reload();
     });
   };
 
@@ -90,27 +83,31 @@ const PatternContextProvider = props => {
     setColumns(orientations[orientation][complexity][0]);
   }, [orientation, complexity]);
 
-  return (
-    <PatternContext.Provider
-      value={{
-        patterns,
-        patternColor,
-        label,
-        orientation,
-        columns,
-        complexity,
-        DownloadableImageRef,
+  const state = {
+    patterns,
+    patternColor,
+    label,
+    orientation,
+    columns,
+    complexity,
+    DownloadableImageRef
+  };
 
-        switchTile: switchTileHandler,
-        updateComplexity: updateComplexityHandler,
-        updateOrientation: updateOrientationHandler,
-        updatePatternColor: updatePatternColorHandler,
-        newPattern: generateRandomPattern,
-        downloadImage: downloadImageHandler
-      }}
-    >
-      {props.children}
-    </PatternContext.Provider>
+  const dispatch = {
+    switchTile: switchTileHandler,
+    updateComplexity: updateComplexityHandler,
+    updateOrientation: updateOrientationHandler,
+    updatePatternColor: updatePatternColorHandler,
+    newPattern: generateRandomPattern,
+    downloadImage: downloadImageHandler
+  };
+
+  return (
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+        {props.children}
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   );
 };
 
