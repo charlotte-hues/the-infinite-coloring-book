@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import orientations from "./DefaultValues/Orientations/Orientations";
 import randPatternArray, {
@@ -11,7 +11,6 @@ export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
 
 const PatternContextProvider = props => {
-  const DownloadableImageRef = useRef();
   const [patterns, setPatterns] = useLocalStorage(
     "patterns",
     randPatternArray(4, 5)
@@ -89,8 +88,7 @@ const PatternContextProvider = props => {
     label,
     orientation,
     columns,
-    complexity,
-    DownloadableImageRef
+    complexity
   };
 
   const dispatch = {
