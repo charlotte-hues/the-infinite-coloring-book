@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../../../../context/PatternContext";
+import { PatternContext } from "../../../../../../context/PatternContext/PatternContext";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Slider from "../../../PatternControlsInputs/Inputs/Slider/Slider";
 

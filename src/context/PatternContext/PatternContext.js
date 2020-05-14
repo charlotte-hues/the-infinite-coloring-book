@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import useLocalStorage from "../hooks/useLocalStorage";
-import getRandNum from "../utility/getRandNum";
-import { allPatterns } from "../components/Tiles/Tiles";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import getRandNum from "../../utility/getRandNum";
+import orientations from "./DefaultValues/Orientations/Orientations";
+import { allPatterns } from "../../components/Tiles/Tiles";
 import { saveAsPng } from "save-html-as-image";
 
 const initialMaxNo = [];
@@ -9,24 +10,6 @@ for (const _ in allPatterns) {
   initialMaxNo.push(_);
 }
 const maxNo = initialMaxNo.length;
-
-const initialOrientation = {
-  portrait: [
-    [4, 5],
-    [5, 7],
-    [6, 8]
-  ],
-  landscape: [
-    [5, 4],
-    [7, 5],
-    [8, 6]
-  ],
-  square: [
-    [4, 4],
-    [5, 5],
-    [6, 6]
-  ]
-};
 
 const randPatternArray = (columns, rows) => {
   return Array.from({
@@ -47,13 +30,20 @@ const PatternContextProvider = props => {
     "portrait"
   );
   const [complexity, setComplexity] = useLocalStorage("complexity", 0);
+  const [columns, setColumns] = useState();
   const [patternColor, setPatternColor] = useLocalStorage(
     "patternColour",
     "#E1DBD2"
   );
+  const [backgroundColor, setBackgroundColor] = useLocalStorage(
+    "backgroundColor",
+    "F7F3EE"
+  );
   const [label] = useLocalStorage("label", "Charlotte");
-
-  const [columns, setColumns] = useState();
+  const [imageName, setImageName] = useLocalStorage(
+    "imageName",
+    "the-infinite-coloring-book"
+  );
 
   const updateComplexityHandler = newComplexity => {
     setComplexity(newComplexity);
@@ -65,21 +55,21 @@ const PatternContextProvider = props => {
     generateRandomPattern(newOrientation, complexity);
   };
 
-  const updateColorHandler = newColor => {
+  const updatePatternColorHandler = newColor => {
     setPatternColor(newColor);
   };
 
   const generateRandomPattern = (orientation, complexity) => {
     const newPattern = randPatternArray(
-      initialOrientation[orientation][complexity][0],
-      initialOrientation[orientation][complexity][1]
+      orientations[orientation][complexity][0],
+      orientations[orientation][complexity][1]
     );
     setPatterns(newPattern);
   };
 
-  const downloadImageHandler = () => {
+  const downloadImageHandler = (e, name = "the-infinite-coloring-book") => {
     saveAsPng(DownloadableImageRef.current, {
-      filename: "the-infinite-coloring-book",
+      filename: name,
       printDate: false
     }).then(() => {
       window.location.reload();
@@ -97,10 +87,8 @@ const PatternContextProvider = props => {
   };
 
   useEffect(() => {
-    setColumns(initialOrientation[orientation][complexity][0]);
+    setColumns(orientations[orientation][complexity][0]);
   }, [orientation, complexity]);
-
-  console.log(DownloadableImageRef);
 
   return (
     <PatternContext.Provider
@@ -116,7 +104,7 @@ const PatternContextProvider = props => {
         switchTile: switchTileHandler,
         updateComplexity: updateComplexityHandler,
         updateOrientation: updateOrientationHandler,
-        updateColor: updateColorHandler,
+        updatePatternColor: updatePatternColorHandler,
         newPattern: generateRandomPattern,
         downloadImage: downloadImageHandler
       }}

@@ -10,7 +10,6 @@ const SingleLineIconsContainer = styled.ul`
   height: ${props => (props.direction === "vertical" ? "100%" : "auto")};
   padding-bottom: 0px;
   border-bottom: none;
-  margin: -10px;
 `;
 
 export default SingleLineIconsContainer;

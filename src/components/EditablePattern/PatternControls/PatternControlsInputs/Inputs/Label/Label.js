@@ -7,6 +7,7 @@ const LabelWrapper = styled.div`
 
 const StyledLabel = styled.label`
   width: 100%;
+  font-size: 0.85rem;
 `;
 
 const Label = props => {

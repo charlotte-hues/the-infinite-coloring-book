@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../context/PatternContext";
+import { PatternContext } from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 
@@ -9,15 +9,6 @@ const PatternWrapper = styled.div`
   height: auto;
   width: auto;
   background-color: var(--surface);
-
-  @keyframes in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
 `;
 
 const EditablePattern = props => {

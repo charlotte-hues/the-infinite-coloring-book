@@ -1,5 +1,5 @@
 import React from "react";
-import PatternContextProvider from "../../context/PatternContext";
+import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import styled from "styled-components";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";

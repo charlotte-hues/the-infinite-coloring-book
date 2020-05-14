@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../../../context/PatternContext";
+import { PatternContext } from "../../../../../context/PatternContext/PatternContext";
 import OrientationSelect from "./OrientationSelect/OrientationSelect";
 import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";

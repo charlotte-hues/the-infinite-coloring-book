@@ -3,15 +3,22 @@ import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
 import ColorIconElements from "./ColorIconElements/ColorIconElements";
 
-const GroupSVG = styled.svg`
+const ColorSVG = styled.svg`
   ${sharedSvgStyles}
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const ColorIcon = props => {
   return (
-    <GroupSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-      <ColorIconElements fill={props.fill} active={props.active} />
-    </GroupSVG>
+    <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <ColorIconElements
+        pattern={props.pattern}
+        background={props.background}
+        active={props.active}
+      />
+    </ColorSVG>
   );
 };
 

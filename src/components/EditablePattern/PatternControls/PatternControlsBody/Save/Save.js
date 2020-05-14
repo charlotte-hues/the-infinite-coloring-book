@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
+import Button from "../../../../UI/Button/Button";
+import { PatternContext } from "../../../../../context/PatternContext/PatternContext";
 
 const Save = props => {
+  const { downloadImage } = useContext(PatternContext);
   return (
     <React.Fragment>
-      <h5>Coming Soon</h5>
+      <InputWrapper>
+        <Button onClick={downloadImage}>Save as image</Button>
+      </InputWrapper>
     </React.Fragment>
   );
 };

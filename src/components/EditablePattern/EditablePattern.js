@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { PatternContext } from "../../context/PatternContext";
+import { PatternContext } from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 

@@ -7,6 +7,7 @@ const sharedSvgStyles = css`
   max-height: 40px;
   fill: none;
   stroke-width: 2;
+  transition: all 0.2s ease;
 `;
 
 export default sharedSvgStyles;

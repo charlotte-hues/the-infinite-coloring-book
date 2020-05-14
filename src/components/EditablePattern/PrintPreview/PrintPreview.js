@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { PatternContext } from "../../../context/PatternContext";
+import { PatternContext } from "../../../context/PatternContext/PatternContext";
 import EditablePattern from "../EditablePattern";
 import DownloadablePattern from "../DownloadablePattern";
 import styled from "styled-components";

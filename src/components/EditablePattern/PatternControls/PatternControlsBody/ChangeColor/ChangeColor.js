@@ -1,10 +1,12 @@
 import React from "react";
-import ColorSelect from "./ColorSelect/ColorSelect";
+import DefaultColorSelect from "./DefaultColorSelect/DefaultColorSelect";
+import CustomColorSelect from "./CustomColorSelect/CustomColorSelect";
 
 const ChangeColor = props => {
   return (
     <React.Fragment>
-      <ColorSelect />
+      <DefaultColorSelect />
+      <CustomColorSelect />
     </React.Fragment>
   );
 };

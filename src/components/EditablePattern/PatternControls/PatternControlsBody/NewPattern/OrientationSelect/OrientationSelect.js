@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { PatternContext } from "../../../../../../context/PatternContext";
+import { PatternContext } from "../../../../../../context/PatternContext/PatternContext";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";

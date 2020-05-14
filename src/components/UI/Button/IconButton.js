@@ -9,7 +9,6 @@ const StyledIconButton = styled.button`
   border: 0;
   padding: 4px 0;
   max-height: 40px;
-  margin: 10px;
 
   &:after {
     position: absolute;
