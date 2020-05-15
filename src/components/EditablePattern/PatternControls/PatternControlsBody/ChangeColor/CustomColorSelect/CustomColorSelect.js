@@ -16,16 +16,17 @@ const defaultColors = [
 ];
 
 const DefaultColorSelect = props => {
-  const { updatePatternColor } = useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
   const { patternColor } = useContext(StateContext);
 
   const colorButtons = defaultColors.map(color => {
-    console.log(color);
     let active = color[0] === patternColor;
     return (
       <li key={color}>
         <IconButton
-          onClick={() => updatePatternColor(color[0])}
+          onClick={() =>
+            dispatch({ type: "UPDATE-PATTERN-COLOR", patternColor: color[0] })
+          }
           active={active}
         >
           <ColorIcon pattern={color[0]} background={color[1]} active={active} />

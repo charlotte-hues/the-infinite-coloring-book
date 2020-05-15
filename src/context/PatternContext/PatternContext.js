@@ -1,104 +1,96 @@
-import React, { useState, useEffect } from "react";
-import useLocalStorage from "../../hooks/useLocalStorage";
-import orientations from "./DefaultValues/Orientations/Orientations";
+import React, { useReducer } from "react";
 import randPatternArray, {
-  maxNo
+  maxNo,
+  getColumns
 } from "./DefaultValues/RandPatternArray/RandPatternArray";
 import getRandNum from "../../utility/getRandNum";
-import { saveAsPng } from "save-html-as-image";
+import { getFromStorage, updateStorage } from "../../utility/getLocalStorage";
 
 export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
 
+const initialState = {
+  patterns: getFromStorage("patterns", randPatternArray("portrait", 0)),
+  orientation: getFromStorage("orientation", "portrait"),
+  complexity: getFromStorage("complexity", 0),
+  columns: getColumns(
+    getFromStorage("orientation", "portrait"),
+    getFromStorage("complexity", 0)
+  ),
+  patternColor: getFromStorage("patternColor", "#E1DBD2"),
+  backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
+  label: getFromStorage("label", ""),
+  imageName: getFromStorage("imageName", "the-infinite-coloring-book")
+};
+
+const switchTile = (state, index) => {
+  const updatedPattern = [...state.patterns];
+  let newNum = getRandNum(maxNo);
+  while (state.patterns[index] === newNum) {
+    newNum = getRandNum(maxNo);
+  }
+  updatedPattern[index] = newNum;
+  updateStorage("patterns", updatedPattern);
+  return { ...state, patterns: updatedPattern };
+};
+
+const updatePatternColor = (state, patternColor) => {
+  updateStorage("patternColor", patternColor);
+  return { ...state, patternColor: patternColor };
+};
+
+const updateComplexity = (state, newComplexity) => {
+  const newPattern = randPatternArray(state.orientation, newComplexity);
+  const columns = getColumns(state.orientation, newComplexity);
+  updateStorage("complexity", newComplexity);
+  updateStorage("patterns", newPattern);
+  updateStorage("columns", columns);
+  return {
+    ...state,
+    complexity: newComplexity,
+    patterns: newPattern,
+    columns: columns
+  };
+};
+
+const updateOrientation = (state, newOrientation) => {
+  const newPattern = randPatternArray(newOrientation, state.complexity);
+  const columns = getColumns(newOrientation, state.complexity);
+  updateStorage("orientation", newOrientation);
+  updateStorage("patterns", newPattern);
+  updateStorage("columns", columns);
+  return {
+    ...state,
+    orientation: newOrientation,
+    patterns: newPattern,
+    columns: columns
+  };
+};
+
+const newPattern = state => {
+  const newPattern = randPatternArray(state.orientation, state.complexity);
+  return { ...state, patterns: newPattern };
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SWITCH-TILE":
+      return switchTile(state, action.index);
+    case "NEW-PATTERN":
+      return newPattern(state);
+    case "UPDATE-PATTERN-COLOR":
+      return updatePatternColor(state, action.patternColor);
+    case "UPDATE-COMPLEXITY":
+      return updateComplexity(state, action.newComplexity);
+    case "UPDATE-ORIENTATION":
+      return updateOrientation(state, action.orientation);
+    default:
+      throw new Error();
+  }
+};
+
 const PatternContextProvider = props => {
-  const [patterns, setPatterns] = useLocalStorage(
-    "patterns",
-    randPatternArray(4, 5)
-  );
-  const [orientation, setOrientation] = useLocalStorage(
-    "orientation",
-    "portrait"
-  );
-  const [complexity, setComplexity] = useLocalStorage("complexity", 0);
-  const [columns, setColumns] = useState();
-  const [patternColor, setPatternColor] = useLocalStorage(
-    "patternColour",
-    "#E1DBD2"
-  );
-  const [backgroundColor, setBackgroundColor] = useLocalStorage(
-    "backgroundColor",
-    "F7F3EE"
-  );
-  const [label] = useLocalStorage("label", "Charlotte");
-  const [imageName, setImageName] = useLocalStorage(
-    "imageName",
-    "the-infinite-coloring-book"
-  );
-
-  const updateComplexityHandler = newComplexity => {
-    setComplexity(newComplexity);
-    generateRandomPattern(orientation, newComplexity);
-  };
-
-  const updateOrientationHandler = newOrientation => {
-    setOrientation(newOrientation);
-    generateRandomPattern(newOrientation, complexity);
-  };
-
-  const updatePatternColorHandler = newColor => {
-    setPatternColor(newColor);
-  };
-
-  const generateRandomPattern = (orientation, complexity) => {
-    const newPattern = randPatternArray(
-      orientations[orientation][complexity][0],
-      orientations[orientation][complexity][1]
-    );
-    setPatterns(newPattern);
-  };
-
-  const downloadImageHandler = (
-    e,
-    name = "the-infinite-coloring-book",
-    ref
-  ) => {
-    saveAsPng(ref, {
-      filename: name,
-      printDate: false
-    });
-  };
-
-  const switchTileHandler = index => {
-    const updatedPattern = [...patterns];
-    let newNum = getRandNum(maxNo);
-    while (patterns[index] === newNum) {
-      newNum = getRandNum(maxNo);
-    }
-    updatedPattern[index] = newNum;
-    setPatterns(updatedPattern);
-  };
-
-  useEffect(() => {
-    setColumns(orientations[orientation][complexity][0]);
-  }, [orientation, complexity]);
-
-  const state = {
-    patterns,
-    patternColor,
-    label,
-    orientation,
-    columns,
-    complexity
-  };
-
-  const dispatch = {
-    switchTile: switchTileHandler,
-    updateComplexity: updateComplexityHandler,
-    updateOrientation: updateOrientationHandler,
-    updatePatternColor: updatePatternColorHandler,
-    newPattern: generateRandomPattern,
-    downloadImage: downloadImageHandler
-  };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <DispatchContext.Provider value={dispatch}>

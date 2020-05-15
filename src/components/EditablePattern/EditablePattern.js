@@ -36,17 +36,15 @@ const PatternWrapper = styled.div`
   }
 `;
 
-const EditablePattern = React.forwardRef((props, ref) => {
-  const { switchTile } = useContext(DispatchContext);
-  const { patterns, columns, patternColor, label, orientation } = useContext(
-    StateContext
-  );
+const EditablePattern = props => {
+  const dispatch = useContext(DispatchContext);
+  const { label, columns, patterns, patternColor } = useContext(StateContext);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setVisible(false);
     fadeInAfterChange();
-  }, [orientation]);
+  }, [props.orientation]);
 
   const fadeInAfterChange = () => {
     setTimeout(() => {
@@ -61,19 +59,19 @@ const EditablePattern = React.forwardRef((props, ref) => {
         id={i}
         patternColor={patternColor}
         num={patterns[i]}
-        click={() => switchTile(i)}
+        click={() => dispatch({ type: "SWITCH-TILE", index: i })}
       />
     );
   });
 
   return (
     <React.Fragment>
-      <PatternWrapper visible={visible} columns={columns} ref={ref}>
+      <PatternWrapper visible={visible} columns={columns}>
         {tiledPatterns}
       </PatternWrapper>
       <PrintName color={patternColor}>{label}</PrintName>
     </React.Fragment>
   );
-});
+};
 
 export default EditablePattern;

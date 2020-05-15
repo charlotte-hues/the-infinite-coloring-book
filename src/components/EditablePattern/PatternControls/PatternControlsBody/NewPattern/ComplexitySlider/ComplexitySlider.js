@@ -8,10 +8,10 @@ import Slider from "../../../PatternControlsInputs/Inputs/Slider/Slider";
 
 const ComplexitySlider = props => {
   const { complexity } = useContext(StateContext);
-  const { updateComplexity } = useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const updateComplexityHandler = e => {
-    updateComplexity(e.target.value);
+    dispatch({ type: "UPDATE-COMPLEXITY", newComplexity: e.target.value });
   };
 
   return (
