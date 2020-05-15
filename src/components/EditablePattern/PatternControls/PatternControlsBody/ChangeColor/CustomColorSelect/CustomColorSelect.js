@@ -9,10 +9,10 @@ import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorI
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
 const defaultColors = [
-  ["#E1DBD2", "#F7F3EE"],
-  ["#C74F33", "#F7F3EE"],
-  ["#2F544E", "#F7F3EE"],
-  ["black", "#F7F3EE"]
+  ["#F7F3EE", "#E1DBD2"],
+  ["#F7F3EE", "#C74F33"],
+  ["#F7F3EE", "#2F544E"],
+  ["#F7F3EE", "black"]
 ];
 
 const DefaultColorSelect = props => {
@@ -25,7 +25,11 @@ const DefaultColorSelect = props => {
       <li key={color}>
         <IconButton
           onClick={() =>
-            dispatch({ type: "UPDATE-PATTERN-COLOR", patternColor: color[0] })
+            dispatch({
+              type: "UPDATE-PATTERN-COLOR",
+              patternColor: color[0],
+              backgroundColor: color[1]
+            })
           }
           active={active}
         >
@@ -36,7 +40,7 @@ const DefaultColorSelect = props => {
   });
 
   return (
-    <InputWrapper label="custom:">
+    <InputWrapper label="inverted:">
       <IconsContainer>{colorButtons}</IconsContainer>
     </InputWrapper>
   );

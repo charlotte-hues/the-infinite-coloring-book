@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import styled from "styled-components";
 import { saveAsPng } from "save-html-as-image";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
+import NameImage from "./NameImage/NameImage";
 import Button from "../../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
+import { StateContext } from "../../../../../context/PatternContext/PatternContext";
 
 const ImageWrapper = styled.div`
   position: absolute;
@@ -21,6 +23,7 @@ const downloadImageHandler = (e, name = "the-infinite-coloring-book", ref) => {
 };
 
 const Save = props => {
+  const { imageName } = useContext(StateContext);
   const ref = useRef();
 
   let DownloadableImage = (
@@ -31,8 +34,9 @@ const Save = props => {
 
   return (
     <React.Fragment>
+      <NameImage />
       <InputWrapper>
-        <Button onClick={e => downloadImageHandler(e, undefined, ref.current)}>
+        <Button onClick={e => downloadImageHandler(e, imageName, ref.current)}>
           Save as image
         </Button>
       </InputWrapper>

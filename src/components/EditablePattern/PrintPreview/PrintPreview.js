@@ -18,7 +18,8 @@ const PrintPreviewContainer = styled.div`
       ? "500px"
       : "490px"};
   box-shadow: var(--shadow);
-  background: var(--surface);
+  background: ${props =>
+    props.backgroundColor ? props.backgroundColor : "var(--surface)"};
   transition: all 0.5s ease;
 
   @media only screen and (max-width: 1200px) {
@@ -82,11 +83,13 @@ const PrintPreviewContainer = styled.div`
 `;
 
 const PrintPreview = props => {
-  const { orientation } = useContext(StateContext);
+  const { orientation, backgroundColor } = useContext(StateContext);
+
+  console.log("rendered");
 
   return (
     <PrintPreviewContainer
-      backgroundColor={props.backgroundColor}
+      backgroundColor={backgroundColor}
       orientation={orientation}
     >
       <EditablePattern orientation={orientation} />

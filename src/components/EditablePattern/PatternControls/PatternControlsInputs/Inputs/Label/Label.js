@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const LabelWrapper = styled.div`
-  width: 180px;
+  width: 140px;
 `;
 
 const StyledLabel = styled.label`

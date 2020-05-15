@@ -34,9 +34,14 @@ const switchTile = (state, index) => {
   return { ...state, patterns: updatedPattern };
 };
 
-const updatePatternColor = (state, patternColor) => {
+const updatePatternColor = (state, patternColor, backgroundColor) => {
   updateStorage("patternColor", patternColor);
-  return { ...state, patternColor: patternColor };
+  updateStorage("backgroundColor", backgroundColor);
+  return {
+    ...state,
+    patternColor: patternColor,
+    backgroundColor: backgroundColor
+  };
 };
 
 const updateComplexity = (state, newComplexity) => {
@@ -67,6 +72,16 @@ const updateOrientation = (state, newOrientation) => {
   };
 };
 
+const updateLabel = (state, newLabel) => {
+  updateStorage("label", newLabel);
+  return { ...state, label: newLabel };
+};
+
+const updateImageName = (state, newImageName) => {
+  updateStorage("imageName", newImageName);
+  return { ...state, imageName: newImageName };
+};
+
 const newPattern = state => {
   const newPattern = randPatternArray(state.orientation, state.complexity);
   return { ...state, patterns: newPattern };
@@ -79,11 +94,19 @@ const reducer = (state, action) => {
     case "NEW-PATTERN":
       return newPattern(state);
     case "UPDATE-PATTERN-COLOR":
-      return updatePatternColor(state, action.patternColor);
+      return updatePatternColor(
+        state,
+        action.patternColor,
+        action.backgroundColor
+      );
     case "UPDATE-COMPLEXITY":
       return updateComplexity(state, action.newComplexity);
     case "UPDATE-ORIENTATION":
       return updateOrientation(state, action.orientation);
+    case "UPDATE-LABEL":
+      return updateLabel(state, action.newLabel);
+    case "UPDATE-IMAGE-NAME":
+      return updateImageName(state, action.newImageName);
     default:
       throw new Error();
   }

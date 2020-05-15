@@ -22,7 +22,7 @@ const PatternWrapper = styled.div`
   grid: auto-flow / repeat(${props => props.columns}, 1fr);
   height: auto;
   width: auto;
-  background-color: var(--surface);
+  background-color: none;
   opacity: ${props => (props.visible ? 1 : 0)};
   animation: ${props => (props.visible ? "in 0.5s ease-in" : null)};
 

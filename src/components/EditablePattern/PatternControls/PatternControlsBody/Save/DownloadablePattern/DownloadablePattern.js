@@ -8,11 +8,14 @@ const PatternWrapper = styled.div`
   grid: auto-flow / repeat(${props => props.columns}, 1fr);
   height: auto;
   width: auto;
-  background-color: var(--surface);
+  background-color: ${props =>
+    props.backgroundColor ? props.backgroundColor : "#fff"};
 `;
 
 const DownloadablePattern = React.forwardRef((props, ref) => {
-  const { patterns, columns, patternColor } = useContext(StateContext);
+  const { patterns, columns, patternColor, backgroundColor } = useContext(
+    StateContext
+  );
 
   const tiledPatterns = patterns.map((_, i) => {
     return (
@@ -22,7 +25,11 @@ const DownloadablePattern = React.forwardRef((props, ref) => {
 
   return (
     <React.Fragment>
-      <PatternWrapper columns={columns} ref={ref}>
+      <PatternWrapper
+        columns={columns}
+        ref={ref}
+        backgroundColor={backgroundColor}
+      >
         {tiledPatterns}
       </PatternWrapper>
     </React.Fragment>

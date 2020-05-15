@@ -25,7 +25,11 @@ const DefaultColorSelect = props => {
       <li key={color}>
         <IconButton
           onClick={() =>
-            dispatch({ type: "UPDATE-PATTERN-COLOR", patternColor: color[0] })
+            dispatch({
+              type: "UPDATE-PATTERN-COLOR",
+              patternColor: color[0],
+              backgroundColor: color[1]
+            })
           }
           active={active}
         >

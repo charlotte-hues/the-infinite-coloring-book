@@ -6,6 +6,7 @@ const StyledIconButton = styled.button`
   ${sharedButtonStyles}
   position: relative;
   height: 40px;
+  width: ${props => (props.heading ? "60px" : "40px")};
   border: 0;
   padding: 4px 0;
   max-height: 40px;
@@ -38,6 +39,7 @@ export const IconButton = props => (
     onClick={props.onClick}
     disabled={props.disabled}
     heading={props.heading}
+    square={props.square}
   >
     {props.children}
   </StyledIconButton>

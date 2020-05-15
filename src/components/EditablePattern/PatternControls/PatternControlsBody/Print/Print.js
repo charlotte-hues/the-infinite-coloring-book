@@ -1,12 +1,12 @@
 import React from "react";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../UI/Button/Button";
-// import { StateContext } from "../../../../../context/PatternContext/PatternContext";
+import LabelInput from "./LabelInput/LabelInput";
 
 const Print = props => {
-  // const { label } = useContext(StateContext);
   return (
     <React.Fragment>
+      <LabelInput />
       <InputWrapper>
         <Button onClick={() => window.print()}>Print</Button>
       </InputWrapper>
