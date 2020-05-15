@@ -11,7 +11,7 @@ const PatternWrapper = styled.div`
   background-color: var(--surface);
 `;
 
-const EditablePattern = React.forwardRef((props, ref) => {
+const DownloadablePattern = React.forwardRef((props, ref) => {
   const { patterns, columns, patternColor } = useContext(StateContext);
 
   const tiledPatterns = patterns.map((pattern, i) => {
@@ -29,4 +29,4 @@ const EditablePattern = React.forwardRef((props, ref) => {
   );
 });
 
-export default EditablePattern;
+export default DownloadablePattern;

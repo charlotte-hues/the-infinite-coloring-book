@@ -5,7 +5,6 @@ import randPatternArray, {
   maxNo
 } from "./DefaultValues/RandPatternArray/RandPatternArray";
 import getRandNum from "../../utility/getRandNum";
-import { saveAsPng } from "save-html-as-image";
 
 export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
@@ -57,17 +56,6 @@ const PatternContextProvider = props => {
     setPatterns(newPattern);
   };
 
-  const downloadImageHandler = (
-    e,
-    name = "the-infinite-coloring-book",
-    ref
-  ) => {
-    saveAsPng(ref, {
-      filename: name,
-      printDate: false
-    });
-  };
-
   const switchTileHandler = index => {
     const updatedPattern = [...patterns];
     let newNum = getRandNum(maxNo);
@@ -96,8 +84,7 @@ const PatternContextProvider = props => {
     updateComplexity: updateComplexityHandler,
     updateOrientation: updateOrientationHandler,
     updatePatternColor: updatePatternColorHandler,
-    newPattern: generateRandomPattern,
-    downloadImage: downloadImageHandler
+    newPattern: generateRandomPattern
   };
 
   return (

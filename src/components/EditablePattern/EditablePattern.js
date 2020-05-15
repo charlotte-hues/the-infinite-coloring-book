@@ -36,7 +36,7 @@ const PatternWrapper = styled.div`
   }
 `;
 
-const EditablePattern = React.forwardRef((props, ref) => {
+const EditablePattern = props => {
   const { switchTile } = useContext(DispatchContext);
   const { patterns, columns, patternColor, label, orientation } = useContext(
     StateContext
@@ -68,12 +68,12 @@ const EditablePattern = React.forwardRef((props, ref) => {
 
   return (
     <React.Fragment>
-      <PatternWrapper visible={visible} columns={columns} ref={ref}>
+      <PatternWrapper visible={visible} columns={columns}>
         {tiledPatterns}
       </PatternWrapper>
       <PrintName color={patternColor}>{label}</PrintName>
     </React.Fragment>
   );
-});
+};
 
 export default EditablePattern;
