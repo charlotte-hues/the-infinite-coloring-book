@@ -37,16 +37,14 @@ const PatternWrapper = styled.div`
 `;
 
 const EditablePattern = props => {
-  const { switchTile } = useContext(DispatchContext);
-  const { patterns, columns, patternColor, label, orientation } = useContext(
-    StateContext
-  );
+  const dispatch = useContext(DispatchContext);
+  const { label, columns, patterns, patternColor } = useContext(StateContext);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     setVisible(false);
     fadeInAfterChange();
-  }, [orientation]);
+  }, [props.orientation]);
 
   const fadeInAfterChange = () => {
     setTimeout(() => {
@@ -61,7 +59,7 @@ const EditablePattern = props => {
         id={i}
         patternColor={patternColor}
         num={patterns[i]}
-        click={() => switchTile(i)}
+        click={() => dispatch({ type: "SWITCH-TILE", index: i })}
       />
     );
   });

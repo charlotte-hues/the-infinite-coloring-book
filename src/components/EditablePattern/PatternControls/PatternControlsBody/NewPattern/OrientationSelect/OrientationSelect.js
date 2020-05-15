@@ -12,13 +12,18 @@ const orientations = ["portrait", "landscape", "square"];
 
 const OrientationSelect = props => {
   const { orientation } = useContext(StateContext);
-  const { updateOrientation } = useContext(DispatchContext);
+  const dispatch = useContext(DispatchContext);
 
   const orientationButtons = orientations.map(ori => {
     const active = orientation === ori;
     return (
       <li key={ori}>
-        <IconButton disabled={active} onClick={() => updateOrientation(ori)}>
+        <IconButton
+          disabled={active}
+          onClick={() =>
+            dispatch({ type: "UPDATE-ORIENTATION", orientation: ori })
+          }
+        >
           <OrientationIcons orientation={ori} active={active} />
         </IconButton>
       </li>
