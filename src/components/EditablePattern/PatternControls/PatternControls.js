@@ -3,6 +3,7 @@ import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import styled from "styled-components";
 import PatternControlsHeader from "./PatternControlsHeader/PatternControlsHeader";
 import PatternControlsBody from "./PatternControlsBody/PatternControlsBody";
+import MinimiseButton from "./PatternControlsInputs/Inputs/MinimiseButton/MinimiseButton";
 
 const Container = styled.div`
   z-index: 10;
@@ -68,6 +69,8 @@ const PatternControls = props => {
     mobile && setOpen(false);
   });
 
+  const closeControlBodyHandler = () => setOpen(false);
+
   const switchControlBodyHandler = group => {
     setActive(group);
     setOpen(true);
@@ -81,6 +84,9 @@ const PatternControls = props => {
         onClick={switchControlBodyHandler}
       />
       <PatternControlsBody active={active} open={open} />
+      <MinimiseButton onClick={closeControlBodyHandler} visible={open}>
+        x
+      </MinimiseButton>
     </Container>
   );
 };

@@ -46,6 +46,11 @@ const GlobalStyle = createGlobalStyle`
     -ms-user-select: none;
     user-select: none;
   }
+
+  @media print {
+
+    body { background: #fff;}
+
 `;
 
 function App() {

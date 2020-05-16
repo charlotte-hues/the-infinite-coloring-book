@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import colors from "./DefaultValues/Colors/Colors";
 import randPatternArray, {
   maxNo,
   getColumns
@@ -17,6 +18,8 @@ const initialState = {
     getFromStorage("orientation", "portrait"),
     getFromStorage("complexity", 0)
   ),
+  activeColorGroup: getFromStorage("activeColorGroup", "default"),
+  activeColor: getFromStorage("activeColor", 1),
   patternColor: getFromStorage("patternColor", "#E1DBD2"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   label: getFromStorage("label", ""),
@@ -32,6 +35,20 @@ const switchTile = (state, index) => {
   updatedPattern[index] = newNum;
   updateStorage("patterns", updatedPattern);
   return { ...state, patterns: updatedPattern };
+};
+
+const updateColor = (state, activeColorGroup, activeColor) => {
+  updateStorage("activeColorGroup", activeColorGroup);
+  updateStorage("activeColor", activeColor);
+  updateStorage("patternColor", colors[activeColorGroup][activeColor][0]);
+  updateStorage("backgroundColor", colors[activeColorGroup][activeColor][1]);
+  return {
+    ...state,
+    activeColorGroup: activeColorGroup,
+    activeColor: activeColor,
+    patternColor: colors[activeColorGroup][activeColor][0],
+    backgroundColor: colors[activeColorGroup][activeColor][1]
+  };
 };
 
 const updatePatternColor = (state, patternColor, backgroundColor) => {
@@ -93,6 +110,9 @@ const reducer = (state, action) => {
       return switchTile(state, action.index);
     case "NEW-PATTERN":
       return newPattern(state);
+    case "UPDATE-COLOR": {
+      return updateColor(state, action.colorGroup, action.index);
+    }
     case "UPDATE-PATTERN-COLOR":
       return updatePatternColor(
         state,

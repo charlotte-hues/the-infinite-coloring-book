@@ -4,36 +4,37 @@ import {
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
+import colors from "../../../../../../context/PatternContext/DefaultValues/Colors/Colors";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
 import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
-const defaultColors = [
-  ["#E1DBD2", "#F7F3EE"],
-  ["#C74F33", "#F7F3EE"],
-  ["#2F544E", "#F7F3EE"],
-  ["black", "#F7F3EE"]
-];
-
 const DefaultColorSelect = props => {
   const dispatch = useContext(DispatchContext);
-  const { patternColor } = useContext(StateContext);
+  const { activeColorGroup, activeColor } = useContext(StateContext);
 
-  const colorButtons = defaultColors.map(color => {
-    let active = color[0] === patternColor;
+  const colorButtons = Array.from({
+    length: colors.default.length
+  }).map((_, i) => {
+    let active = activeColorGroup === "default" && activeColor === i;
+
     return (
-      <li key={color}>
+      <li key={i}>
         <IconButton
           onClick={() =>
             dispatch({
-              type: "UPDATE-PATTERN-COLOR",
-              patternColor: color[0],
-              backgroundColor: color[1]
+              type: "UPDATE-COLOR",
+              colorGroup: "default",
+              index: i
             })
           }
           active={active}
         >
-          <ColorIcon pattern={color[0]} background={color[1]} active={active} />
+          <ColorIcon
+            pattern={colors.default[i][0]}
+            background={colors.default[i][1]}
+            active={active}
+          />
         </IconButton>
       </li>
     );

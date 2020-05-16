@@ -3,37 +3,38 @@ import {
   StateContext,
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
+import colors from "../../../../../../context/PatternContext/DefaultValues/Colors/Colors";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
 import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
-const defaultColors = [
-  ["#F7F3EE", "#E1DBD2"],
-  ["#F7F3EE", "#C74F33"],
-  ["#F7F3EE", "#2F544E"],
-  ["#F7F3EE", "black"]
-];
-
-const DefaultColorSelect = props => {
+const CustomColorSelect = props => {
   const dispatch = useContext(DispatchContext);
-  const { patternColor } = useContext(StateContext);
+  const { activeColorGroup, activeColor } = useContext(StateContext);
 
-  const colorButtons = defaultColors.map(color => {
-    let active = color[0] === patternColor;
+  const colorButtons = Array.from({
+    length: colors.custom.length
+  }).map((_, i) => {
+    let active = activeColorGroup === "custom" && activeColor === i;
+
     return (
-      <li key={color}>
+      <li key={i}>
         <IconButton
           onClick={() =>
             dispatch({
-              type: "UPDATE-PATTERN-COLOR",
-              patternColor: color[0],
-              backgroundColor: color[1]
+              type: "UPDATE-COLOR",
+              colorGroup: "custom",
+              index: i
             })
           }
           active={active}
         >
-          <ColorIcon pattern={color[0]} background={color[1]} active={active} />
+          <ColorIcon
+            pattern={colors.custom[i][0]}
+            background={colors.custom[i][1]}
+            active={active}
+          />
         </IconButton>
       </li>
     );
@@ -46,4 +47,4 @@ const DefaultColorSelect = props => {
   );
 };
 
-export default DefaultColorSelect;
+export default CustomColorSelect;
