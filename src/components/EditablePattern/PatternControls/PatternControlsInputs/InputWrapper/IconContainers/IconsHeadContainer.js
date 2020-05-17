@@ -4,6 +4,7 @@ import IconsContainer from "./IconsContainer";
 const IconsHeadContainer = styled(IconsContainer)`
   height: 60px;
   padding-bottom: 8px;
+  justify-content: space-between;
   border-bottom: ${props => (props.open ? "2px solid var(--trim)" : "none")};
 `;
 

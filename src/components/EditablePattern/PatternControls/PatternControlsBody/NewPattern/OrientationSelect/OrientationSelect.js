@@ -32,7 +32,7 @@ const OrientationSelect = props => {
 
   return (
     <InputWrapper label="orientation:">
-      <IconsContainer>{orientationButtons}</IconsContainer>
+      <IconsContainer evenlySpaced>{orientationButtons}</IconsContainer>
     </InputWrapper>
   );
 };

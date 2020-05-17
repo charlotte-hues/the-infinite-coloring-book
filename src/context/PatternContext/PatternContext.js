@@ -18,6 +18,10 @@ const initialState = {
     getFromStorage("orientation", "portrait"),
     getFromStorage("complexity", 0)
   ),
+  colorArray: getFromStorage("colorArray", {
+    default: [...colors.default],
+    custom: [...colors.custom]
+  }),
   activeColorGroup: getFromStorage("activeColorGroup", "default"),
   activeColor: getFromStorage("activeColor", 1),
   patternColor: getFromStorage("patternColor", "#E1DBD2"),
@@ -40,24 +44,39 @@ const switchTile = (state, index) => {
 const updateColor = (state, activeColorGroup, activeColor) => {
   updateStorage("activeColorGroup", activeColorGroup);
   updateStorage("activeColor", activeColor);
-  updateStorage("patternColor", colors[activeColorGroup][activeColor][0]);
-  updateStorage("backgroundColor", colors[activeColorGroup][activeColor][1]);
+  updateStorage(
+    "patternColor",
+    state.colorArray[activeColorGroup][activeColor][0]
+  );
+  updateStorage(
+    "backgroundColor",
+    state.colorArray[activeColorGroup][activeColor][1]
+  );
   return {
     ...state,
     activeColorGroup: activeColorGroup,
     activeColor: activeColor,
-    patternColor: colors[activeColorGroup][activeColor][0],
-    backgroundColor: colors[activeColorGroup][activeColor][1]
+    patternColor: state.colorArray[activeColorGroup][activeColor][0],
+    backgroundColor: state.colorArray[activeColorGroup][activeColor][1]
   };
 };
 
-const updatePatternColor = (state, patternColor, backgroundColor) => {
-  updateStorage("patternColor", patternColor);
-  updateStorage("backgroundColor", backgroundColor);
+const addCustomColor = state => {
+  const newCustomArray = [...state.colorArray.custom];
+  newCustomArray.push(["#F7F3EE", "#C74F33"]);
+  const newColorObject = { ...state.colorArray, custom: newCustomArray };
+  updateStorage("colorArray", newColorObject);
+  updateStorage("activeColorGroup", "custom");
+  updateStorage("activeColor", newCustomArray.length - 1);
+  updateStorage("patternColor", "#F7F3EE");
+  updateStorage("backgroundColor", "#C74F33");
   return {
     ...state,
-    patternColor: patternColor,
-    backgroundColor: backgroundColor
+    colorArray: newColorObject,
+    activeColorGroup: "custom",
+    activeColor: newCustomArray.length - 1,
+    patternColor: "#F7F3EE",
+    backgroundColor: "#C74F33"
   };
 };
 
@@ -113,12 +132,9 @@ const reducer = (state, action) => {
     case "UPDATE-COLOR": {
       return updateColor(state, action.colorGroup, action.index);
     }
-    case "UPDATE-PATTERN-COLOR":
-      return updatePatternColor(
-        state,
-        action.patternColor,
-        action.backgroundColor
-      );
+    case "ADD-CUSTOM-COLOR": {
+      return addCustomColor(state);
+    }
     case "UPDATE-COMPLEXITY":
       return updateComplexity(state, action.newComplexity);
     case "UPDATE-ORIENTATION":

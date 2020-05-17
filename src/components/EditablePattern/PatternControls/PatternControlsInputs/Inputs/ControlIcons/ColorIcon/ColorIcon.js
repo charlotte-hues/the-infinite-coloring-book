@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
-import ColorIconElements from "./ColorIconElements/ColorIconElements";
+import ColorIconElements, {
+  AddCustomColorIcon
+} from "./ColorIconElements/ColorIconElements";
 
 const ColorSVG = styled.svg`
   ${sharedSvgStyles}
@@ -18,6 +20,14 @@ const ColorIcon = props => {
         background={props.background}
         active={props.active}
       />
+    </ColorSVG>
+  );
+};
+
+export const CustomColorIcon = props => {
+  return (
+    <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <AddCustomColorIcon />
     </ColorSVG>
   );
 };
