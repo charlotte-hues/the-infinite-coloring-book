@@ -19,12 +19,18 @@ const initialState = {
     getFromStorage("complexity", 0)
   ),
   colorArray: getFromStorage("colorArray", {
-    default: [...colors.default],
-    custom: [...colors.custom]
+    background: [...colors.background],
+    pattern: [...colors.pattern],
+    all: [...colors.all]
   }),
-  activeColorGroup: getFromStorage("activeColorGroup", "default"),
-  activeColor: getFromStorage("activeColor", 1),
-  patternColor: getFromStorage("patternColor", "#E1DBD2"),
+  colorChoices: getFromStorage("colorChoices", [...colors.all]),
+  activeColorSelection: getFromStorage("activeColorSelection", "pattern"),
+  selectedBackgroundColor: getFromStorage("selectedBackgroundColor", 1),
+  selectedPatternColor: getFromStorage("selectedPatternColor", 3),
+
+  activeBackgroundColor: getFromStorage("activeBackgroundColor", 0),
+  activePatternColor: getFromStorage("activePatternColor", 3),
+  patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   label: getFromStorage("label", ""),
   imageName: getFromStorage("imageName", "the-infinite-coloring-book")
@@ -39,45 +45,6 @@ const switchTile = (state, index) => {
   updatedPattern[index] = newNum;
   updateStorage("patterns", updatedPattern);
   return { ...state, patterns: updatedPattern };
-};
-
-const updateColor = (state, activeColorGroup, activeColor) => {
-  updateStorage("activeColorGroup", activeColorGroup);
-  updateStorage("activeColor", activeColor);
-  updateStorage(
-    "patternColor",
-    state.colorArray[activeColorGroup][activeColor][0]
-  );
-  updateStorage(
-    "backgroundColor",
-    state.colorArray[activeColorGroup][activeColor][1]
-  );
-  return {
-    ...state,
-    activeColorGroup: activeColorGroup,
-    activeColor: activeColor,
-    patternColor: state.colorArray[activeColorGroup][activeColor][0],
-    backgroundColor: state.colorArray[activeColorGroup][activeColor][1]
-  };
-};
-
-const addCustomColor = state => {
-  const newCustomArray = [...state.colorArray.custom];
-  newCustomArray.push(["#F7F3EE", "#C74F33"]);
-  const newColorObject = { ...state.colorArray, custom: newCustomArray };
-  updateStorage("colorArray", newColorObject);
-  updateStorage("activeColorGroup", "custom");
-  updateStorage("activeColor", newCustomArray.length - 1);
-  updateStorage("patternColor", "#F7F3EE");
-  updateStorage("backgroundColor", "#C74F33");
-  return {
-    ...state,
-    colorArray: newColorObject,
-    activeColorGroup: "custom",
-    activeColor: newCustomArray.length - 1,
-    patternColor: "#F7F3EE",
-    backgroundColor: "#C74F33"
-  };
 };
 
 const updateComplexity = (state, newComplexity) => {
@@ -123,18 +90,36 @@ const newPattern = state => {
   return { ...state, patterns: newPattern };
 };
 
+const updateColor = (state, color, index) => {
+  if (state.activeColorSelection == "pattern") {
+    updateStorage("patternColor", color);
+    updateStorage("selectedPatternColor", index);
+
+    return { ...state, patternColor: color, selectedPatternColor: index };
+  } else {
+    updateStorage("backgroundColor", color);
+    updateStorage("selectedBackgroundColor", index);
+    return { ...state, backgroundColor: color, selectedBackgroundColor: index };
+  }
+};
+
+const updateActiveColorSelection = (state, selection) => {
+  updateStorage("activeColorSelection", selection);
+  return { ...state, activeColorSelection: selection };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
       return switchTile(state, action.index);
     case "NEW-PATTERN":
       return newPattern(state);
-    case "UPDATE-COLOR": {
-      return updateColor(state, action.colorGroup, action.index);
-    }
-    case "ADD-CUSTOM-COLOR": {
-      return addCustomColor(state);
-    }
+
+    case "UPDATE-COLOR":
+      return updateColor(state, action.color, action.index);
+    case "UPDATE-ACTIVE-COLOR-SELECTION":
+      return updateActiveColorSelection(state, action.selection);
+
     case "UPDATE-COMPLEXITY":
       return updateComplexity(state, action.newComplexity);
     case "UPDATE-ORIENTATION":

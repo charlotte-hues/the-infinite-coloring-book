@@ -1,12 +1,7 @@
 const colors = {
-  default: [
-    ["#E1DBD2", "#F7F3EE"],
-    ["#C74F33", "#F7F3EE"],
-    ["#2F544E", "#F7F3EE"],
-    ["black", "#F7F3EE"],
-    ["#2F544E", "#F7F3EE"]
-  ],
-  custom: []
+  background: ["white", "#E1DBD2", "#C74F33", "black"],
+  pattern: ["white", "#E1DBD2", "#C74F33", "black"],
+  all: ["white", "#F7F3EE", "#E1DBD2", "#C74F33", "black"]
 };
 
 export default colors;

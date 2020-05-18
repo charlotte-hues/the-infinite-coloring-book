@@ -9,12 +9,27 @@ export const NewIcon = (
 );
 
 export const ColourIcon = () => {
-  const { patternColor } = useContext(StateContext);
+  const { patternColor, backgroundColor } = useContext(StateContext);
   return (
     <React.Fragment>
       <path d="M2 12V17C2 19.2091 3.79086 21 6 21H11M2 12V2C2 1.44771 2.44772 1 3 1H8M2 12H8M30 12V17C30 19.2091 28.2091 21 26 21H21M30 12V2C30 1.44772 29.5523 1 29 1H14M30 12H14M8 1V13C8 14.6569 9.34315 16 11 16V16C12.6569 16 14 14.6569 14 13V1M8 1H14M21 21V29C21 30.1046 20.1046 31 19 31H13C11.8954 31 11 30.1046 11 29V21M21 21H11" />
       <circle cx="16" cy="27" r="1" />
-
+      <rect
+        x="4"
+        y="3"
+        width="2"
+        height="7"
+        fill={backgroundColor}
+        stroke="none"
+      />
+      <rect
+        x="16"
+        y="3"
+        width="12"
+        height="7"
+        fill={backgroundColor}
+        stroke="none"
+      />
       <path
         d="M13 2H9V13C9 14.1046 9.89543 15 11 15C12.1046 15 13 14.1046 13 13V2Z"
         fill={patternColor}

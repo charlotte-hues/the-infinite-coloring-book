@@ -4,47 +4,52 @@ import {
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
-import colors from "../../../../../../context/PatternContext/DefaultValues/Colors/Colors";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
-import ColorIcon from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
+import { ColorIconDiv } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
-const DefaultColorSelect = props => {
+const ColorPicker = props => {
   const dispatch = useContext(DispatchContext);
-  const { activeColorGroup, activeColor } = useContext(StateContext);
+  const {
+    activeColorSelection,
+    selectedBackgroundColor,
+    selectedPatternColor,
+    colorArray
+  } = useContext(StateContext);
+
+  const activeSelection =
+    activeColorSelection === "pattern"
+      ? selectedPatternColor
+      : selectedBackgroundColor;
+  console.log(activeSelection);
 
   const colorButtons = Array.from({
-    length: colors.default.length
+    length: colorArray.all.length
   }).map((_, i) => {
-    let active = activeColorGroup === "default" && activeColor === i;
-
+    let active = activeSelection === i;
     return (
       <li key={i}>
         <IconButton
           onClick={() =>
             dispatch({
               type: "UPDATE-COLOR",
-              colorGroup: "default",
+              color: colorArray.all[i],
               index: i
             })
           }
           active={active}
         >
-          <ColorIcon
-            pattern={colors.default[i][0]}
-            background={colors.default[i][1]}
-            active={active}
-          />
+          <ColorIconDiv color={colorArray.all[i]} active={active} />
         </IconButton>
       </li>
     );
   });
 
   return (
-    <InputWrapper label="print friendly:">
+    <InputWrapper>
       <IconsContainer>{colorButtons}</IconsContainer>
     </InputWrapper>
   );
 };
 
-export default DefaultColorSelect;
+export default ColorPicker;

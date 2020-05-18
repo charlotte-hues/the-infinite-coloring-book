@@ -1,12 +1,12 @@
 import React from "react";
-import DefaultColorSelect from "./DefaultColorSelect/DefaultColorSelect";
-import CustomColorSelect from "./CustomColorSelect/CustomColorSelect";
+import ActiveColorSelection from "./ActiveColorSelection/ActiveColorSelection";
+import ColorPicker from "./ColorPicker/ColorPicker";
 
 const ChangeColor = props => {
   return (
     <React.Fragment>
-      <DefaultColorSelect />
-      <CustomColorSelect />
+      <ActiveColorSelection />
+      <ColorPicker />
     </React.Fragment>
   );
 };

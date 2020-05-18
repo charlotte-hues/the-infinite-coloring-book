@@ -12,6 +12,21 @@ const ColorSVG = styled.svg`
   }
 `;
 
+export const ColorIconDiv = styled.div`
+  width: 28px;
+  height: 28px;
+  border: 2px solid white;
+  border-radius: ${props => (props.active ? "50%" : "2px")};
+  background: ${props => (props.color ? props.color : "white")};
+  transform: scale(${props => (props.active ? 1 : 0.75)})
+    rotate(${props => (props.active ? "90deg" : "0deg")});
+  transition: all 0.2s ease;
+  margin: auto;
+  &:hover {
+    transform: scale(1);
+  }
+`;
+
 const ColorIcon = props => {
   return (
     <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
