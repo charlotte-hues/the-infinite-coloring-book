@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/the-infinite-coloring-book/precache-manifest.0a4cb8df3e0ee06a9c49024aa222b144.js"
+  "/the-infinite-coloring-book/precache-manifest.54baa9665d9d629ddbf1420bdb4d57f3.js"
 );
 
 self.addEventListener('message', (event) => {
