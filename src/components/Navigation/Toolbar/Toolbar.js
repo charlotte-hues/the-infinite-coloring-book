@@ -10,6 +10,10 @@ const Header = styled.header`
   padding: 8px 20px;
   min-height: 40px;
   height: 7vh;
+
+  @media print {
+    display: none;
+  }
 `;
 
 const toolbar = props => (
