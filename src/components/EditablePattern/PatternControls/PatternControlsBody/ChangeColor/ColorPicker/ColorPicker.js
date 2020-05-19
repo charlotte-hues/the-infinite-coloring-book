@@ -12,19 +12,19 @@ const ColorPicker = props => {
   const dispatch = useContext(DispatchContext);
   const {
     activeColorSelection,
-    selectedBackgroundColor,
-    selectedPatternColor,
+    activeBackgroundColor,
+    activePatternColor,
     colorArray
   } = useContext(StateContext);
 
   const activeSelection =
     activeColorSelection === "pattern"
-      ? selectedPatternColor
-      : selectedBackgroundColor;
+      ? activePatternColor
+      : activeBackgroundColor;
   console.log(activeSelection);
 
   const colorButtons = Array.from({
-    length: colorArray.all.length
+    length: colorArray.length
   }).map((_, i) => {
     let active = activeSelection === i;
     return (
@@ -33,13 +33,13 @@ const ColorPicker = props => {
           onClick={() =>
             dispatch({
               type: "UPDATE-COLOR",
-              color: colorArray.all[i],
+              color: colorArray[i],
               index: i
             })
           }
           active={active}
         >
-          <ColorIconDiv color={colorArray.all[i]} active={active} />
+          <ColorIconDiv color={colorArray[i]} active={active} />
         </IconButton>
       </li>
     );

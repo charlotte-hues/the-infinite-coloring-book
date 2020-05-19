@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
 import ColorIconElements, {
-  AddCustomColorIcon
+  AddCustomColorIcon,
+  ActiveColorSelection
 } from "./ColorIconElements/ColorIconElements";
 
 const ColorSVG = styled.svg`
@@ -26,6 +27,16 @@ export const ColorIconDiv = styled.div`
     transform: scale(1);
   }
 `;
+
+export const ActiveColorSelectionIcon = props => (
+  <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <ActiveColorSelection
+      active={props.active}
+      background={props.background}
+      pattern={props.pattern}
+    />
+  </ColorSVG>
+);
 
 const ColorIcon = props => {
   return (

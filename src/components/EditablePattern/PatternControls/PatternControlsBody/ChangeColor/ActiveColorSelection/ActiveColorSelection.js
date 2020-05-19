@@ -5,18 +5,19 @@ import {
 } from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
-import { ColorIconDiv } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
+import { ActiveColorSelectionIcon } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
 const selections = ["pattern", "background"];
 
 const ActiveColorSelection = props => {
   const dispatch = useContext(DispatchContext);
-  const { activeColorSelection, colorArray } = useContext(StateContext);
+  const { activeColorSelection, backgroundColor, patternColor } = useContext(
+    StateContext
+  );
 
   const selectionButtons = selections.map((selection, i) => {
     let active = activeColorSelection === selection;
-
     return (
       <li key={i}>
         <IconButton
@@ -28,7 +29,11 @@ const ActiveColorSelection = props => {
           }
           active={active}
         >
-          {selection}
+          <ActiveColorSelectionIcon
+            active={active}
+            background={selection === "background" ? backgroundColor : null}
+            pattern={selection === "pattern" ? patternColor : null}
+          />
         </IconButton>
       </li>
     );

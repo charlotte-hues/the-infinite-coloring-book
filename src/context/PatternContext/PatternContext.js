@@ -18,15 +18,9 @@ const initialState = {
     getFromStorage("orientation", "portrait"),
     getFromStorage("complexity", 0)
   ),
-  colorArray: getFromStorage("colorArray", {
-    background: [...colors.background],
-    pattern: [...colors.pattern],
-    all: [...colors.all]
-  }),
+  colorArray: getFromStorage("colorArray", [...colors.all]),
   colorChoices: getFromStorage("colorChoices", [...colors.all]),
-  activeColorSelection: getFromStorage("activeColorSelection", "pattern"),
-  selectedBackgroundColor: getFromStorage("selectedBackgroundColor", 1),
-  selectedPatternColor: getFromStorage("selectedPatternColor", 3),
+  activeColorSelection: "pattern",
 
   activeBackgroundColor: getFromStorage("activeBackgroundColor", 0),
   activePatternColor: getFromStorage("activePatternColor", 3),
@@ -91,20 +85,19 @@ const newPattern = state => {
 };
 
 const updateColor = (state, color, index) => {
-  if (state.activeColorSelection == "pattern") {
+  if (state.activeColorSelection === "pattern") {
     updateStorage("patternColor", color);
-    updateStorage("selectedPatternColor", index);
+    updateStorage("activePatternColor", index);
 
-    return { ...state, patternColor: color, selectedPatternColor: index };
+    return { ...state, patternColor: color, activePatternColor: index };
   } else {
     updateStorage("backgroundColor", color);
-    updateStorage("selectedBackgroundColor", index);
-    return { ...state, backgroundColor: color, selectedBackgroundColor: index };
+    updateStorage("activeBackgroundColor", index);
+    return { ...state, backgroundColor: color, activeBackgroundColor: index };
   }
 };
 
 const updateActiveColorSelection = (state, selection) => {
-  updateStorage("activeColorSelection", selection);
   return { ...state, activeColorSelection: selection };
 };
 
