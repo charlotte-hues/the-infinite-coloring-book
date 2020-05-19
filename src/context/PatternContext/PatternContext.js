@@ -19,11 +19,9 @@ const initialState = {
     getFromStorage("complexity", 0)
   ),
   colorArray: getFromStorage("colorArray", [...colors.all]),
-  colorChoices: getFromStorage("colorChoices", [...colors.all]),
   activeColorSelection: "pattern",
-
-  activeBackgroundColor: getFromStorage("activeBackgroundColor", 0),
-  activePatternColor: getFromStorage("activePatternColor", 3),
+  activeBackgroundColor: getFromStorage("activeBackgroundColor", 2),
+  activePatternColor: getFromStorage("activePatternColor", 4),
   patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   label: getFromStorage("label", ""),
