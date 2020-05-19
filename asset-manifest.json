@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/the-infinite-coloring-book/static/js/main.eacc1a31.chunk.js",
-    "main.js.map": "/the-infinite-coloring-book/static/js/main.eacc1a31.chunk.js.map",
-    "runtime-main.js": "/the-infinite-coloring-book/static/js/runtime-main.ebc1504f.js",
-    "runtime-main.js.map": "/the-infinite-coloring-book/static/js/runtime-main.ebc1504f.js.map",
-    "static/js/2.3e9a8262.chunk.js": "/the-infinite-coloring-book/static/js/2.3e9a8262.chunk.js",
-    "static/js/2.3e9a8262.chunk.js.map": "/the-infinite-coloring-book/static/js/2.3e9a8262.chunk.js.map",
+    "main.js": "/the-infinite-coloring-book/static/js/main.d52f69da.chunk.js",
+    "main.js.map": "/the-infinite-coloring-book/static/js/main.d52f69da.chunk.js.map",
+    "runtime-main.js": "/the-infinite-coloring-book/static/js/runtime-main.fbb14520.js",
+    "runtime-main.js.map": "/the-infinite-coloring-book/static/js/runtime-main.fbb14520.js.map",
+    "static/js/2.0ca94e70.chunk.js": "/the-infinite-coloring-book/static/js/2.0ca94e70.chunk.js",
+    "static/js/2.0ca94e70.chunk.js.map": "/the-infinite-coloring-book/static/js/2.0ca94e70.chunk.js.map",
     "index.html": "/the-infinite-coloring-book/index.html",
-    "precache-manifest.54baa9665d9d629ddbf1420bdb4d57f3.js": "/the-infinite-coloring-book/precache-manifest.54baa9665d9d629ddbf1420bdb4d57f3.js",
+    "precache-manifest.630acf849f2908166d692ed5bdc0a01b.js": "/the-infinite-coloring-book/precache-manifest.630acf849f2908166d692ed5bdc0a01b.js",
     "service-worker.js": "/the-infinite-coloring-book/service-worker.js",
-    "static/js/2.3e9a8262.chunk.js.LICENSE.txt": "/the-infinite-coloring-book/static/js/2.3e9a8262.chunk.js.LICENSE.txt"
+    "static/js/2.0ca94e70.chunk.js.LICENSE.txt": "/the-infinite-coloring-book/static/js/2.0ca94e70.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ebc1504f.js",
-    "static/js/2.3e9a8262.chunk.js",
-    "static/js/main.eacc1a31.chunk.js"
+    "static/js/runtime-main.fbb14520.js",
+    "static/js/2.0ca94e70.chunk.js",
+    "static/js/main.d52f69da.chunk.js"
   ]
 }
