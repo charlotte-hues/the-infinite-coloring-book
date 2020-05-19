@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from "react";
 import styled from "styled-components";
-import { saveAsPng } from "save-html-as-image";
+import { saveAsJpeg } from "save-html-as-image";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import NameImage from "./NameImage/NameImage";
 import Button from "../../../../UI/Button/Button";
@@ -16,7 +16,7 @@ const ImageWrapper = styled.div`
 `;
 
 const downloadImageHandler = (e, name = "the-infinite-coloring-book", ref) => {
-  saveAsPng(ref, {
+  saveAsJpeg(ref, {
     filename: name,
     printDate: false
   });
