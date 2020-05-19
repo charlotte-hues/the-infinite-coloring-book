@@ -40,7 +40,7 @@ const ActiveColorSelection = props => {
   });
 
   return (
-    <InputWrapper>
+    <InputWrapper label="Pattern/Background:  ">
       <IconsContainer>{selectionButtons}</IconsContainer>
     </InputWrapper>
   );

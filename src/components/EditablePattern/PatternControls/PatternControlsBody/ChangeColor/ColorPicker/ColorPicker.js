@@ -1,14 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   StateContext,
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
-import { ColorIconDiv } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
+import {
+  ColorIconDiv,
+  CustomColorIcon
+} from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
+import HslSliders from "../HslSliders/HslSliders";
 
 const ColorPicker = props => {
+  const [customColorActive, setCustomColorActive] = useState(false);
+
   const dispatch = useContext(DispatchContext);
   const {
     activeColorSelection,
@@ -47,8 +53,14 @@ const ColorPicker = props => {
 
   return (
     <InputWrapper>
-      <IconsContainer>{colorButtons}</IconsContainer>
+      <IconsContainer>
+        {colorButtons}
+        {/* <IconButton>
+          <CustomColorIcon />
+        </IconButton> */}
+      </IconsContainer>
     </InputWrapper>
+    // <HslSliders />
   );
 };
 
