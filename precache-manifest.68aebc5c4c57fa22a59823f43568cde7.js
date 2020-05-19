@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "74963d89456895c914536066c02a325e",
+    "revision": "aeb86ddd49902b234f20e1762385686d",
     "url": "/the-infinite-coloring-book/index.html"
   },
   {
