@@ -11,12 +11,12 @@ export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
 
 const initialState = {
-  patterns: getFromStorage("patterns", randPatternArray("portrait", 0)),
-  orientation: getFromStorage("orientation", "portrait"),
-  complexity: getFromStorage("complexity", 0),
+  patterns: getFromStorage("patterns", randPatternArray("square", 2)),
+  orientation: getFromStorage("orientation", "square"),
+  complexity: getFromStorage("complexity", 2),
   columns: getColumns(
-    getFromStorage("orientation", "portrait"),
-    getFromStorage("complexity", 0)
+    getFromStorage("orientation", "square"),
+    getFromStorage("complexity", 2)
   ),
   colorArray: getFromStorage("colorArray", [...colors.all]),
   activeColorSelection: "pattern",
