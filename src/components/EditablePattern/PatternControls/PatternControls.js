@@ -17,6 +17,8 @@ const Container = styled.div`
   min-height: 250px;
   padding: 6px 25px 10px;
   background: var(--surface);
+  -webkit-box-shadow: var(--shadow);
+  -moz-box-shadow: var(--shadow);
   box-shadow: var(--shadow);
   margin: 10px;
   transition: all 0.5s ease;
@@ -85,7 +87,7 @@ const PatternControls = props => {
       />
       <PatternControlsBody active={active} open={open} />
       <MinimiseButton onClick={closeControlBodyHandler} visible={open}>
-        x
+        v
       </MinimiseButton>
     </Container>
   );
