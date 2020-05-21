@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StateContext } from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import * as Diagonal from "./Diagonal/Diagonal";
 import * as Square from "./Square/Square";
@@ -28,15 +29,24 @@ const SvgWrapper = styled.div`
   height: auto;
   padding-top: 100%;
   position: relative;
-  cursor: pointer;
+  cursor: ${props =>
+    props.locked && !props.lockMode ? "not-allowed" : "pointer"};
+  background: ${props =>
+    props.locked && props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none"};
+
+  &:hover {
+    background: ${props => (props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none")};
+  }
 `;
 
 const Pattern = props => {
+  const { lockMode } = useContext(StateContext);
   const NewPattern = patternsArr[props.num];
+
   return (
-    <SvgWrapper>
+    <SvgWrapper lockMode={lockMode} locked={props.locked} onClick={props.click}>
       <SVG
-        click={props.click}
+        // click={props.click}
         id={props.id}
         rotation={props.rotation}
         name={patternsArr[props.num].name}

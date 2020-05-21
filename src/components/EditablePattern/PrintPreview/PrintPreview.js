@@ -85,8 +85,6 @@ const PrintPreviewContainer = styled.div`
 const PrintPreview = props => {
   const { orientation, backgroundColor } = useContext(StateContext);
 
-  console.log("rendered");
-
   return (
     <PrintPreviewContainer
       backgroundColor={backgroundColor}

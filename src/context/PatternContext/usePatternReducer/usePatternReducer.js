@@ -1,42 +1,11 @@
-import React, { useReducer } from "react";
-import colors from "./DefaultValues/Colors/Colors";
 import randPatternArray, {
   maxNo,
   getColumns
-} from "./DefaultValues/RandPatternArray/RandPatternArray";
-import getRandNum from "../../utility/getRandNum";
-import { getFromStorage, updateStorage } from "../../utility/getLocalStorage";
+} from "../DefaultValues/RandPatternArray/RandPatternArray";
+import getRandNum from "../../../utility/getRandNum";
+import { updateStorage } from "../../../utility/getLocalStorage";
 
-export const StateContext = React.createContext();
-export const DispatchContext = React.createContext();
-
-const initialState = {
-  patterns: getFromStorage(
-    "patterns",
-    randPatternArray("square", 2).map(num => {
-      return { num: num, locked: false };
-    })
-  ),
-  orientation: getFromStorage("orientation", "square"),
-  complexity: getFromStorage("complexity", 2),
-  columns: getColumns(
-    getFromStorage("orientation", "square"),
-    getFromStorage("complexity", 2)
-  ),
-  colorArray: getFromStorage("colorArray", [...colors.all]),
-  activeColorSelection: "pattern",
-  activeBackgroundColor: getFromStorage("activeBackgroundColor", 2),
-  activePatternColor: getFromStorage("activePatternColor", 4),
-  patternColor: getFromStorage("patternColor", "#C74F33"),
-  backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
-  label: getFromStorage("label", ""),
-  imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
-  lockMode: false
-};
-
-const switchTile = (state, index) => {
-  console.log(state.patterns[index]);
-  if (state.patterns[index].locked) return state;
+const switchTile = (state, index, event) => {
   const updatedPattern = [...state.patterns];
   let newNum = getRandNum(maxNo);
   while (state.patterns[index].num === newNum) {
@@ -47,10 +16,10 @@ const switchTile = (state, index) => {
   return { ...state, patterns: updatedPattern };
 };
 
-const lockTile = (state, index, locked) => {
+const lockTile = (state, index, event) => {
   const newPattern = [...state.patterns];
-  newPattern[index].locked = !locked;
-  updateStorage("patterns", newPattern);
+  newPattern[index].locked = !newPattern[index].locked;
+  console.log(newPattern[index]);
   return { ...state, patterns: newPattern };
 };
 
@@ -133,9 +102,10 @@ const updateActiveColorSelection = (state, selection) => {
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
+      console.log("SWITCH TILE");
       return switchTile(state, action.index, action.event);
     case "LOCK-TILE":
-      return lockTile(state, action.index, action.locked);
+      return lockTile(state, action.index);
     case "NEW-PATTERN":
       return newPattern(state);
 
@@ -157,16 +127,4 @@ const reducer = (state, action) => {
   }
 };
 
-const PatternContextProvider = props => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  return (
-    <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={state}>
-        {props.children}
-      </StateContext.Provider>
-    </DispatchContext.Provider>
-  );
-};
-
-export default PatternContextProvider;
+export default reducer;
