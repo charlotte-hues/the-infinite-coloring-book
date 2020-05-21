@@ -38,7 +38,9 @@ const PatternWrapper = styled.div`
 
 const EditablePattern = props => {
   const dispatch = useContext(DispatchContext);
-  const { label, columns, patterns, patternColor } = useContext(StateContext);
+  const { label, columns, patterns, patternColor, lockMode } = useContext(
+    StateContext
+  );
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -58,8 +60,14 @@ const EditablePattern = props => {
         key={i}
         id={i}
         patternColor={patternColor}
-        num={patterns[i]}
-        click={() => dispatch({ type: "SWITCH-TILE", index: i })}
+        num={patterns[i].num}
+        locked={patterns[i].locked}
+        click={e => {
+          e.stopPropagation();
+          !lockMode
+            ? dispatch({ type: "SWITCH-TILE", index: i, event: e })
+            : dispatch({ type: "LOCK-TILE", index: i, event: e });
+        }}
       />
     );
   });

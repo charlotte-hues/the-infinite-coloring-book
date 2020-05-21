@@ -11,7 +11,12 @@ export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
 
 const initialState = {
-  patterns: getFromStorage("patterns", randPatternArray("square", 2)),
+  patterns: getFromStorage(
+    "patterns",
+    randPatternArray("square", 2).map(num => {
+      return { num: num, locked: false };
+    })
+  ),
   orientation: getFromStorage("orientation", "square"),
   complexity: getFromStorage("complexity", 2),
   columns: getColumns(
@@ -25,18 +30,27 @@ const initialState = {
   patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   label: getFromStorage("label", ""),
-  imageName: getFromStorage("imageName", "the-infinite-coloring-book")
+  imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
+  lockMode: false
 };
 
-const switchTile = (state, index) => {
+const switchTile = (state, index, event) => {
+  console.log("SWITCH TILE");
   const updatedPattern = [...state.patterns];
   let newNum = getRandNum(maxNo);
-  while (state.patterns[index] === newNum) {
+  while (state.patterns[index].num === newNum) {
     newNum = getRandNum(maxNo);
   }
-  updatedPattern[index] = newNum;
+  updatedPattern[index].num = newNum;
   updateStorage("patterns", updatedPattern);
   return { ...state, patterns: updatedPattern };
+};
+
+const lockTile = (state, index, event) => {
+  const newPattern = [...state.patterns];
+  newPattern[index].locked = !newPattern[index].locked;
+  console.log(newPattern[index]);
+  return { ...state, patterns: newPattern };
 };
 
 const updateComplexity = (state, newComplexity) => {
@@ -78,8 +92,15 @@ const updateImageName = (state, newImageName) => {
 };
 
 const newPattern = state => {
-  const newPattern = randPatternArray(state.orientation, state.complexity);
-  return { ...state, patterns: newPattern };
+  const newRandPattern = randPatternArray(state.orientation, state.complexity);
+  const newPattern = state.patterns.map((patternObj, i) => {
+    const newNumber = patternObj.locked ? patternObj.num : newRandPattern[i];
+    return { num: newNumber, locked: patternObj.locked };
+  });
+  return {
+    ...state,
+    patterns: newPattern
+  };
 };
 
 const updateColor = (state, color, index) => {
@@ -102,7 +123,9 @@ const updateActiveColorSelection = (state, selection) => {
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
-      return switchTile(state, action.index);
+      return switchTile(state, action.index, action.event);
+    case "LOCK-TILE":
+      return lockTile(state, action.index, action.event);
     case "NEW-PATTERN":
       return newPattern(state);
 
