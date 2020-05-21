@@ -54,6 +54,12 @@ const EditablePattern = props => {
     }, 200);
   };
 
+  const clickHandler = (i, locked) => {
+    !lockMode
+      ? dispatch({ type: "SWITCH-TILE", index: i })
+      : dispatch({ type: "LOCK-TILE", index: i, locked: locked });
+  };
+
   const tiledPatterns = patterns.map((pattern, i) => {
     return (
       <Pattern
@@ -62,12 +68,7 @@ const EditablePattern = props => {
         patternColor={patternColor}
         num={patterns[i].num}
         locked={patterns[i].locked}
-        click={e => {
-          e.stopPropagation();
-          !lockMode
-            ? dispatch({ type: "SWITCH-TILE", index: i, event: e })
-            : dispatch({ type: "LOCK-TILE", index: i, event: e });
-        }}
+        click={() => clickHandler(i, patterns[i].locked)}
       />
     );
   });

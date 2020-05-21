@@ -29,8 +29,10 @@ const SvgWrapper = styled.div`
   height: auto;
   padding-top: 100%;
   position: relative;
-  cursor: pointer;
-  background: ${props => (props.locked ? "rgba(255, 0, 0, 0.3)" : "none")};
+  cursor: ${props =>
+    props.locked && !props.lockMode ? "not-allowed" : "pointer"};
+  background: ${props =>
+    props.locked && props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none"};
 
   &:hover {
     background: ${props => (props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none")};
@@ -40,10 +42,11 @@ const SvgWrapper = styled.div`
 const Pattern = props => {
   const { lockMode } = useContext(StateContext);
   const NewPattern = patternsArr[props.num];
+
   return (
-    <SvgWrapper lockMode={lockMode} locked={props.locked}>
+    <SvgWrapper lockMode={lockMode} locked={props.locked} onClick={props.click}>
       <SVG
-        click={props.click}
+        // click={props.click}
         id={props.id}
         rotation={props.rotation}
         name={patternsArr[props.num].name}
