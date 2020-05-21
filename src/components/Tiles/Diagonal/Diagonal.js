@@ -14,7 +14,7 @@ export const Diagonal2 = props => (
   <React.Fragment>
     <path
       d="M10 40L-4.37114e-07 30M20 40L-8.74228e-07 20M30 40L-1.31134e-06 10M40 40L-1.74846e-06 0M40 30L10 -4.37114e-07M20 -8.74228e-07L40 20M40 10L30 -1.31134e-06"
-      stroke-linecap="square"
+      strokeLinecap="square"
     />
   </React.Fragment>
 );
