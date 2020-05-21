@@ -1,18 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import * as Backgrounds from "./Backgrounds/Backgrounds";
-import * as Symmetrical from "./Symmetrical/Symmetrical";
-import * as Circular from "./Circular/Circular";
+import * as Diagonal from "./Diagonal/Diagonal";
+import * as Square from "./Square/Square";
 import * as Corners from "./Corners/Corners";
 import * as Objects from "./Objects/Objects";
+import * as Cutouts from "./Cutouts/Cutouts";
+import * as Straights from "./Straights/Straights";
 import { SVG } from "./Styles/Styles";
 
 export const allPatterns = {
-  ...Backgrounds,
-  ...Symmetrical,
+  ...Diagonal,
+  ...Square,
   ...Objects,
-  ...Circular,
-  ...Corners
+  ...Corners,
+  ...Straights,
+  ...Cutouts
 };
 
 const patternsArr = [];
