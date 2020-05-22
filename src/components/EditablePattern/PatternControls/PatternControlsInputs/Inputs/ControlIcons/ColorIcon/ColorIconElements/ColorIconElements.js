@@ -39,7 +39,7 @@ export const ActiveSwitch = props => {
         height="19"
         rx="9.5"
         stroke="var(--orange)"
-        fill={props.active === "pattern" ? "none" : "var(--orange)"}
+        fill={props.active === "pattern" ? "none" : props.background}
       />
       <SwitchNode
         cx={props.active === "pattern" ? "30.5" : "11"}

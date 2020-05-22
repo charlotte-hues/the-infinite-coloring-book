@@ -9,7 +9,7 @@ import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapp
 
 const ActiveColorSelection = props => {
   const dispatch = useContext(DispatchContext);
-  const { activeColorSelection } = useContext(StateContext);
+  const { activeColorSelection, backgroundColor } = useContext(StateContext);
 
   const Switch = (
     <IconButton
@@ -22,7 +22,10 @@ const ActiveColorSelection = props => {
         })
       }
     >
-      <ActiveSelectionSwitch active={activeColorSelection} />
+      <ActiveSelectionSwitch
+        active={activeColorSelection}
+        background={backgroundColor}
+      />
     </IconButton>
   );
 
