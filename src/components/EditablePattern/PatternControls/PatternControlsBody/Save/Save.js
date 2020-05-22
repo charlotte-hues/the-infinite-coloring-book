@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { saveAsPng } from "save-html-as-image";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import NameImage from "./NameImage/NameImage";
+import PrintImage from "./PrintImage/PrintImage";
+import SaveToAccount from "./SaveToAccount/SaveToAccount";
 import Button from "../../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
 import { StateContext } from "../../../../../context/PatternContext/PatternContext";
@@ -36,11 +38,13 @@ const Save = props => {
   return (
     <React.Fragment>
       <NameImage />
+      <SaveToAccount />
       <InputWrapper>
         <Button onClick={e => downloadImageHandler(e, imageName, ref.current)}>
-          Save as image
+          Download
         </Button>
       </InputWrapper>
+      <PrintImage />
       {DownloadableImage}
     </React.Fragment>
   );

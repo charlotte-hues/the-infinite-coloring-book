@@ -29,7 +29,6 @@ const initialState = {
   activePatternColor: getFromStorage("activePatternColor", 4),
   patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
-  label: getFromStorage("label", ""),
   imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
   lockMode: false
 };
@@ -130,12 +129,28 @@ const updateActiveColorSelection = (state, selection) => {
   return { ...state, activeColorSelection: selection };
 };
 
+const setLockMode = (state, active) => {
+  return { ...state, lockMode: active };
+};
+
+const clearLockedTiles = state => {
+  const updatedPattern = state.patterns.map(patternObj => {
+    return { ...patternObj, locked: false };
+  });
+  updateStorage("patterns", updatedPattern);
+  return { ...state, patterns: updatedPattern };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
       return switchTile(state, action.index, action.event);
+    case "SET-LOCK-MODE":
+      return setLockMode(state, action.active);
     case "LOCK-TILE":
       return lockTile(state, action.index, action.locked);
+    case "CLEAR-LOCKED-TILES":
+      return clearLockedTiles(state);
     case "NEW-PATTERN":
       return newPattern(state);
 

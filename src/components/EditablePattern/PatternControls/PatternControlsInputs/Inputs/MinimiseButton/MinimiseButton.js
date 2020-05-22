@@ -12,7 +12,7 @@ const StyledMinimiseButton = styled.button`
   padding: 0;
   cursor: pointer;
   transition: all 0.2s ease;
-  transform: translateY(24px);
+  transform: translateY(22px);
   margin: auto;
 
   svg {
@@ -22,7 +22,7 @@ const StyledMinimiseButton = styled.button`
 
   &:hover {
     color: var(--orange);
-    transform: scale(1.1) translateY(20px);
+    transform: scale(1.1) translateY(18px);
 
     svg {
       path {

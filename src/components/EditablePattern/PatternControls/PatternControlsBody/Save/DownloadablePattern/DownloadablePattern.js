@@ -19,7 +19,12 @@ const DownloadablePattern = React.forwardRef((props, ref) => {
 
   const tiledPatterns = patterns.map((_, i) => {
     return (
-      <Pattern key={i} id={i} patternColor={patternColor} num={patterns[i]} />
+      <Pattern
+        key={i}
+        id={i}
+        patternColor={patternColor}
+        num={patterns[i].num}
+      />
     );
   });
 

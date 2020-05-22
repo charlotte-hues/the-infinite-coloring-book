@@ -38,7 +38,7 @@ const PatternWrapper = styled.div`
 
 const EditablePattern = props => {
   const dispatch = useContext(DispatchContext);
-  const { label, columns, patterns, patternColor, lockMode } = useContext(
+  const { imageName, columns, patterns, patternColor, lockMode } = useContext(
     StateContext
   );
   const [visible, setVisible] = useState(true);
@@ -65,7 +65,7 @@ const EditablePattern = props => {
       <Pattern
         key={i}
         id={i}
-        patternColor={patternColor}
+        patternColor={!lockMode ? patternColor : "red"}
         num={patterns[i].num}
         locked={patterns[i].locked}
         click={() => clickHandler(i, patterns[i].locked)}
@@ -78,7 +78,7 @@ const EditablePattern = props => {
       <PatternWrapper visible={visible} columns={columns}>
         {tiledPatterns}
       </PatternWrapper>
-      <PrintName color={patternColor}>{label}</PrintName>
+      <PrintName color={patternColor}>{imageName}</PrintName>
     </React.Fragment>
   );
 };

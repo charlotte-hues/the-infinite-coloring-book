@@ -12,27 +12,32 @@ export const ColourIcon = () => {
   const { patternColor, backgroundColor } = useContext(StateContext);
   return (
     <React.Fragment>
-      <path d="M2 12V17C2 19.2091 3.79086 21 6 21H11M2 12V2C2 1.44771 2.44772 1 3 1H8M2 12H8M30 12V17C30 19.2091 28.2091 21 26 21H21M30 12V2C30 1.44772 29.5523 1 29 1H14M30 12H14M8 1V13C8 14.6569 9.34315 16 11 16V16C12.6569 16 14 14.6569 14 13V1M8 1H14M21 21V29C21 30.1046 20.1046 31 19 31H13C11.8954 31 11 30.1046 11 29V21M21 21H11" />
-      <circle cx="16" cy="27" r="1" />
-      <rect
-        x="4"
-        y="3"
-        width="2"
-        height="7"
-        fill={backgroundColor}
-        stroke="none"
-      />
-      <rect
-        x="16"
-        y="3"
-        width="12"
-        height="7"
-        fill={backgroundColor}
-        stroke="none"
-      />
+      <path d="M14 5L1 18L14 31L27 18L14 5ZM14 5L10 1" />
+      <path d="M14 29L3 18H25L14 29Z" fill={patternColor} stroke="none" />
       <path
-        d="M13 2H9V13C9 14.1046 9.89543 15 11 15C12.1046 15 13 14.1046 13 13V2Z"
+        d="M30 24C30 25.1046 29.1046 26 28 26C26.8954 26 26 25.1046 26 24C26 22.8954 28 20 28 20C28 20 30 22.8954 30 24Z"
         fill={patternColor}
+        stroke={patternColor}
+      />
+    </React.Fragment>
+  );
+};
+
+export const LockIcon = props => {
+  const { patterns } = useContext(StateContext);
+  const locked = patterns.some(patternObj => patternObj.locked === true);
+  let path = locked
+    ? "M8 29L5 27V13H27V27L24 29H8Z M10 13V8C10 5 13 3 16 3C19 3 22 5 22 8V13"
+    : "M8 29L5 27V13H27V27L24 29H8Z M10 13V8C10 5 13 3 16 3C19 3 22 5 22 8";
+
+  return (
+    <React.Fragment>
+      <path d={path} />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M17 20.7324C17.5978 20.3866 18 19.7403 18 19C18 17.8954 17.1046 17 16 17C14.8954 17 14 17.8954 14 19C14 19.7403 14.4022 20.3866 15 20.7324V23C15 23.5523 15.4477 24 16 24C16.5523 24 17 23.5523 17 23V20.7324Z"
+        fill="#483E3B"
         stroke="none"
       />
     </React.Fragment>
@@ -41,7 +46,7 @@ export const ColourIcon = () => {
 
 export const SaveIcon = (
   <React.Fragment>
-    <path d="M22 1L28.7071 7.70711C28.8946 7.89464 29 8.149 29 8.41421V30C29 30.5523 28.5523 31 28 31H4C3.44772 31 3 30.5523 3 30V2C3 1.44772 3.44772 1 4 1H8M22 1H8M22 1V11C22 11.5523 21.5523 12 21 12H9C8.44772 12 8 11.5523 8 11V1 M18 4V9" />
+    <path d="M12 14H5V29H27V14H20 M16 21V4M16 4L10 10M16 4L22 10" />
   </React.Fragment>
 );
 

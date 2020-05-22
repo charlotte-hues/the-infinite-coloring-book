@@ -4,8 +4,8 @@ import { FadeIn } from "../../../UI/Animation/MountTransition/MountTransition";
 import styled from "styled-components";
 import NewPattern from "./NewPattern/NewPattern";
 import ChangeColor from "./ChangeColor/ChangeColor";
+import LockMode from "./LockMode/LockMode";
 import Save from "./Save/Save";
-import Print from "./Print/Print";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -43,17 +43,17 @@ const PatternControlsBody = props => {
         </FadeIn>
       );
       break;
+    case "lockMode":
+      activeGroup = (
+        <FadeIn name="lockMode">
+          <LockMode />
+        </FadeIn>
+      );
+      break;
     case "save":
       activeGroup = (
         <FadeIn name="save">
           <Save />
-        </FadeIn>
-      );
-      break;
-    case "print":
-      activeGroup = (
-        <FadeIn name="print">
-          <Print />
         </FadeIn>
       );
       break;

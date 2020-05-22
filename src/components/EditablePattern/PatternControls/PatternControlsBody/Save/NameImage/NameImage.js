@@ -11,7 +11,7 @@ const LabelInput = props => {
   const { imageName } = useContext(StateContext);
 
   return (
-    <InputWrapper label="imageName:">
+    <InputWrapper label="name:">
       <Input
         type="text"
         name="imageName"

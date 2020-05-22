@@ -20,8 +20,8 @@ export const GroupIcons = props => {
     case "save":
       GroupIcon = Group.SaveIcon;
       break;
-    case "print":
-      GroupIcon = Group.PrintIcon;
+    case "lockMode":
+      GroupIcon = <Group.LockIcon />;
       break;
     default:
       GroupIcon = null;

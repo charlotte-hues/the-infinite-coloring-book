@@ -83,11 +83,11 @@ const PrintPreviewContainer = styled.div`
 `;
 
 const PrintPreview = props => {
-  const { orientation, backgroundColor } = useContext(StateContext);
+  const { orientation, backgroundColor, lockMode } = useContext(StateContext);
 
   return (
     <PrintPreviewContainer
-      backgroundColor={backgroundColor}
+      backgroundColor={lockMode ? "white" : backgroundColor}
       orientation={orientation}
     >
       <EditablePattern orientation={orientation} />
