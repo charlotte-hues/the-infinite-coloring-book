@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import ClearLockedTiles from "./ClearLockedTiles/ClearLockedTiles";
 import Randomise from "./Randomise/Randomise";
 

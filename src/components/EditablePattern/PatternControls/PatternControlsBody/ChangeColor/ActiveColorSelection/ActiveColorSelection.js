@@ -4,46 +4,29 @@ import {
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
 import IconButton from "../../../../../UI/Button/IconButton";
-import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
-import { ActiveColorSelectionIcon } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
+import { ActiveSelectionSwitch } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
-
-const selections = ["pattern", "background"];
 
 const ActiveColorSelection = props => {
   const dispatch = useContext(DispatchContext);
-  const { activeColorSelection, backgroundColor, patternColor } = useContext(
-    StateContext
+  const { activeColorSelection } = useContext(StateContext);
+
+  const Switch = (
+    <IconButton
+      heading
+      onClick={() =>
+        dispatch({
+          type: "UPDATE-ACTIVE-COLOR-SELECTION",
+          selection:
+            activeColorSelection === "pattern" ? "background" : "pattern"
+        })
+      }
+    >
+      <ActiveSelectionSwitch active={activeColorSelection} />
+    </IconButton>
   );
 
-  const selectionButtons = selections.map((selection, i) => {
-    let active = activeColorSelection === selection;
-    return (
-      <li key={i}>
-        <IconButton
-          onClick={() =>
-            dispatch({
-              type: "UPDATE-ACTIVE-COLOR-SELECTION",
-              selection: selection
-            })
-          }
-          active={active}
-        >
-          <ActiveColorSelectionIcon
-            active={active}
-            background={selection === "background" ? backgroundColor : null}
-            pattern={selection === "pattern" ? patternColor : null}
-          />
-        </IconButton>
-      </li>
-    );
-  });
-
-  return (
-    <InputWrapper label="Pattern/Background:  ">
-      <IconsContainer>{selectionButtons}</IconsContainer>
-    </InputWrapper>
-  );
+  return <InputWrapper>{Switch}</InputWrapper>;
 };
 
 export default ActiveColorSelection;

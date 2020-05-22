@@ -3,13 +3,13 @@ import { StateContext } from "../../../../../../../../context/PatternContext/Pat
 
 export const NewIcon = (
   <React.Fragment>
-    <circle cx="16" cy="16" r="15" />
-    <path d="M16 7V24 M24.5 15.5L7.5 15.5" />
+    <circle cx="16" cy="16" r="14" />
+    <path d="M16 9L16 23 M23 16L9 16" />
   </React.Fragment>
 );
 
 export const ColourIcon = () => {
-  const { patternColor, backgroundColor } = useContext(StateContext);
+  const { patternColor } = useContext(StateContext);
   return (
     <React.Fragment>
       <path d="M14 5L1 18L14 31L27 18L14 5ZM14 5L10 1" />

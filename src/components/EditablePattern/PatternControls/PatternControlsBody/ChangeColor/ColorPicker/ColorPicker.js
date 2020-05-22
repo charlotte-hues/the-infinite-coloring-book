@@ -1,7 +1,4 @@
-import React, {
-  useContext
-  // useSnpm starttate
-} from "react";
+import React, { useContext } from "react";
 import {
   StateContext,
   DispatchContext
@@ -30,7 +27,6 @@ const ColorPicker = props => {
     activeColorSelection === "pattern"
       ? activePatternColor
       : activeBackgroundColor;
-  console.log(activeSelection);
 
   const colorButtons = Array.from({
     length: colorArray.length

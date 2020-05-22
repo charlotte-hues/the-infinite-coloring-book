@@ -3,7 +3,7 @@ import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
 import ColorIconElements, {
   AddCustomColorIcon,
-  ActiveColorSelection
+  ActiveSwitch
 } from "./ColorIconElements/ColorIconElements";
 
 const ColorSVG = styled.svg`
@@ -11,6 +11,14 @@ const ColorSVG = styled.svg`
   &:hover {
     transform: scale(1.2);
   }
+`;
+
+const SwitchSvg = styled.svg`
+  ${sharedSvgStyles}
+  width: 41px;
+  height: 22px;
+  max-width: 41px;
+  max-height: 22px;
 `;
 
 export const ColorIconDiv = styled.div`
@@ -28,14 +36,15 @@ export const ColorIconDiv = styled.div`
   }
 `;
 
-export const ActiveColorSelectionIcon = props => (
-  <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-    <ActiveColorSelection
-      active={props.active}
-      background={props.background}
-      pattern={props.pattern}
-    />
-  </ColorSVG>
+export const ActiveSelectionSwitch = props => (
+  <SwitchSvg
+    width="40"
+    height="20"
+    viewBox="0 0 41 22"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <ActiveSwitch active={props.active} />
+  </SwitchSvg>
 );
 
 const ColorIcon = props => {

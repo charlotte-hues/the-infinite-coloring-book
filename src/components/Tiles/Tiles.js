@@ -18,6 +18,8 @@ export const allPatterns = {
   ...Cutouts
 };
 
+console.log(allPatterns);
+
 const patternsArr = [];
 for (let pattern in allPatterns) {
   patternsArr.push(allPatterns[pattern]);
@@ -46,7 +48,6 @@ const Pattern = props => {
   return (
     <SvgWrapper lockMode={lockMode} locked={props.locked} onClick={props.click}>
       <SVG
-        // click={props.click}
         id={props.id}
         rotation={props.rotation}
         name={patternsArr[props.num].name}

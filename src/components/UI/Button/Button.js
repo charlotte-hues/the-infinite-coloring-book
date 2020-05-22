@@ -4,8 +4,9 @@ import sharedButtonStyles from "./sharedButtonStyles";
 
 const StyledButton = styled.button`
   ${sharedButtonStyles}
-  border: 2px solid var(--black);
-  color: var(--black);
+  border: 2px solid ${props =>
+    props.disabled ? "var(--trim)" : "var(--black)"};
+  color: ${props => (props.disabled ? "var(--trim)" : "var(--black)")};
   background: rgba(245, 245, 245, 0);
   border-radius: 4px;
   height: 32px;
@@ -17,7 +18,7 @@ const StyledButton = styled.button`
   transition: all 0.2s ease-in;
 
   &:hover {
-    background: var(--trim);
+    background: ${props => (props.disabled ? "none" : "var(--trim)")};
   }
 
   &:active {
@@ -27,7 +28,11 @@ const StyledButton = styled.button`
 `;
 
 const Button = props => {
-  return <StyledButton onClick={props.onClick}>{props.children}</StyledButton>;
+  return (
+    <StyledButton onClick={props.onClick} disabled={props.disabled}>
+      {props.children}
+    </StyledButton>
+  );
 };
 
 export default Button;
