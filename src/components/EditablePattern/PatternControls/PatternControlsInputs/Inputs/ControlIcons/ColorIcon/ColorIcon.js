@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
-import ColorIconElements, {
+import {
   AddCustomColorIcon,
   ActiveSwitch
 } from "./ColorIconElements/ColorIconElements";
@@ -24,7 +24,7 @@ const SwitchSvg = styled.svg`
 export const ColorIconDiv = styled.div`
   width: 28px;
   height: 28px;
-  border: 2px solid white;
+  border: 1px solid var(--black);
   border-radius: ${props => (props.active ? "50%" : "2px")};
   background: ${props => (props.color ? props.color : "white")};
   transform: scale(${props => (props.active ? 1 : 0.75)})
@@ -47,18 +47,6 @@ export const ActiveSelectionSwitch = props => (
   </SwitchSvg>
 );
 
-const ColorIcon = props => {
-  return (
-    <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-      <ColorIconElements
-        pattern={props.pattern}
-        background={props.background}
-        active={props.active}
-      />
-    </ColorSVG>
-  );
-};
-
 export const CustomColorIcon = props => {
   return (
     <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -67,4 +55,4 @@ export const CustomColorIcon = props => {
   );
 };
 
-export default ColorIcon;
+export default ColorIconDiv;
