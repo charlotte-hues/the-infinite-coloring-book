@@ -100,7 +100,6 @@ const updateImageName = (state, newImageName) => {
 };
 
 const newPattern = state => {
-  console.log("NEW PATTERN");
   const newRandPattern = randPatternArray(state.orientation, state.complexity);
   const newPattern = state.patterns.map((patternObj, i) => {
     const newNumber = patternObj.locked ? patternObj.num : newRandPattern[i];

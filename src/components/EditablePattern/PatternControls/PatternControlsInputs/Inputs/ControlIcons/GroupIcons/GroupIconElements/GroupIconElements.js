@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import { StateContext } from "../../../../../../../../context/PatternContext/PatternContext";
 
 export const NewIcon = (
@@ -23,16 +24,20 @@ export const ColourIcon = () => {
   );
 };
 
+const TransitionPath = styled.path`
+  transition: all 0.2s ease;
+`;
+
 export const LockIcon = props => {
   const { patterns } = useContext(StateContext);
   const locked = patterns.some(patternObj => patternObj.locked === true);
   let path = locked
     ? "M8 29L5 27V13H27V27L24 29H8Z M10 13V8C10 5 13 3 16 3C19 3 22 5 22 8V13"
-    : "M8 29L5 27V13H27V27L24 29H8Z M10 13V8C10 5 13 3 16 3C19 3 22 5 22 8";
+    : "M8 29L5 27V13H27V27L24 29H8Z M10 13V8C10 5 13 3 16 3C19 3 22 5 22 8V8.5";
 
   return (
     <React.Fragment>
-      <path d={path} />
+      <TransitionPath d={path} />
       <path
         fillRule="evenodd"
         clipRule="evenodd"
