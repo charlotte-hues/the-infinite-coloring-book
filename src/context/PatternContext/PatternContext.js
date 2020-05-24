@@ -34,7 +34,6 @@ const initialState = {
 };
 
 const switchTile = (state, index) => {
-  console.log(state.patterns[index]);
   if (state.patterns[index].locked) return state;
   const updatedPattern = [...state.patterns];
   let newNum = getRandNum(maxNo);

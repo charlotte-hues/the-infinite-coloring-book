@@ -3,8 +3,8 @@ import {
   StateContext,
   DispatchContext
 } from "../../../../../../context/PatternContext/PatternContext";
+import { PatternActiveSwitch } from "../../../PatternControlsInputs/Inputs/Switch/Switch";
 import IconButton from "../../../../../UI/Button/IconButton";
-import { ActiveSelectionSwitch } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 
 const ActiveColorSelection = props => {
@@ -22,8 +22,8 @@ const ActiveColorSelection = props => {
         })
       }
     >
-      <ActiveSelectionSwitch
-        active={activeColorSelection}
+      <PatternActiveSwitch
+        active={activeColorSelection === "pattern"}
         background={backgroundColor}
       />
     </IconButton>
