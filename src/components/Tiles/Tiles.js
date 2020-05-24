@@ -18,8 +18,6 @@ export const allPatterns = {
   ...Cutouts
 };
 
-console.log(allPatterns);
-
 const patternsArr = [];
 for (let pattern in allPatterns) {
   patternsArr.push(allPatterns[pattern]);
@@ -37,7 +35,12 @@ const SvgWrapper = styled.div`
     props.locked && props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none"};
 
   &:hover {
-    background: ${props => (props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none")};
+    background: ${props =>
+      props.lockMode && props.locked
+        ? "rgba(255, 0, 0, 0.15)"
+        : props.lockMode
+        ? "rgba(255, 0, 0, 0.3)"
+        : "none"};
   }
 `;
 
