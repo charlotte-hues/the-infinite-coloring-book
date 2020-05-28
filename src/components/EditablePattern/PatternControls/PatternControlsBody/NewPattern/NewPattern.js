@@ -3,6 +3,7 @@ import { DispatchContext } from "../../../../../context/PatternContext/PatternCo
 import OrientationSelect from "./OrientationSelect/OrientationSelect";
 import ComplexitySlider from "./ComplexitySlider/ComplexitySlider";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
+import TemplateSelect from "./TemplateSelect/TemplateSelect";
 import Button from "../../../../UI/Button/Button";
 
 const NewPattern = props => {
@@ -12,6 +13,7 @@ const NewPattern = props => {
     <React.Fragment>
       <OrientationSelect />
       <ComplexitySlider />
+      <TemplateSelect />
       <InputWrapper>
         <Button onClick={() => dispatch({ type: "NEW-PATTERN" })}>
           Randomise

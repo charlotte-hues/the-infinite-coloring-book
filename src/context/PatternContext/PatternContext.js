@@ -139,6 +139,20 @@ const clearLockedTiles = state => {
   return { ...state, patterns: updatedPattern };
 };
 
+const newTemplate = (state, template) => {
+  updateStorage("patterns", template.patterns);
+  updateStorage("columns", template.columns);
+  updateStorage("complexity", template.complexity);
+  updateStorage("orientation", template.orientation);
+  return {
+    ...state,
+    patterns: template.patterns,
+    columns: template.columns,
+    complexity: template.complexity,
+    orientation: template.orientation
+  };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
@@ -151,6 +165,8 @@ const reducer = (state, action) => {
       return clearLockedTiles(state);
     case "NEW-PATTERN":
       return newPattern(state);
+    case "NEW-TEMPLATE":
+      return newTemplate(state, action.template);
 
     case "UPDATE-COLOR":
       return updateColor(state, action.color, action.index);
