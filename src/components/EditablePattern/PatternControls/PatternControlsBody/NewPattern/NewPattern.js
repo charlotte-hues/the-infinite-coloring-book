@@ -14,11 +14,6 @@ const NewPattern = props => {
       <OrientationSelect />
       <ComplexitySlider />
       <TemplateSelect />
-      <InputWrapper>
-        <Button onClick={() => dispatch({ type: "NEW-PATTERN" })}>
-          Randomise
-        </Button>
-      </InputWrapper>
     </React.Fragment>
   );
 };
