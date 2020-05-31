@@ -4,6 +4,7 @@ import { FadeIn } from "../../../UI/Animation/MountTransition/MountTransition";
 import styled from "styled-components";
 import NewPattern from "./NewPattern/NewPattern";
 import ChangeColor from "./ChangeColor/ChangeColor";
+import TilePicker from "./TilePicker/TilePicker";
 import LockMode from "./LockMode/LockMode";
 import Save from "./Save/Save";
 
@@ -40,6 +41,13 @@ const PatternControlsBody = props => {
       activeGroup = (
         <FadeIn name="color">
           <ChangeColor />
+        </FadeIn>
+      );
+      break;
+    case "tilePicker":
+      activeGroup = (
+        <FadeIn name="tilePicker">
+          <TilePicker />
         </FadeIn>
       );
       break;

@@ -20,6 +20,9 @@ export const GroupIcons = props => {
     case "save":
       GroupIcon = Group.SaveIcon;
       break;
+    case "tilePicker":
+      GroupIcon = Group.PatternIcon;
+      break;
     case "lockMode":
       GroupIcon = <Group.LockIcon />;
       break;

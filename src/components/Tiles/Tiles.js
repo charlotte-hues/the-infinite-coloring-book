@@ -5,17 +5,28 @@ import * as Diagonal from "./Diagonal/Diagonal";
 import * as Square from "./Square/Square";
 import * as Corners from "./Corners/Corners";
 import * as Objects from "./Objects/Objects";
-import * as Cutouts from "./Cutouts/Cutouts";
 import * as Straights from "./Straights/Straights";
 import { SVG } from "./Styles/Styles";
 
+const pushParent = (obj, name) => {
+  let newObj = { ...obj };
+  for (let key in newObj) {
+    Object.defineProperty(
+      newObj,
+      name + "%" + key,
+      Object.getOwnPropertyDescriptor(newObj, key)
+    );
+    delete newObj[key];
+  }
+  return newObj;
+};
+
 export const allPatterns = {
-  ...Diagonal,
-  ...Square,
-  ...Objects,
-  ...Corners,
-  ...Straights,
-  ...Cutouts
+  ...pushParent(Diagonal, "DIAGONAL"),
+  ...pushParent(Square, "SQUARE"),
+  ...pushParent(Objects, "OBJECT"),
+  ...pushParent(Corners, "CORNER"),
+  ...pushParent(Straights, "STRAIGHT")
 };
 
 const patternsArr = [];

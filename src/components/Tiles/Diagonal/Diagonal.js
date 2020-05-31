@@ -37,6 +37,58 @@ export const DiagonalCutAlt = props => (
   </React.Fragment>
 );
 
+export const DiagonalDiamondCutout = props => (
+  <React.Fragment>
+    <path
+      d="M0 10L10 0M0 20L20 0M0 30L8 22M30 0L22.5 7.5M0 40L13 27M40 0L27.5 12.5M10 40L18 32M40 10L32.5 17.5M40 20L20 40M30 40L40 30"
+      strokeLinecap="square"
+    />
+    <rect
+      x="20.1421"
+      y="5.85791"
+      width="20"
+      height="20"
+      transform="rotate(45 20.1421 5.85791)"
+    />
+  </React.Fragment>
+);
+
+export const DiagonalDiamondCutoutAlt = props => (
+  <React.Fragment>
+    <path
+      d="M10 40L-4.37114e-07 30M20 40L-8.74228e-07 20M30 40L22 32M-1.31134e-06 10L7.5 17.5M40 40L27 27M-1.74846e-06 0L12.5 12.5M40 30L32 22M10 -4.37114e-07L17.5 7.5M20 -8.74228e-07L40 20M40 10L30 -1.31134e-06"
+      strokeLinecap="square"
+    />
+    <rect
+      x="5.85791"
+      y="19.8579"
+      width="20"
+      height="20"
+      transform="rotate(-45 5.85791 19.8579)"
+    />
+  </React.Fragment>
+);
+
+export const DiagonalCircleCutout = props => (
+  <React.Fragment>
+    <path
+      d="M0 10L10 0M0 20L20 0M0 30L9.5 20.5M30 0L20.5 9.5M0 40L12.5 27.5M40 0L27.5 12.5M10 40L19.5 30.5M40 10L30.5 19.5M40 20L20 40M30 40L40 30"
+      strokeLinecap="square"
+    />
+    <circle cx="20" cy="20" r="10" />
+  </React.Fragment>
+);
+
+export const DiagonalCircleCutoutAlt = props => (
+  <React.Fragment>
+    <path
+      d="M10 40L-4.37114e-07 30M20 40L-8.74228e-07 20M30 40L20.5 30.5M-1.31134e-06 10L9.5 19.5M40 40L27.5 27.5M-1.74846e-06 0L12.5 12.5M40 30L30.5 20.5M10 -4.37114e-07L19.5 9.5M20 -8.74228e-07L40 20M40 10L30 -1.31134e-06"
+      strokeLinecap="square"
+    />
+    <circle cx="20" cy="20" r="10" />
+  </React.Fragment>
+);
+
 export const Zigzag1 = props => (
   <React.Fragment>
     <path d="M0 30L10 39.5L20 30L30 39.5L40 30" strokeLinecap="square" />

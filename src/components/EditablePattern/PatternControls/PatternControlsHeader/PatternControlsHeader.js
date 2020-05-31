@@ -3,7 +3,7 @@ import IconButton from "../../../UI/Button/IconButton";
 import IconsHeadContainer from "../PatternControlsInputs/InputWrapper/IconContainers/IconsHeadContainer";
 import GroupIcons from "../PatternControlsInputs/Inputs/ControlIcons/GroupIcons/GroupIcons";
 
-const groups = ["new", "color", "lockMode", "save"];
+const groups = ["new", "color", "tilePicker", "lockMode", "save"];
 
 const PatternControlsHeader = React.forwardRef((props, ref) => {
   const groupButtons = groups.map(group => {

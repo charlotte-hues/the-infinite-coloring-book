@@ -54,6 +54,15 @@ export const SaveIcon = (
   </React.Fragment>
 );
 
+export const PatternIcon = (
+  <React.Fragment>
+    <path
+      d="M3 9.5L9.5 3M3 16L16 3M3 22.5L22.5 3M3 29L29 3M9.5 29L29 9.5M29 16L16 29M22.5 29L29 22.5"
+      stroke="var(--black)"
+    />
+  </React.Fragment>
+);
+
 export const PrintIcon = (
   <React.Fragment>
     <path d="M25 1H7V13H25V1Z" />
