@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import styled from "styled-components";
+import Arrow from "../../UI/Icons/Arrows/Arrows";
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -10,6 +11,8 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
   height: 32px;
   padding: 1px 12px 1px 8px;
   vertical-align: middle;
@@ -57,6 +60,18 @@ export const ListItem = styled("li")`
   }
 `;
 
+const StyledSvg = styled.svg`
+  width: 28px;
+  height: 28px;
+  transform: ${props => (!props.open ? "none" : "rotate(180deg)")};
+`;
+
+const ArrowSvg = props => (
+  <StyledSvg viewBox="0 0 32 32" open={props.open}>
+    <Arrow fill="var(--black)" />
+  </StyledSvg>
+);
+
 const Dropdown = props => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef();
@@ -66,7 +81,10 @@ const Dropdown = props => {
   const toggling = () => setIsOpen(!isOpen);
   return (
     <DropdownContainer ref={ref}>
-      <DropdownHeader onClick={toggling}>{props.value}</DropdownHeader>
+      <DropdownHeader onClick={toggling}>
+        {props.value}
+        <ArrowSvg open={isOpen} />
+      </DropdownHeader>
       {isOpen && (
         <ListContainer onClick={toggling}>
           <DropDownList value={props.value}>{props.children}</DropDownList>

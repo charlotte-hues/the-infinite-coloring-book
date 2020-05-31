@@ -21,6 +21,18 @@ const patternTemplates = props => {
       complexity: props.complexity,
       orientation: props.orientation
     },
+    beau: {
+      patterns: pattern(17, props),
+      columns: props.columns,
+      complexity: props.complexity,
+      orientation: props.orientation
+    },
+    penelope: {
+      patterns: pattern(15, props),
+      columns: props.columns,
+      complexity: props.complexity,
+      orientation: props.orientation
+    },
     yoda: {
       patterns: [
         { num: 13, locked: false },
@@ -30,19 +42,19 @@ const patternTemplates = props => {
         { num: 13, locked: false },
         { num: 29, locked: false },
         { num: 32, locked: false },
-        { num: 18, locked: false },
+        { num: 4, locked: false },
         { num: 37, locked: false },
         { num: 23, locked: false },
         { num: 35, locked: false },
         { num: 22, locked: false },
-        { num: 44, locked: false },
+        { num: 4, locked: false },
         { num: 22, locked: false },
         { num: 34, locked: false },
-        { num: 1, locked: false },
+        { num: 0, locked: false },
         { num: 35, locked: false },
         { num: 19, locked: false },
-        { num: 33, locked: false },
-        { num: 0, locked: false },
+        { num: 34, locked: false },
+        { num: 1, locked: false },
         { num: 13, locked: false },
         { num: 13, locked: false },
         { num: 13, locked: false },

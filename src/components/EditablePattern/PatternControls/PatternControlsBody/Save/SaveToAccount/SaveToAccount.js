@@ -6,7 +6,9 @@ const SaveToAccount = props => {
   return (
     <React.Fragment>
       <InputWrapper>
-        <Button onClick={() => {}}>Save to My Account</Button>
+        <Button disabled onClick={() => {}}>
+          Save to My Account
+        </Button>
       </InputWrapper>
     </React.Fragment>
   );
