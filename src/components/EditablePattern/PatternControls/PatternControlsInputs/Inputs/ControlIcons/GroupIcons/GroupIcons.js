@@ -21,7 +21,7 @@ export const GroupIcons = props => {
       GroupIcon = Group.SaveIcon;
       break;
     case "tilePicker":
-      GroupIcon = Group.PatternIcon;
+      GroupIcon = <Group.PatternIcon />;
       break;
     case "lockMode":
       GroupIcon = <Group.LockIcon />;
@@ -32,7 +32,7 @@ export const GroupIcons = props => {
 
   return (
     <GroupSVG
-      viewBox="0 0 32 32"
+      viewBox="0 0 40 40"
       xmlns="http://www.w3.org/2000/svg"
       active={props.active}
     >

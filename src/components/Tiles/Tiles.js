@@ -13,7 +13,7 @@ const pushParent = (obj, name) => {
   for (let key in newObj) {
     Object.defineProperty(
       newObj,
-      name + "%" + key,
+      name + key,
       Object.getOwnPropertyDescriptor(newObj, key)
     );
     delete newObj[key];
@@ -45,13 +45,15 @@ const SvgWrapper = styled.div`
   background: ${props =>
     props.locked && props.lockMode ? "rgba(255, 0, 0, 0.3)" : "none"};
 
-  &:hover {
-    background: ${props =>
-      props.lockMode && props.locked
-        ? "rgba(255, 0, 0, 0.15)"
-        : props.lockMode
-        ? "rgba(255, 0, 0, 0.3)"
-        : "none"};
+  @media not all and (pointer: coarse) {
+    &:hover {
+      background: ${props =>
+        props.lockMode && props.locked
+          ? "rgba(255, 0, 0, 0.15)"
+          : props.lockMode
+          ? "rgba(255, 0, 0, 0.3)"
+          : "none"};
+    }
   }
 `;
 

@@ -13,7 +13,7 @@ const ColorSVG = styled.svg`
 export const ColorIconDiv = styled.div`
   width: 28px;
   height: 28px;
-  border: 1px solid var(--black);
+  border: 1px solid var(--dark);
   border-radius: ${props => (props.active ? "50%" : "2px")};
   background: ${props => (props.color ? props.color : "white")};
   transform: scale(${props => (props.active ? 1 : 0.75)})

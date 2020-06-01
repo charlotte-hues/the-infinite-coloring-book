@@ -8,10 +8,10 @@ import {
 } from "./OrientationIconElements/OrientationIconElements";
 
 const OrientationIconStyle = css`
-  stroke: ${props => (props.active ? "var(--orange)" : "var(--trim)")};
+  stroke: ${props => (props.active ? "var(--orange)" : "var(--dark)")};
   & path:last-of-type {
     stroke: none;
-    fill: ${props => (props.active ? "var(--orange)" : "var(--trim)")};
+    fill: ${props => (props.active ? "var(--orange)" : "var(--dark)")};
   }
 `;
 

@@ -1,11 +1,10 @@
 import React from "react";
-import { DiagonalPath } from "../Styles/Styles";
 
 export const Diagonal = props => {
   return (
     <React.Fragment>
       {props.children}
-      <DiagonalPath d="M0 10L10 0M0 20L20 0M0 30L30 0M0 40L40 0M10 40L40 10M40 20L20 40M30 40L40 30" />
+      <path d="M0 10L10 0M0 20L20 0M0 30L30 0M0 40L40 0M10 40L40 10M40 20L20 40M30 40L40 30" />
     </React.Fragment>
   );
 };

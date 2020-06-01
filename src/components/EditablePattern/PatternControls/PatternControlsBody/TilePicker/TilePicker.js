@@ -24,15 +24,15 @@ const TilePicker = props => {
     <React.Fragment>
       <InputWrapper>
         <RandomSelector />
-        <TileGroupSelector range={getRange("OBJECT%")} />
+        <TileGroupSelector range={getRange("OBJECT")} />
       </InputWrapper>
       <InputWrapper>
-        <TileGroupSelector range={getRange("STRAIGHT%")} />
-        <TileGroupSelector range={getRange("CORNER%")} />
+        <TileGroupSelector range={getRange("STRAIGHT")} />
+        <TileGroupSelector range={getRange("CORNER")} />
       </InputWrapper>
       <InputWrapper>
-        <TileGroupSelector range={getRange("DIAGONAL%")} />
-        <TileGroupSelector range={getRange("SQUARE%")} />
+        <TileGroupSelector range={getRange("DIAGONAL")} />
+        <TileGroupSelector range={getRange("SQUARE")} />
       </InputWrapper>
     </React.Fragment>
   );

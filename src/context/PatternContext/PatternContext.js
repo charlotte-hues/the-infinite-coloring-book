@@ -30,15 +30,21 @@ const initialState = {
   patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
-  lockMode: false
+  lockMode: false,
+  activePattern: 999
 };
 
 const switchTile = (state, index) => {
   if (state.patterns[index].locked) return state;
   const updatedPattern = [...state.patterns];
-  let newNum = getRandNum(maxNo);
-  while (state.patterns[index].num === newNum) {
+  let newNum;
+  if (state.activePattern < 900) {
+    newNum = state.activePattern;
+  } else {
     newNum = getRandNum(maxNo);
+    while (state.patterns[index].num === newNum) {
+      newNum = getRandNum(maxNo);
+    }
   }
   updatedPattern[index].num = newNum;
   updateStorage("patterns", updatedPattern);
@@ -153,8 +159,17 @@ const newTemplate = (state, template) => {
   };
 };
 
+const setActivePattern = (state, num) => {
+  return {
+    ...state,
+    activePattern: num
+  };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
+    case "SET-ACTIVE-PATTERN":
+      return setActivePattern(state, action.num);
     case "SWITCH-TILE":
       return switchTile(state, action.index, action.event);
     case "SET-LOCK-MODE":

@@ -1,19 +1,5 @@
 import React from "react";
 
-export const Crowd = props => (
-  <React.Fragment>
-    <circle cx="10" cy="5.5" r="5" />
-    <circle cx="30" cy="5.5" r="5" />
-    <circle cx="20" cy="25" r="5" />
-    <circle cx="40" cy="25" r="5" />
-    <circle cy="25" r="5" />
-    <circle cy="40" r="10" />
-    <circle cx="20" cy="40" r="10" />
-    <circle cx="40" cy="40" r="10" />
-    <path d="M1 20.5C1 15.2533 5.25329 11 10.5 11C15.7467 11 20 15.2533 20 20.5M20 20C20 15.0294 24.2533 11 29.5 11C34.7467 11 39 15.0294 39 20" />
-  </React.Fragment>
-);
-
 export const Square = props => (
   <React.Fragment>
     <path d="M30 10H0.5V39.5H30V10Z" />
@@ -42,6 +28,20 @@ export const Flower = props => (
       d="M0 10L10 0M30 40L40 30M0 30L10 40M30 0L40 10"
       strokeLinecap="square"
     />
+  </React.Fragment>
+);
+
+export const Crowd = props => (
+  <React.Fragment>
+    <circle cx="10" cy="5.5" r="5" />
+    <circle cx="30" cy="5.5" r="5" />
+    <circle cx="20" cy="25" r="5" />
+    <circle cx="40" cy="25" r="5" />
+    <circle cy="25" r="5" />
+    <circle cy="40" r="10" />
+    <circle cx="20" cy="40" r="10" />
+    <circle cx="40" cy="40" r="10" />
+    <path d="M1 20.5C1 15.2533 5.25329 11 10.5 11C15.7467 11 20 15.2533 20 20.5M20 20C20 15.0294 24.2533 11 29.5 11C34.7467 11 39 15.0294 39 20" />
   </React.Fragment>
 );
 

@@ -12,7 +12,7 @@ export const SquareTR1 = props => (
 
 export const SquareTR2 = props => (
   <React.Fragment>
-    <path d="M0 30 H10 V40 M0 20 H20 V40 M0 10 H30" />
+    <path d="M0 30L10 30L10 40M0 20L20 20L20 40M0 10L30 10L30 40" />
     <path
       d="M0.5 9.5L10 0M10.5 9.5L20 0M20.5 9.5L30 0M30.5 19.5L40 10M30.5 9.5L40 0M30.5 29.5L40 20M30.5 39.5L40 30"
       strokeLinecap="square"
