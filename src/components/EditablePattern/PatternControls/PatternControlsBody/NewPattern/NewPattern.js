@@ -6,9 +6,9 @@ import TemplateSelect from "./TemplateSelect/TemplateSelect";
 const NewPattern = props => {
   return (
     <React.Fragment>
+      <TemplateSelect />
       <OrientationSelect />
       <ComplexitySlider />
-      <TemplateSelect />
     </React.Fragment>
   );
 };

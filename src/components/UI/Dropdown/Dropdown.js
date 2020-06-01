@@ -36,6 +36,7 @@ const ListContainer = styled.div`
   position: absolute;
   width: 100%;
   box-shadow: var(--shadowSmall);
+  z-index: 100;
 `;
 
 const DropDownList = styled("ul")`
