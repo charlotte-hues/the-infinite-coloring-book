@@ -1,6 +1,10 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import { withRouter } from "react-router";
+import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
 import EditPattern from "./containers/EditPattern/EditPattern";
+import About from "./containers/About/About";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -58,13 +62,21 @@ const GlobalStyle = createGlobalStyle`
 
 `;
 
-function App() {
+const App = props => {
+  let routes = (
+    <AnimatedRoutesWrapper>
+      <Route path="/about" exact component={About} />
+      <Route path="/create" component={EditPattern} />
+      <Route path="/" exact component={EditPattern} />
+    </AnimatedRoutesWrapper>
+  );
+
   return (
     <Layout>
       <GlobalStyle />
-      <EditPattern />
+      {routes}
     </Layout>
   );
-}
+};
 
-export default App;
+export default withRouter(App);

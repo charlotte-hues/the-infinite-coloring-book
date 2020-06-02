@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Logo from "../../Logo/Logo";
-// import NavigationItems from "../NavigationItems/NavigationItems";
+import NavigationItems from "../NavigationItems/NavigationItems";
 
 const Header = styled.header`
   display: flex;
@@ -19,9 +19,9 @@ const Header = styled.header`
 const toolbar = props => (
   <Header>
     <Logo />
-    {/* <nav>
+    <nav>
       <NavigationItems />
-    </nav> */}
+    </nav>
   </Header>
 );
 

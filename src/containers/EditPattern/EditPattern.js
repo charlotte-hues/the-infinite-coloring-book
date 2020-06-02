@@ -1,10 +1,11 @@
 import React from "react";
+import { motion } from "framer-motion";
 import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import styled from "styled-components";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   display: flex;
   height: 100%;
   width: 80vw;
@@ -47,9 +48,14 @@ const PreviewArea = styled.div`
 `;
 
 const EditPattern = props => {
+  console.log("CREATE");
   return (
     <PatternContextProvider>
-      <Container>
+      <Container
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <PreviewArea>
           <PrintPreview />
         </PreviewArea>
