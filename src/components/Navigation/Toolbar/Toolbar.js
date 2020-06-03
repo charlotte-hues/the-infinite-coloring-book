@@ -31,7 +31,7 @@ const Toolbar = props => {
 
   useEffect(() => {
     if (!props.mobile && props.sideDrawerOpen) props.onClick();
-  }, [props.mobile, props.sideDrawerOpen]);
+  }, [props]);
 
   return (
     <Header fillColor={props.sideDrawerOpen}>
