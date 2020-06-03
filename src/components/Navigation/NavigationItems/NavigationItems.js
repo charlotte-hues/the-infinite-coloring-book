@@ -9,6 +9,13 @@ const ListContainer = styled.ul`
   height: 100%;
   width: 100%;
   align-items: center;
+
+  @media only screen and (max-width: 780px) {
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+  }
 `;
 
 const navigationItems = props => (
@@ -16,11 +23,11 @@ const navigationItems = props => (
     <NavigationItem link="/" active>
       create
     </NavigationItem>
-    <NavigationItem link="/about" active>
-      about
-    </NavigationItem>
     <NavigationItem link="/login" active>
       login
+    </NavigationItem>
+    <NavigationItem link="/about" active>
+      about
     </NavigationItem>
   </ListContainer>
 );

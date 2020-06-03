@@ -9,10 +9,10 @@ const SVG = styled.svg.attrs({
   width: 40px;
   height: 40px;
   cursor: pointer;
+  stroke: ${props => props.fillColor};
 `;
 
 const HamburgerPath = styled.path`
-  stroke: var(--orange);
   stroke-width: 2;
   transition: all 0.2s ease;
 
@@ -22,7 +22,6 @@ const HamburgerPath = styled.path`
 `;
 
 const HamburgerPath2 = styled.path`
-  stroke: var(--orange);
   stroke-width: 2;
   transition: all 0.2s ease;
 
@@ -33,7 +32,7 @@ const HamburgerPath2 = styled.path`
 
 const Hamburger = props => (
   <IconButton onClick={props.onClick}>
-    <SVG>
+    <SVG fillColor={props.fillColor}>
       <HamburgerPath d="M0 10 L40 10 M0 20 L40 20 M40 30 L0 30" />
       <HamburgerPath2 d="M0 10 L0 10 M0 30 L0 30 M10 40 L10 40 M30 40 L30 40" />
     </SVG>

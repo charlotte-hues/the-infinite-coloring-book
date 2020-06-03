@@ -1,5 +1,4 @@
-import React from "react";
-import useWindowSize from "../../../hooks/useWindowSize";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../../Logo/Logo";
 import Hamburger from "../../UI/Icons/Hamburger/Hamburger";
@@ -12,6 +11,8 @@ const Header = styled.header`
   padding: 8px 20px;
   min-height: 40px;
   height: 7vh;
+  background: ${props =>
+    props.fillColor ? "rgba(199,79,51,0.9)" : "rgba(199,79,51,0)"};
 
   @media print {
     display: none;
@@ -19,12 +20,24 @@ const Header = styled.header`
 `;
 
 const Toolbar = props => {
-  const size = useWindowSize();
-  const NavItems = size.width <= 780 ? <Hamburger /> : <NavigationItems />;
+  const NavItems = props.mobile ? (
+    <Hamburger
+      onClick={props.onClick}
+      fillColor={props.sideDrawerOpen ? "var(--surface)" : "var(--orange)"}
+    />
+  ) : (
+    <NavigationItems />
+  );
+
+  useEffect(() => {
+    if (!props.mobile && props.sideDrawerOpen) props.onClick();
+  }, [props.mobile, props.sideDrawerOpen]);
 
   return (
-    <Header>
-      <Logo />
+    <Header fillColor={props.sideDrawerOpen}>
+      <Logo
+        fillColor={props.sideDrawerOpen ? "var(--surface)" : "var(--orange)"}
+      />
       <nav>{NavItems}</nav>
     </Header>
   );
