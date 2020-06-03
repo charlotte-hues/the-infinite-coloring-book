@@ -3,7 +3,10 @@ import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
 import * as Group from "./GroupIconElements/GroupIconElements";
 
-const GroupSVG = styled.svg`
+const GroupSVG = styled.svg.attrs({
+  viewBox: "0 0 40 40",
+  xmlns: "http://www.w3.org/2000/svg"
+})`
   stroke: var(--black);
   ${sharedSvgStyles}
 `;
@@ -30,15 +33,7 @@ export const GroupIcons = props => {
       GroupIcon = null;
   }
 
-  return (
-    <GroupSVG
-      viewBox="0 0 40 40"
-      xmlns="http://www.w3.org/2000/svg"
-      active={props.active}
-    >
-      {GroupIcon}
-    </GroupSVG>
-  );
+  return <GroupSVG active={props.active}>{GroupIcon}</GroupSVG>;
 };
 
 export default GroupIcons;

@@ -3,7 +3,10 @@ import styled from "styled-components";
 import sharedSvgStyles from "../sharedSvgStyles/sharedSvgStyles";
 import { AddCustomColorIcon } from "./ColorIconElements/ColorIconElements";
 
-const ColorSVG = styled.svg`
+const ColorSVG = styled.svg.attrs({
+  viewBox: "0 0 40 40",
+  xmlns: "http://www.w3.org/2000/svg"
+})`
   ${sharedSvgStyles}
   &:hover {
     transform: scale(1.2);
@@ -27,7 +30,7 @@ export const ColorIconDiv = styled.div`
 
 export const CustomColorIcon = props => {
   return (
-    <ColorSVG viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+    <ColorSVG>
       <AddCustomColorIcon />
     </ColorSVG>
   );

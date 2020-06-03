@@ -15,7 +15,10 @@ const OrientationIconStyle = css`
   }
 `;
 
-const OrientationSVG = styled.svg`
+const OrientationSVG = styled.svg.attrs({
+  viewBox: "0 0 40 40",
+  xmlns: "http://www.w3.org/2000/svg"
+})`
   ${sharedSvgStyles}
   ${OrientationIconStyle}
 `;
@@ -26,13 +29,7 @@ export const OrientationIcons = props => {
   if (props.orientation === "square") OrientationIcon = SquareIcon;
 
   return (
-    <OrientationSVG
-      viewBox="0 0 32 32"
-      xmlns="http://www.w3.org/2000/svg"
-      active={props.active}
-    >
-      {OrientationIcon}
-    </OrientationSVG>
+    <OrientationSVG active={props.active}>{OrientationIcon}</OrientationSVG>
   );
 };
 
