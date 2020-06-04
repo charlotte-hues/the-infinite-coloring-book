@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
 import EditPattern from "./containers/EditPattern/EditPattern";
+import SavedDesigns from "./containers/SavedDesigns/SavedDesigns";
 import About from "./containers/About/About";
 import Auth from "./containers/Auth/Auth";
 import { createGlobalStyle } from "styled-components";
@@ -67,6 +68,7 @@ const App = props => {
   let routes = (
     <AnimatedRoutesWrapper>
       <Route path="/about" exact component={About} />
+      <Route path="/myDesigns" exact component={SavedDesigns} />
       <Route path="/login" exact component={Auth} />
       <Route path="/" component={EditPattern} />
       <Redirect to="/" />

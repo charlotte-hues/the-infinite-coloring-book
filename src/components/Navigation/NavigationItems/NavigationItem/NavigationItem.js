@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const NavLi = styled.li`
-  padding: 6px 10px;
+  padding: 6px 12px;
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -15,9 +15,7 @@ const NavLi = styled.li`
     width: 100vw;
     line-height: 80px;
 
-    &:hover {
-      transform: translateY(-2px);
-    }
+  
 
     }
   }
@@ -28,6 +26,7 @@ const StyledLink = styled(NavLink)`
   transition: all 0.1s ease-in;
   text-decoration: none;
   color: var(--black);
+  white-space: nowrap;
 
   &:hover {
     transform: translateY(-2px);
@@ -54,7 +53,6 @@ const StyledLink = styled(NavLink)`
       border-bottom: 4px solid var(--surface);
       &:hover {
         cursor: default;
-        transform: none;
       }
     }
   }

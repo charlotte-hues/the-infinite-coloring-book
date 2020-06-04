@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
+import styled from "styled-components";
 import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
-import styled from "styled-components";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
 
 const Container = styled(motion.div)`

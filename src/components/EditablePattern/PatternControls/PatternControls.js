@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { DispatchContext } from "../../../context/PatternContext/PatternContext";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import useWindowSize from "../../../hooks/useWindowSize";
 import styled from "styled-components";
 import PatternControlsHeader from "./PatternControlsHeader/PatternControlsHeader";
 import PatternControlsBody from "./PatternControlsBody/PatternControlsBody";
@@ -53,17 +54,13 @@ const PatternControls = props => {
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(true);
   const ref = useRef();
+  const size = useWindowSize();
 
   useEffect(() => {
-    if (document.body.clientWidth <= 680) {
+    if (size.width <= 680) {
       setMobile(true);
     } else setMobile(false);
-    window.addEventListener("resize", () => {
-      if (document.body.clientWidth <= 680) {
-        setMobile(true);
-      } else setMobile(false);
-    });
-  }, []);
+  }, [size]);
 
   useEffect(() => {
     mobile ? setOpen(false) : setOpen(true);

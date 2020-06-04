@@ -23,6 +23,9 @@ const navigationItems = props => (
     <NavigationItem link="/" active>
       create
     </NavigationItem>
+    <NavigationItem link="/mydesigns" active>
+      my designs
+    </NavigationItem>
     <NavigationItem link="/login" active>
       login
     </NavigationItem>

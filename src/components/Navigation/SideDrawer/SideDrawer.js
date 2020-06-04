@@ -15,7 +15,7 @@ const SideDrawerContainer = styled.div`
 
 const SideDrawer = props => {
   return (
-    <SideDrawerContainer open={props.open}>
+    <SideDrawerContainer open={props.open} onClick={props.onClick}>
       <NavigationItems SideDrawerOpen={props.open} />
     </SideDrawerContainer>
   );

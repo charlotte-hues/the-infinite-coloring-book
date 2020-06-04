@@ -21,7 +21,7 @@ const Layout = props => {
         onClick={sideDrawerOpenHandler}
         sideDrawerOpen={sideDrawerOpen}
       />
-      <SideDrawer open={sideDrawerOpen} />
+      <SideDrawer open={sideDrawerOpen} onClick={sideDrawerOpenHandler} />
       <Main>{props.children}</Main>
     </React.Fragment>
   );

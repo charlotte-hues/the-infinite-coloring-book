@@ -24,6 +24,7 @@ const Toolbar = props => {
     <Hamburger
       onClick={props.onClick}
       fillColor={props.sideDrawerOpen ? "var(--surface)" : "var(--orange)"}
+      closeIcon={props.sideDrawerOpen}
     />
   ) : (
     <NavigationItems />
