@@ -48,7 +48,6 @@ const PreviewArea = styled.div`
 `;
 
 const EditPattern = props => {
-  console.log("CREATE");
   return (
     <PatternContextProvider>
       <Container

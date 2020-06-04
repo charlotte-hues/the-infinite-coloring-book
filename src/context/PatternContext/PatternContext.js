@@ -34,69 +34,65 @@ const initialState = {
   activePattern: 999
 };
 
-const switchTile = (state, index) => {
-  if (state.patterns[index].locked) return state;
+const switchTile = (state, action) => {
+  if (state.patterns[action.index].locked) return state;
   const updatedPattern = [...state.patterns];
   let newNum;
   if (state.activePattern < 900) {
     newNum = state.activePattern;
   } else {
     newNum = getRandNum(maxNo);
-    while (state.patterns[index].num === newNum) {
+    while (state.patterns[action.index].num === newNum) {
       newNum = getRandNum(maxNo);
     }
   }
-  updatedPattern[index].num = newNum;
+  updatedPattern[action.index].num = newNum;
   updateStorage("patterns", updatedPattern);
   return { ...state, patterns: updatedPattern };
 };
 
-const lockTile = (state, index, locked) => {
+const lockTile = (state, action) => {
   const newPattern = [...state.patterns];
-  newPattern[index].locked = !locked;
+  newPattern[action.index].locked = !action.locked;
   updateStorage("patterns", newPattern);
   return { ...state, patterns: newPattern };
 };
 
-const updateComplexity = (state, newComplexity) => {
-  const newPattern = randPatternArray(state.orientation, newComplexity).map(
-    num => {
-      return { num: num, locked: false };
-    }
-  );
-  const columns = getColumns(state.orientation, newComplexity);
-  updateStorage("complexity", newComplexity);
+const updateComplexity = (state, action) => {
+  const newPattern = randPatternArray(
+    state.orientation,
+    action.newComplexity
+  ).map(num => {
+    return { num: num, locked: false };
+  });
+  const columns = getColumns(state.orientation, action.newComplexity);
+  updateStorage("complexity", action.newComplexity);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
   return {
     ...state,
-    complexity: newComplexity,
+    complexity: action.newComplexity,
     patterns: newPattern,
     columns: columns
   };
 };
 
-const updateOrientation = (state, newOrientation) => {
-  const newPattern = randPatternArray(newOrientation, state.complexity).map(
+const updateOrientation = (state, action) => {
+  const newPattern = randPatternArray(action.orientation, state.complexity).map(
     num => {
       return { num: num, locked: false };
     }
   );
-  const columns = getColumns(newOrientation, state.complexity);
-  updateStorage("orientation", newOrientation);
+  const columns = getColumns(action.orientation, state.complexity);
+  updateStorage("orientation", action.orientation);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
   return {
     ...state,
-    orientation: newOrientation,
+    orientation: action.orientation,
     patterns: newPattern,
     columns: columns
   };
-};
-
-const updateLabel = (state, newLabel) => {
-  updateStorage("label", newLabel);
-  return { ...state, label: newLabel };
 };
 
 const updateImageName = (state, newImageName) => {
@@ -168,32 +164,28 @@ const setActivePattern = (state, num) => {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET-ACTIVE-PATTERN":
-      return setActivePattern(state, action.num);
     case "SWITCH-TILE":
-      return switchTile(state, action.index, action.event);
+      return switchTile(state, action);
+    case "LOCK-TILE":
+      return lockTile(state, action);
+    case "UPDATE-COMPLEXITY":
+      return updateComplexity(state, action);
+    case "UPDATE-ORIENTATION":
+      return updateOrientation(state, action);
     case "SET-LOCK-MODE":
       return setLockMode(state, action.active);
-    case "LOCK-TILE":
-      return lockTile(state, action.index, action.locked);
+    case "SET-ACTIVE-PATTERN":
+      return setActivePattern(state, action.num);
     case "CLEAR-LOCKED-TILES":
       return clearLockedTiles(state);
     case "NEW-PATTERN":
       return newPattern(state);
     case "NEW-TEMPLATE":
       return newTemplate(state, action.template);
-
     case "UPDATE-COLOR":
       return updateColor(state, action.color, action.index);
     case "UPDATE-ACTIVE-COLOR-SELECTION":
       return updateActiveColorSelection(state, action.selection);
-
-    case "UPDATE-COMPLEXITY":
-      return updateComplexity(state, action.newComplexity);
-    case "UPDATE-ORIENTATION":
-      return updateOrientation(state, action.orientation);
-    case "UPDATE-LABEL":
-      return updateLabel(state, action.newLabel);
     case "UPDATE-IMAGE-NAME":
       return updateImageName(state, action.newImageName);
     default:

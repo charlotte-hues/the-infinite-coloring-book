@@ -16,7 +16,7 @@ const OrientationIconStyle = css`
 `;
 
 const OrientationSVG = styled.svg.attrs({
-  viewBox: "0 0 40 40",
+  viewBox: "0 0 32 32",
   xmlns: "http://www.w3.org/2000/svg"
 })`
   ${sharedSvgStyles}

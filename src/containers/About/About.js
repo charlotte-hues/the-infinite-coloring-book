@@ -9,7 +9,6 @@ const Container = styled(motion.div)`
 `;
 
 const About = props => {
-  console.log("ABOUT");
   return (
     <Container
       initial={{ opacity: 0 }}
