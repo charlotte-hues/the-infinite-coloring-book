@@ -7,13 +7,14 @@ import Button from "../../../../../UI/Button/Button";
 const SaveToAccount = props => {
   const data = useContext(StateContext);
 
-  const savePatternHandler = () => {
-    delete data.lockMode;
-    delete data.activePattern;
+  const savePatternHandler = data => {
+    const postData = { ...data };
+    delete postData.lockMode;
+    delete postData.activePattern;
     axios
       .post(
         "https://the-infinite-coloring-book.firebaseio.com/patterns.json",
-        data
+        postData
       )
       .then(response => {
         console.log(data);
@@ -24,7 +25,9 @@ const SaveToAccount = props => {
   return (
     <React.Fragment>
       <InputWrapper>
-        <Button onClick={savePatternHandler}>Save to My Account</Button>
+        <Button onClick={() => savePatternHandler(data)}>
+          Save to My Account
+        </Button>
       </InputWrapper>
     </React.Fragment>
   );
