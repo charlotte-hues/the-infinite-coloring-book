@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import PrintPreview from "../../components/EditablePattern/PrintPreview/PrintPreview";
 import PatternControls from "../../components/EditablePattern/PatternControls/PatternControls";
 
@@ -49,19 +48,17 @@ const PreviewArea = styled.div`
 
 const EditPattern = props => {
   return (
-    <PatternContextProvider>
-      <Container
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <PreviewArea>
-          <PrintPreview />
-        </PreviewArea>
+    <Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <PreviewArea>
+        <PrintPreview />
+      </PreviewArea>
 
-        <PatternControls />
-      </Container>
-    </PatternContextProvider>
+      <PatternControls />
+    </Container>
   );
 };
 

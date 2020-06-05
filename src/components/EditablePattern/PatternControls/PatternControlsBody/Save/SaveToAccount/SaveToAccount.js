@@ -11,6 +11,7 @@ const SaveToAccount = props => {
     const postData = { ...data };
     delete postData.lockMode;
     delete postData.activePattern;
+    delete postData.activeColorSelection;
     axios
       .post(
         "https://the-infinite-coloring-book.firebaseio.com/patterns.json",

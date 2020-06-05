@@ -84,7 +84,6 @@ const PrintPreviewContainer = styled.div`
 
 const PrintPreview = props => {
   const { orientation, backgroundColor, lockMode } = useContext(StateContext);
-
   return (
     <PrintPreviewContainer
       backgroundColor={lockMode ? "white" : backgroundColor}

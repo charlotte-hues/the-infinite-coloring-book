@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import PatternContextProvider from "./context/PatternContext/PatternContext";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
@@ -78,7 +79,7 @@ const App = props => {
   return (
     <Layout>
       <GlobalStyle />
-      {routes}
+      <PatternContextProvider>{routes}</PatternContextProvider>
     </Layout>
   );
 };

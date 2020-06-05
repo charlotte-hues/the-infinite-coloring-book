@@ -162,6 +162,24 @@ const setActivePattern = (state, num) => {
   };
 };
 
+const loadPattern = (state, data) => {
+  updateStorage("patterns", data.patterns);
+  updateStorage("columns", data.columns);
+  updateStorage("complexity", data.complexity);
+  updateStorage("orientation", data.orientation);
+  updateStorage("patternColor", data.patternColor);
+  updateStorage("activePatternColor", data.activePatternColor);
+  updateStorage("backgroundColor", data.backgroundColor);
+  updateStorage("activeBackgroundColor", data.activeBackgroundColor);
+  updateStorage("imageName", data.imageName);
+  return {
+    ...data,
+    activePattern: 999,
+    lockMode: false,
+    activeColorSelection: "pattern"
+  };
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "SWITCH-TILE":
@@ -188,6 +206,8 @@ const reducer = (state, action) => {
       return updateActiveColorSelection(state, action.selection);
     case "UPDATE-IMAGE-NAME":
       return updateImageName(state, action.newImageName);
+    case "LOAD-PATTERN":
+      return loadPattern(state, action.data);
     default:
       throw new Error();
   }
