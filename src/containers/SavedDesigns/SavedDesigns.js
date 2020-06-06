@@ -5,6 +5,7 @@ import { DispatchContext } from "../../context/PatternContext/PatternContext";
 import axios from "axios";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import SavedDesignListItem from "../../components/SavedDesignListItem/SavedDesignListItem";
 
 const Container = styled(motion.div)`
 height: 100%;
@@ -47,9 +48,11 @@ const SavedDesigns = props => {
     : patterns.map(data => {
         return (
           <li key={data.id}>
-            {data.imageName}
-            <button onClick={() => editHandler(data)}>Edit</button>
-            <button>Delete</button>
+            <SavedDesignListItem
+              name={data.imageName}
+              edit={() => editHandler(data)}
+              delete={() => {}}
+            />
           </li>
         );
       });
