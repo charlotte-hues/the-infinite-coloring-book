@@ -4,7 +4,7 @@ import Thumbnail from "./Thumnail/Thumbnail";
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
+  width: 400px;
   justify-content: space-between;
 `;
 
@@ -13,8 +13,10 @@ const SavedDesignListItem = props => {
     <Container>
       <Thumbnail />
       <h4>{props.name}</h4>
-      <button onClick={props.edit}>edit</button>
-      <button onClick={props.delete}>delete</button>
+      <div>
+        <button onClick={props.edit}>edit</button>
+        <button onClick={props.delete}>delete</button>
+      </div>
     </Container>
   );
 };
