@@ -15,7 +15,7 @@ margin: auto;
 `;
 
 const SavedDesigns = props => {
-  const [patterns, setPatterns] = useState(null);
+  const [savedPatterns, setSavedPatterns] = useState(null);
   const [loading, setLoading] = useState(false);
   const dispatch = useContext(DispatchContext);
   const history = useHistory();
@@ -30,7 +30,7 @@ const SavedDesigns = props => {
           fetchedPatterns.push({ ...response.data[key], id: key });
         }
         setLoading(false);
-        setPatterns(fetchedPatterns);
+        setSavedPatterns(fetchedPatterns);
       })
       .catch(error => {
         setLoading(false);
@@ -43,15 +43,19 @@ const SavedDesigns = props => {
     history.push("/");
   };
 
-  const designListItems = !patterns
+  const designListItems = !savedPatterns
     ? null
-    : patterns.map(data => {
+    : savedPatterns.map(data => {
         return (
           <li key={data.id}>
             <SavedDesignListItem
               name={data.imageName}
               edit={() => editHandler(data)}
               delete={() => {}}
+              patterns={data.patterns}
+              backgroundColor={data.backgroundColor}
+              patternColor={data.patternColor}
+              columns={data.columns}
             />
           </li>
         );

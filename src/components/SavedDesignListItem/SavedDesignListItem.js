@@ -11,7 +11,13 @@ const Container = styled.div`
 const SavedDesignListItem = props => {
   return (
     <Container>
-      <Thumbnail />
+      <Thumbnail
+        onClick={props.edit}
+        patterns={props.patterns}
+        backgroundColor={props.backgroundColor}
+        patternColor={props.patternColor}
+        columns={props.columns}
+      />
       <h4>{props.name}</h4>
       <div>
         <button onClick={props.edit}>edit</button>

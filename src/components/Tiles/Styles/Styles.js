@@ -44,7 +44,6 @@ export const SVG = props => {
       stroke={props.patternColor}
       width="100%"
       height="100%"
-      backgroundSize="40px"
     >
       {props.children}
       <SvgButton onClick={props.click} id={props.id} name={props.name} />
