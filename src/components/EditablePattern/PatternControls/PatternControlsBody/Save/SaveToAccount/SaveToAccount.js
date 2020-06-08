@@ -3,12 +3,14 @@ import axios from "axios";
 import { StateContext } from "../../../../../../context/PatternContext/PatternContext";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../../UI/Button/Button";
+import { Spacer } from "../../../../../UI/Divider/Divider";
 
 const SaveToAccount = props => {
   const data = useContext(StateContext);
 
-  const savePatternHandler = data => {
-    const postData = { ...data };
+  const saveNewPatternHandler = data => {
+    const date = new Date();
+    const postData = { ...data, createdData: date, lastUpdated: date };
     delete postData.lockMode;
     delete postData.activePattern;
     delete postData.activeColorSelection;
@@ -23,12 +25,21 @@ const SaveToAccount = props => {
       .catch(error => console.log(error));
   };
 
+  const saveExistingPatternHandler = data => {
+    const date = new Date();
+  };
+
   return (
     <React.Fragment>
       <InputWrapper>
-        <Button onClick={() => savePatternHandler(data)}>
-          Save to My Account
+        <Button
+          disabled={!data.id}
+          onClick={() => saveExistingPatternHandler(data)}
+        >
+          Save
         </Button>
+        <Spacer width="20px" />
+        <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
       </InputWrapper>
     </React.Fragment>
   );

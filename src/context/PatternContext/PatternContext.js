@@ -31,7 +31,8 @@ const initialState = {
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
   lockMode: false,
-  activePattern: 999
+  activePattern: 999,
+  id: getFromStorage("id", null)
 };
 
 const switchTile = (state, action) => {
@@ -69,11 +70,13 @@ const updateComplexity = (state, action) => {
   updateStorage("complexity", action.newComplexity);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
+  updateStorage("id", null);
   return {
     ...state,
     complexity: action.newComplexity,
     patterns: newPattern,
-    columns: columns
+    columns: columns,
+    id: null
   };
 };
 
@@ -87,11 +90,13 @@ const updateOrientation = (state, action) => {
   updateStorage("orientation", action.orientation);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
+  updateStorage("id", null);
   return {
     ...state,
     orientation: action.orientation,
     patterns: newPattern,
-    columns: columns
+    columns: columns,
+    id: null
   };
 };
 
@@ -100,17 +105,17 @@ const updateImageName = (state, newImageName) => {
   return { ...state, imageName: newImageName };
 };
 
-const newPattern = state => {
-  const newRandPattern = randPatternArray(state.orientation, state.complexity);
-  const newPattern = state.patterns.map((patternObj, i) => {
-    const newNumber = patternObj.locked ? patternObj.num : newRandPattern[i];
-    return { num: newNumber, locked: patternObj.locked };
-  });
-  return {
-    ...state,
-    patterns: newPattern
-  };
-};
+// const newPattern = state => {
+//   const newRandPattern = randPatternArray(state.orientation, state.complexity);
+//   const newPattern = state.patterns.map((patternObj, i) => {
+//     const newNumber = patternObj.locked ? patternObj.num : newRandPattern[i];
+//     return { num: newNumber, locked: patternObj.locked };
+//   });
+//   return {
+//     ...state,
+//     patterns: newPattern
+//   };
+// };
 
 const updateColor = (state, color, index) => {
   if (state.activeColorSelection === "pattern") {
@@ -146,12 +151,14 @@ const newTemplate = (state, template) => {
   updateStorage("columns", template.columns);
   updateStorage("complexity", template.complexity);
   updateStorage("orientation", template.orientation);
+  updateStorage("id", null);
   return {
     ...state,
     patterns: template.patterns,
     columns: template.columns,
     complexity: template.complexity,
-    orientation: template.orientation
+    orientation: template.orientation,
+    id: null
   };
 };
 
@@ -172,6 +179,7 @@ const loadPattern = (state, data) => {
   updateStorage("backgroundColor", data.backgroundColor);
   updateStorage("activeBackgroundColor", data.activeBackgroundColor);
   updateStorage("imageName", data.imageName);
+  updateStorage("id", data.id);
   return {
     ...data,
     activePattern: 999,
@@ -196,8 +204,8 @@ const reducer = (state, action) => {
       return setActivePattern(state, action.num);
     case "CLEAR-LOCKED-TILES":
       return clearLockedTiles(state);
-    case "NEW-PATTERN":
-      return newPattern(state);
+    // case "NEW-PATTERN":
+    //   return newPattern(state);
     case "NEW-TEMPLATE":
       return newTemplate(state, action.template);
     case "UPDATE-COLOR":

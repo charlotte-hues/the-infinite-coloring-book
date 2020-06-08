@@ -50,18 +50,35 @@ const SavedDesigns = props => {
           <li key={data.id}>
             <SavedDesignListItem
               name={data.imageName}
-              edit={() => editHandler(data)}
-              delete={() => {}}
               patterns={data.patterns}
               backgroundColor={data.backgroundColor}
               patternColor={data.patternColor}
               columns={data.columns}
+              orientation={data.orientation}
+              edit={() => editHandler(data)}
+              delete={() => deleteHandler(data.id)}
             />
           </li>
         );
       });
 
   const designs = loading ? <h4>Loading...</h4> : <ul>{designListItems}</ul>;
+
+  const deleteHandler = id => {
+    axios
+      .delete(
+        "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
+          id +
+          ".json"
+      )
+      .then(response => {
+        const newPatternsArray = [...savedPatterns].filter(
+          patternObj => patternObj.id !== id
+        );
+        setSavedPatterns(newPatternsArray);
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <PatternContextProvider>

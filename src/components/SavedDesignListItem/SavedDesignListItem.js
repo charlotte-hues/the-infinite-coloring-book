@@ -4,7 +4,7 @@ import Thumbnail from "./Thumnail/Thumbnail";
 
 const Container = styled.div`
   display: flex;
-  width: 400px;
+  width: 500px;
   justify-content: space-between;
 `;
 
@@ -17,6 +17,7 @@ const SavedDesignListItem = props => {
         backgroundColor={props.backgroundColor}
         patternColor={props.patternColor}
         columns={props.columns}
+        orientation={props.orientation}
       />
       <h4>{props.name}</h4>
       <div>
