@@ -45,24 +45,26 @@ const SavedDesigns = props => {
 
   const designListItems = !savedPatterns
     ? null
-    : savedPatterns.map(data => {
-        return (
-          <li key={data.id}>
-            <SavedDesignListItem
-              name={data.imageName}
-              patterns={data.patterns}
-              backgroundColor={data.backgroundColor}
-              patternColor={data.patternColor}
-              columns={data.columns}
-              orientation={data.orientation}
-              edit={() => editHandler(data)}
-              delete={() => deleteHandler(data.id)}
-              createdDate={data.createdDate}
-              lastUpdated={data.lastUpdated}
-            />
-          </li>
-        );
-      });
+    : savedPatterns
+        .sort((a, b) => Date.parse(b.lastUpdated) - Date.parse(a.lastUpdated))
+        .map(data => {
+          return (
+            <li key={data.id}>
+              <SavedDesignListItem
+                name={data.imageName}
+                patterns={data.patterns}
+                backgroundColor={data.backgroundColor}
+                patternColor={data.patternColor}
+                columns={data.columns}
+                orientation={data.orientation}
+                edit={() => editHandler(data)}
+                delete={() => deleteHandler(data.id)}
+                createdDate={data.createdDate}
+                lastUpdated={data.lastUpdated}
+              />
+            </li>
+          );
+        });
 
   const designs = loading ? <h4>Loading...</h4> : <ul>{designListItems}</ul>;
 
