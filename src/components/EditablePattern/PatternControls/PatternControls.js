@@ -50,7 +50,7 @@ const Container = styled.div`
 
 const PatternControls = props => {
   const dispatch = useContext(DispatchContext);
-  const [active, setActive] = useState("new");
+  const [active, setActive] = useState("tilePicker");
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(true);
   const ref = useRef();

@@ -3,13 +3,19 @@ import styled from "styled-components";
 import Pattern from "../../Tiles/Tiles";
 
 const Container = styled.div`
+  position: relative;
   width: 140px;
   height: 140px;
+  align-items: center;
   padding: 1px;
   cursor: pointer;
 `;
 
 const PatternThumbContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin: auto;
   display: flex;
   justify-content: center;
@@ -32,12 +38,6 @@ const PatternThumbContainer = styled.div`
       : "120px"};
   background-color: ${props => props.backgroundColor};
   border: 2px solid var(--trim);
-  box-shadow: var(--shadowSmall);
-
-  &:hover {
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
-  }
 `;
 
 const PatternWrapper = styled.div`
@@ -64,7 +64,7 @@ const Thumnail = ({
   backgroundColor,
   patternColor,
   columns,
-  onClick,
+  edit,
   orientation
 }) => {
   const tiledPatterns = patterns.map((pattern, i) => {
@@ -79,7 +79,7 @@ const Thumnail = ({
   });
 
   return (
-    <Container onClick={onClick}>
+    <Container onClick={edit}>
       <PatternThumbContainer
         orientation={orientation}
         backgroundColor={backgroundColor}

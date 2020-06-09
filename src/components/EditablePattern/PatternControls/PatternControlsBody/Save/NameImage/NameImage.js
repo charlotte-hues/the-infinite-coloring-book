@@ -15,6 +15,7 @@ const LabelInput = props => {
       <Input
         type="text"
         name="imageName"
+        maxlength="30"
         value={imageName}
         onChange={e =>
           dispatch({ type: "UPDATE-IMAGE-NAME", newImageName: e.target.value })

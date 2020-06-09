@@ -14,6 +14,14 @@ margin: auto;
 }
 `;
 
+const PatternCardContainer = styled.ul`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 const SavedDesigns = props => {
   const [savedPatterns, setSavedPatterns] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -66,7 +74,11 @@ const SavedDesigns = props => {
           );
         });
 
-  const designs = loading ? <h4>Loading...</h4> : <ul>{designListItems}</ul>;
+  const designs = loading ? (
+    <h4>Loading...</h4>
+  ) : (
+    <PatternCardContainer>{designListItems}</PatternCardContainer>
+  );
 
   const deleteHandler = id => {
     axios
