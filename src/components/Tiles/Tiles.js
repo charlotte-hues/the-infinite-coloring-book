@@ -61,8 +61,18 @@ const Pattern = props => {
   const { lockMode } = useContext(StateContext);
   const NewPattern = patternsArr[props.num];
 
+  const switchTileHandler = (e, switchFunc = props.click) => {
+    if (!e.buttons == 1) return;
+    switchFunc();
+  };
+
   return (
-    <SvgWrapper lockMode={lockMode} locked={props.locked} onClick={props.click}>
+    <SvgWrapper
+      lockMode={lockMode}
+      locked={props.locked}
+      onMouseOver={e => switchTileHandler(e, props.click)}
+      onMouseDown={props.click}
+    >
       <SVG
         id={props.id}
         rotation={props.rotation}
