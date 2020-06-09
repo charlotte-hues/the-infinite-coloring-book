@@ -20,6 +20,8 @@ const SavedDesignListItem = props => {
         orientation={props.orientation}
       />
       <h4>{props.name}</h4>
+      <h5>{`Created: ${props.createdDate}`}</h5>
+      <h5>{`last Updated: ${props.lastUpdated}`}</h5>
       <div>
         <button onClick={props.edit}>edit</button>
         <button onClick={props.delete}>delete</button>

@@ -57,6 +57,8 @@ const SavedDesigns = props => {
               orientation={data.orientation}
               edit={() => editHandler(data)}
               delete={() => deleteHandler(data.id)}
+              createdDate={data.createdDate}
+              lastUpdated={data.lastUpdated}
             />
           </li>
         );
