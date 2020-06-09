@@ -18,7 +18,7 @@ const PatternCardContainer = styled.ul`
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 `;
 

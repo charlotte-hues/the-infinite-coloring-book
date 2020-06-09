@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../context/PatternContext/PatternContext";
+import isFunction from "../../utility/isFunction";
 import styled from "styled-components";
 import * as Diagonal from "./Diagonal/Diagonal";
 import * as Square from "./Square/Square";
@@ -61,9 +62,9 @@ const Pattern = props => {
   const { lockMode } = useContext(StateContext);
   const NewPattern = patternsArr[props.num];
 
-  const switchTileHandler = (e, switchFunc = props.click) => {
-    if (!e.buttons == 1) return;
-    switchFunc();
+  const switchTileHandler = (e, switchFunc) => {
+    if (!isFunction(switchFunc)) return;
+    if (e.buttons === 1) switchFunc();
   };
 
   return (

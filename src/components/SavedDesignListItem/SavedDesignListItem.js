@@ -15,7 +15,7 @@ const Container = styled.div`
   width: 360px;
   justify-content: space-between;
   box-shadow: var(--shadowSmall);
-  margin: 0 0 20px 10px;
+  margin: 0 20px 20px 0;
 
   &:hover {
     box-shadow: var(--shadow);
