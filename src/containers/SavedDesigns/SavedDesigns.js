@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { connect } from "react-redux";
 import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import { useHistory } from "react-router-dom";
 import { DispatchContext } from "../../context/PatternContext/PatternContext";
@@ -6,6 +7,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import SavedDesignListItem from "../../components/SavedDesignListItem/SavedDesignListItem";
+import * as actions from "../../store/actions/index";
 
 const Container = styled(motion.div)`
 height: 100%;
@@ -24,36 +26,24 @@ const PatternCardContainer = styled.ul`
 
 const SavedDesigns = props => {
   const [savedPatterns, setSavedPatterns] = useState(null);
-  const [loading, setLoading] = useState(false);
   const dispatch = useContext(DispatchContext);
   const history = useHistory();
 
+  const { uid, authToken, loading } = props;
+
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("https://the-infinite-coloring-book.firebaseio.com/patterns.json")
-      .then(response => {
-        const fetchedPatterns = [];
-        for (let key in response.data) {
-          fetchedPatterns.push({ ...response.data[key], id: key });
-        }
-        setLoading(false);
-        setSavedPatterns(fetchedPatterns);
-      })
-      .catch(error => {
-        setLoading(false);
-        console.log(error);
-      });
-  }, []);
+    if (!uid || !authToken) return;
+    props.onFetchPatterns(authToken, uid);
+  }, [uid, authToken]);
 
   const editHandler = data => {
     dispatch({ type: "LOAD-PATTERN", data: data });
     history.push("/");
   };
 
-  const designListItems = !savedPatterns
+  const designListItems = !props.patterns
     ? null
-    : savedPatterns
+    : props.patterns
         .sort((a, b) => Date.parse(b.lastUpdated) - Date.parse(a.lastUpdated))
         .map(data => {
           return (
@@ -110,4 +100,18 @@ const SavedDesigns = props => {
   );
 };
 
-export default SavedDesigns;
+const mapStateToProps = state => {
+  return {
+    patterns: state.patterns.patterns,
+    loading: state.patterns.loading,
+    authToken: state.auth.token,
+    uid: state.auth.userId
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchPatterns: (token, uid) => dispatch(actions.fetchPatterns(token, uid))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedDesigns);

@@ -17,21 +17,28 @@ const SaveToAccount = props => {
 
   const saveNewPatternHandler = data => {
     const date = new Date();
-    const postData = { ...data, createdDate: date, lastUpdated: date };
-    delete postData.lockMode;
-    delete postData.activePattern;
-    delete postData.edited;
-    delete postData.activeColorSelection;
-    axios
-      .post(
-        "https://the-infinite-coloring-book.firebaseio.com/patterns.json",
-        postData
-      )
-      .then(response => {
-        console.log("saved");
-        dispatch({ type: "SAVED-PATTERN", id: response.data.name });
-      })
-      .catch(error => console.log(error));
+    const patternData = {
+      ...data,
+      createdDate: date,
+      lastUpdated: date,
+      uid: props.uid
+    };
+    delete patternData.lockMode;
+    delete patternData.activePattern;
+    delete patternData.edited;
+    delete patternData.activeColorSelection;
+
+    props.onSaveNewPattern(patternData, props.authToken);
+    // axios
+    //   .post(
+    //     "https://the-infinite-coloring-book.firebaseio.com/patterns.json",
+    //     postData
+    //   )
+    //   .then(response => {
+    //     console.log("saved");
+    //     dispatch({ type: "SAVED-PATTERN", id: response.data.name });
+    //   })
+    //   .catch(error => console.log(error));
   };
 
   const saveExistingPatternHandler = data => {
@@ -55,8 +62,6 @@ const SaveToAccount = props => {
       })
       .catch(error => console.log(error));
   };
-
-  console.log(props.isAuth);
 
   const options = props.isAuth ? (
     <React.Fragment>
@@ -88,13 +93,17 @@ const SaveToAccount = props => {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.token !== null
+    isAuth: state.auth.token !== null,
+    authToken: state.auth.token,
+    uid: state.auth.userId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
+    onSaveNewPattern: (patternData, token) =>
+      dispatch(actions.saveNewPattern(patternData, token))
   };
 };
 

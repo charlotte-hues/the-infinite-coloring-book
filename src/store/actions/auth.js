@@ -11,7 +11,7 @@ const authSuccess = data => {
   return {
     type: actionTypes.AUTH_SUCCESS,
     token: data.idToken,
-    userId: data.localId
+    localId: data.localId
   };
 };
 
@@ -39,7 +39,7 @@ export const logout = () => {
   };
 };
 
-export const auth = (email, password, isSignUp, name) => {
+export const auth = (email, password, isSignUp) => {
   return dispatch => {
     dispatch(authStart());
     const authData = {

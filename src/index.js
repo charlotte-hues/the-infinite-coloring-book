@@ -4,13 +4,15 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 import authReducer from "./store/reducers/auth";
+import savedPatternsReducer from "./store/reducers/savedPatterns";
 
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  patterns: savedPatternsReducer
 });
 
 const composeEnhancers =
