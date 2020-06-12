@@ -4,8 +4,11 @@ import randPatternArray, {
   maxNo,
   getColumns
 } from "./DefaultValues/RandPatternArray/RandPatternArray";
-import getRandNum from "../../utility/getRandNum";
-import { getFromStorage, updateStorage } from "../../utility/getLocalStorage";
+import {
+  getFromStorage,
+  updateStorage,
+  getRandNum
+} from "../../shared/utility";
 
 export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
@@ -29,7 +32,7 @@ const initialState = {
   patternColor: getFromStorage("patternColor", "#C74F33"),
   backgroundColor: getFromStorage("backgroundColor", "#F7F3EE"),
   imageName: getFromStorage("imageName", "the-infinite-coloring-book"),
-  id: getFromStorage("id", null),
+  patternId: getFromStorage("patternId", null),
   edited: getFromStorage("edited", false),
   activeColorSelection: "pattern",
   lockMode: false,
@@ -73,14 +76,14 @@ const updateComplexity = (state, action) => {
   updateStorage("complexity", action.newComplexity);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
-  updateStorage("id", null);
+  updateStorage("patternId", null);
   updateStorage("edited", false);
   return {
     ...state,
     complexity: action.newComplexity,
     patterns: newPattern,
     columns: columns,
-    id: null,
+    patternId: null,
     edited: false
   };
 };
@@ -95,14 +98,14 @@ const updateOrientation = (state, action) => {
   updateStorage("orientation", action.orientation);
   updateStorage("patterns", newPattern);
   updateStorage("columns", columns);
-  updateStorage("id", null);
+  updateStorage("patternId", null);
   updateStorage("edited", false);
   return {
     ...state,
     orientation: action.orientation,
     patterns: newPattern,
     columns: columns,
-    id: null,
+    patternId: null,
     edited: false
   };
 };
@@ -152,7 +155,7 @@ const newTemplate = (state, template) => {
   updateStorage("columns", template.columns);
   updateStorage("complexity", template.complexity);
   updateStorage("orientation", template.orientation);
-  updateStorage("id", null);
+  updateStorage("patternId", null);
   updateStorage("edited", false);
   return {
     ...state,
@@ -160,7 +163,7 @@ const newTemplate = (state, template) => {
     columns: template.columns,
     complexity: template.complexity,
     orientation: template.orientation,
-    id: null,
+    patternId: null,
     edited: false
   };
 };
@@ -174,8 +177,8 @@ const setActivePattern = (state, num) => {
 
 const savedPattern = (state, action) => {
   updateStorage("edited", false);
-  updateStorage("id", action.id);
-  return { ...state, edited: false, id: action.id };
+  updateStorage("patternId", action.id);
+  return { ...state, edited: false, patternId: action.id };
 };
 
 const loadPattern = (state, data) => {
@@ -188,7 +191,7 @@ const loadPattern = (state, data) => {
   updateStorage("backgroundColor", data.backgroundColor);
   updateStorage("activeBackgroundColor", data.activeBackgroundColor);
   updateStorage("imageName", data.imageName);
-  updateStorage("id", data.id);
+  updateStorage("patternId", data.id);
   updateStorage("edited", false);
   return {
     ...data,

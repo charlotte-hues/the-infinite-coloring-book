@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../context/PatternContext/PatternContext";
-import isFunction from "../../utility/isFunction";
+import { isFunction } from "../../shared/utility";
 import styled from "styled-components";
 import * as Diagonal from "./Diagonal/Diagonal";
 import * as Square from "./Square/Square";

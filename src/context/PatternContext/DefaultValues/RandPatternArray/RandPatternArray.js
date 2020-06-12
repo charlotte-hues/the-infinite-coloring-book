@@ -1,4 +1,4 @@
-import getRandNum from "../../../../utility/getRandNum";
+import { getRandNum } from "../../../../shared/utility";
 import orientations from "../Orientations/Orientations";
 import { allPatterns } from "../../../../components/Tiles/Tiles";
 

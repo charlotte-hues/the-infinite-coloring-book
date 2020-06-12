@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import PatternContextProvider from "./context/PatternContext/PatternContext";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
@@ -9,6 +10,7 @@ import SavedDesigns from "./containers/SavedDesigns/SavedDesigns";
 import About from "./containers/About/About";
 import Auth from "./containers/Auth/Auth";
 import { createGlobalStyle } from "styled-components";
+import * as actions from "./store/actions/index";
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -26,15 +28,11 @@ const GlobalStyle = createGlobalStyle`
     0 4px 4px rgba(0, 0, 0, 0.11);
 
   }
-    
-    
 
   * {
     box-sizing: border-box;    
     text-decoration: none;
   }
-
-  
   
   body {
     color: var(--black);
@@ -67,11 +65,18 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = props => {
+  //
+  const { onTryAutoSignup } = props;
+  useEffect(() => {
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
+
   let routes = (
     <AnimatedRoutesWrapper>
+      <Route path="/login" exact component={Auth} />
       <Route path="/about" exact component={About} />
       <Route path="/myDesigns" exact component={SavedDesigns} />
-      <Route path="/login" exact component={Auth} />
+
       <Route path="/" component={EditPattern} />
       <Redirect to="/" />
     </AnimatedRoutesWrapper>
@@ -85,4 +90,16 @@ const App = props => {
   );
 };
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.token !== null
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

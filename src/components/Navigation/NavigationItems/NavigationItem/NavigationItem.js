@@ -14,9 +14,6 @@ const NavLi = styled.li`
     height: 100px;
     width: 100vw;
     line-height: 80px;
-
-  
-
     }
   }
 `;

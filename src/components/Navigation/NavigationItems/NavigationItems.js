@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import NavigationItem from "./NavigationItem/NavigationItem.js";
+import { useLocation } from "react-router-dom";
 
 const ListContainer = styled.ul`
   display: flex;
@@ -18,21 +19,24 @@ const ListContainer = styled.ul`
   }
 `;
 
-const navigationItems = props => (
-  <ListContainer>
-    <NavigationItem link="/" active>
-      create
-    </NavigationItem>
-    <NavigationItem link="/mydesigns" active>
-      my designs
-    </NavigationItem>
-    <NavigationItem link="/login" active>
-      login
-    </NavigationItem>
-    <NavigationItem link="/about" active>
-      about
-    </NavigationItem>
-  </ListContainer>
-);
+const NavigationItems = props => {
+  const location = useLocation();
+  return (
+    <ListContainer>
+      <NavigationItem link="/" active>
+        create
+      </NavigationItem>
+      <NavigationItem link="/mydesigns" active>
+        my designs
+      </NavigationItem>
+      <NavigationItem link={`/login`} active>
+        login
+      </NavigationItem>
+      <NavigationItem link="/about" active>
+        about
+      </NavigationItem>
+    </ListContainer>
+  );
+};
 
-export default navigationItems;
+export default NavigationItems;

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import {
   StateContext,
@@ -7,7 +8,8 @@ import {
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../../UI/Button/Button";
 import { Spacer } from "../../../../../UI/Divider/Divider";
-import removeFromObject from "../../../../../../utility/removeFromObject";
+import { removeFromObject } from "../../../../../../shared/utility";
+import * as actions from "../../../../../../store/actions/index";
 
 const SaveToAccount = props => {
   const data = useContext(StateContext);
@@ -54,20 +56,46 @@ const SaveToAccount = props => {
       .catch(error => console.log(error));
   };
 
+  console.log(props.isAuth);
+
+  const options = props.isAuth ? (
+    <React.Fragment>
+      <Button
+        disabled={!data.id || !data.edited}
+        onClick={() => saveExistingPatternHandler(data)}
+      >
+        Save changes
+      </Button>
+      <Spacer width="20px" />
+      <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
+    </React.Fragment>
+  ) : (
+    <Button
+      onClick={() => {
+        console.log("login");
+      }}
+    >
+      Log in to save
+    </Button>
+  );
+
   return (
     <React.Fragment>
-      <InputWrapper>
-        <Button
-          disabled={!data.id || !data.edited}
-          onClick={() => saveExistingPatternHandler(data)}
-        >
-          Save changes
-        </Button>
-        <Spacer width="20px" />
-        <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
-      </InputWrapper>
+      <InputWrapper>{options}</InputWrapper>
     </React.Fragment>
   );
 };
 
-export default SaveToAccount;
+const mapStateToProps = state => {
+  return {
+    isAuth: state.auth.token !== null
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveToAccount);

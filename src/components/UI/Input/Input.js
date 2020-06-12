@@ -25,6 +25,7 @@ const Input = props => {
       value={props.value}
       onChange={props.onChange}
       maxLength={props.maxlength}
+      placeholder={props.placeholder}
     >
       {props.children}
     </StyledInput>
