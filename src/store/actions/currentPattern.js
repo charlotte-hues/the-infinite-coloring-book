@@ -4,7 +4,6 @@ import randPatternArray, {
   //   getColumns
 } from "../../context/PatternContext/DefaultValues/RandPatternArray/RandPatternArray";
 import { getRandNum } from "../../shared/utility";
-// import axios from "axios";
 
 export const initPattern = () => {
   const pattern = randPatternArray("square", 2).map(num => {
@@ -63,5 +62,37 @@ export const randomisePattern = currentPattern => {
   return {
     type: actionTypes.RANDOMISE_PATTERN,
     pattern: newpattern
+  };
+};
+
+export const updateColor = (index, color, activeColorSelection) => {
+  const type =
+    activeColorSelection === "pattern"
+      ? {
+          type: actionTypes.UPDATE_PATTERN_COLOR,
+          activePatternColor: index,
+          patternColor: color
+        }
+      : {
+          type: actionTypes.UPDATE_BACKGROUND_COLOR,
+          activeBackgroundColor: index,
+          backgroundColor: color
+        };
+  return { ...type };
+};
+
+export const updateImageName = name => {
+  return {
+    type: actionTypes.UPDATE_IMAGE_NAME,
+    name: name
+  };
+};
+
+export const updateComplexity = () => {
+  return {
+    type: actionTypes.UPDATE_COMPLEXITY,
+    complexity: "newcomplexity",
+    pattern: "newpattern",
+    columns: "newcolumns"
   };
 };

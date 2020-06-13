@@ -1,4 +1,5 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { saveAsPng } from "save-html-as-image";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
@@ -7,7 +8,7 @@ import PrintImage from "./PrintImage/PrintImage";
 import SaveToAccount from "./SaveToAccount/SaveToAccount";
 import Button from "../../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
-import { StateContext } from "../../../../../context/PatternContext/PatternContext";
+import * as actions from "../../../../../store/actions/index";
 
 const ImageWrapper = styled.div`
   position: absolute;
@@ -26,7 +27,6 @@ const downloadImageHandler = (e, name = "the-infinite-coloring-book", ref) => {
 };
 
 const Save = props => {
-  const { imageName } = useContext(StateContext);
   const ref = useRef();
 
   let DownloadableImage = (
@@ -37,10 +37,12 @@ const Save = props => {
 
   return (
     <React.Fragment>
-      <NameImage />
+      <NameImage value={props.imageName} update={props.onUpdateImageName} />
       <SaveToAccount />
       <InputWrapper>
-        <Button onClick={e => downloadImageHandler(e, imageName, ref.current)}>
+        <Button
+          onClick={e => downloadImageHandler(e, props.imageName, ref.current)}
+        >
           Download
         </Button>
       </InputWrapper>
@@ -50,4 +52,14 @@ const Save = props => {
   );
 };
 
-export default Save;
+const mapStateToProps = state => {
+  return {
+    imageName: state.currentPattern.imageName
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateImageName: newName => dispatch(actions.updateImageName(newName))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Save);

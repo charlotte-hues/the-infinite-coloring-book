@@ -1,5 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../../shared/utility";
+import { action } from "popmotion";
 
 const initialState = {
   pattern: [
@@ -43,7 +44,15 @@ const initialState = {
   orientation: "square",
   complexity: 2,
   columns: 6,
-  colorArray: [],
+  colorArray: [
+    "white",
+    "black",
+    "#F7F3EE",
+    "#E1DBD2",
+    "#C74F33",
+    "#7A527A",
+    "#2F544E"
+  ],
   activeBackgroundColor: 2,
   activePatternColor: 4,
   patternColor: "#C74F33",
@@ -73,16 +82,45 @@ const lockTile = (state, action) => {
   });
 };
 
+const clearLockedTiles = (state, action) => {
+  return updateObject(state, {
+    pattern: action.pattern
+  });
+};
+
 const randomisePattern = (state, action) => {
   return updateObject(state, {
     pattern: action.pattern
   });
 };
 
+const updateBackgroundColor = (state, action) => {
+  return updateObject(state, {
+    backgroundColor: action.backgroundColor,
+    activeBackgroundColor: action.activeBackgroundColor,
+    edited: true
+  });
+};
+
+const updatePatternColor = (state, action) => {
+  return updateObject(state, {
+    patternColor: action.patternColor,
+    activePatternColor: action.activePatternColor,
+    edited: true
+  });
+};
+
+const updateImageName = (state, action) => {
+  return updateObject(state, {
+    imageName: action.name,
+    edited: true
+  });
+};
+
 const updateComplexity = (state, action) => {
   return updateObject(state, {
-    complexity: action.newComplexity,
-    pattern: action.newPattern,
+    complexity: action.complexity,
+    pattern: action.pattern,
     columns: action.columns,
     patternId: null,
     edited: false
@@ -96,28 +134,6 @@ const updateOrientation = (state, action) => {
     columns: action.columns,
     patternId: null,
     edited: false
-  });
-};
-
-const updateImageName = (state, newImageName) => {
-  return updateObject(state, {
-    imageName: newImageName,
-    edited: true
-  });
-};
-
-const updateColor = (state, action) => {
-  return updateObject(state, {
-    imageName: action.imageName,
-    backgroundColor: action.color,
-    activeBackgroundColor: action.index,
-    edited: true
-  });
-};
-
-const clearLockedTiles = (state, action) => {
-  return updateObject(state, {
-    pattern: action.pattern
   });
 };
 
@@ -161,16 +177,19 @@ const reducer = (state = initialState, action) => {
       return clearLockedTiles(state, action);
     case actionTypes.RANDOMISE_PATTERN:
       return randomisePattern(state, action);
+    case actionTypes.UPDATE_BACKGROUND_COLOR:
+      return updateBackgroundColor(state, action);
+    case actionTypes.UPDATE_PATTERN_COLOR:
+      return updatePatternColor(state, action);
+    case actionTypes.UPDATE_IMAGE_NAME:
+      return updateImageName(state, action);
+
     case actionTypes.UPDATE_COMPLEXITY:
       return updateComplexity(state, action);
     case actionTypes.UPDATE_ORIENTATION:
       return updateOrientation(state, action);
     case actionTypes.NEW_TEMPLATE:
       return newTemplate(state, action);
-    case actionTypes.UPDATE_COLOR:
-      return updateColor(state, action);
-    case actionTypes.UPDATE_IMAGE_NAME:
-      return updateImageName(state, action);
     case actionTypes.LOAD_PATTERN:
       return loadPattern(state, action);
     case actionTypes.SAVED_PATTERN:

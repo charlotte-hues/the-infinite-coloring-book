@@ -1,28 +1,16 @@
-import React, { useContext } from "react";
-import {
-  StateContext,
-  DispatchContext
-} from "../../../../../../context/PatternContext/PatternContext";
+import React from "react";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
-import {
-  ColorIconDiv
-  // CustomColorIcon
-} from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
+import { ColorIconDiv } from "../../../PatternControlsInputs/Inputs/ControlIcons/ColorIcon/ColorIcon";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
-// import HslSliders from "../HslSliders/HslSliders";
 
-const ColorPicker = props => {
-  // const [customColorActive, setCustomColorActive] = useState(false);
-
-  const dispatch = useContext(DispatchContext);
-  const {
-    activeColorSelection,
-    activeBackgroundColor,
-    activePatternColor,
-    colorArray
-  } = useContext(StateContext);
-
+const ColorPicker = ({
+  onClick,
+  activeColorSelection,
+  activeBackgroundColor,
+  activePatternColor,
+  colorArray
+}) => {
   const activeSelection =
     activeColorSelection === "pattern"
       ? activePatternColor
@@ -35,13 +23,7 @@ const ColorPicker = props => {
     return (
       <li key={i}>
         <IconButton
-          onClick={() =>
-            dispatch({
-              type: "UPDATE-COLOR",
-              color: colorArray[i],
-              index: i
-            })
-          }
+          onClick={() => onClick(i, colorArray[i], activeColorSelection)}
           active={active}
         >
           <ColorIconDiv color={colorArray[i]} active={active} />
@@ -52,14 +34,8 @@ const ColorPicker = props => {
 
   return (
     <InputWrapper>
-      <IconsContainer>
-        {colorButtons}
-        {/* <IconButton>
-          <CustomColorIcon />
-        </IconButton> */}
-      </IconsContainer>
+      <IconsContainer>{colorButtons}</IconsContainer>
     </InputWrapper>
-    // <HslSliders />
   );
 };
 

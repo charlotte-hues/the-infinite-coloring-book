@@ -53,7 +53,7 @@ export const PatternActiveSwitch = ({
           <ActiveSwitch active={active} background={background}>
             <path
               d="M21 16L17 20M25 2L7.5 19.5M15 2L2.5 14.5"
-              stroke="var(--orange)"
+              stroke={active ? "var(--orange)" : "none"}
               strokeLinecap="square"
             />
           </ActiveSwitch>

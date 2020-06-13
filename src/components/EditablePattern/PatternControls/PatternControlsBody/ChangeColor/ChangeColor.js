@@ -5,6 +5,21 @@ import ColorPicker from "./ColorPicker/ColorPicker";
 import * as actions from "../../../../../store/actions/index";
 
 const ChangeColor = props => {
+  const {
+    onUpdateColor,
+    activeColorSelection,
+    activeBackgroundColor,
+    activePatternColor,
+    colorArray
+  } = props;
+
+  const colorPickerProps = {
+    onClick: onUpdateColor,
+    activeColorSelection,
+    activeBackgroundColor,
+    activePatternColor,
+    colorArray
+  };
   const active = props.activeColorSelection === "pattern";
   return (
     <React.Fragment>
@@ -13,7 +28,7 @@ const ChangeColor = props => {
         active={active}
         background={props.backgroundColor}
       />
-      <ColorPicker />
+      <ColorPicker {...colorPickerProps} />
     </React.Fragment>
   );
 };
@@ -24,13 +39,16 @@ const mapStateToProps = state => {
     activeBackgroundColor: state.currentPattern.activeBackgroundColor,
     activePatternColor: state.currentPattern.activePatternColor,
     patternColor: state.currentPattern.patternColor,
-    backgroundColor: state.currentPattern.backgroundColor
+    backgroundColor: state.currentPattern.backgroundColor,
+    colorArray: state.currentPattern.colorArray
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     onSetColorSelection: currentActiveSelection =>
-      dispatch(actions.setActiveColorSelection(currentActiveSelection))
+      dispatch(actions.setActiveColorSelection(currentActiveSelection)),
+    onUpdateColor: (index, color, activeColorSelection) =>
+      dispatch(actions.updateColor(index, color, activeColorSelection))
   };
 };
 

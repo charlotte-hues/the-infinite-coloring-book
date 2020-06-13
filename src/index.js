@@ -36,7 +36,7 @@ const store = createStore(
 store.subscribe(() => {
   saveState({
     currentPattern: store.getState().currentPattern,
-    token: store.getState().auth.token
+    auth: store.getState().auth
   });
 });
 
