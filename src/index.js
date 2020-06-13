@@ -2,9 +2,12 @@ import React from "react";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { loadState, saveState } from "./shared/localStorage";
 
 import authReducer from "./store/reducers/auth";
 import savedPatternsReducer from "./store/reducers/savedPatterns";
+import currentPatternReducer from "./store/reducers/currentPattern";
+import patternEditingReducer from "./store/reducers/patternEditing";
 
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -12,7 +15,9 @@ import App from "./App";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  patterns: savedPatternsReducer
+  patterns: savedPatternsReducer,
+  currentPattern: currentPatternReducer,
+  patternEditing: patternEditingReducer
 });
 
 const composeEnhancers =
@@ -20,10 +25,20 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : null || compose;
 
+const persistedState = loadState();
+
 const store = createStore(
   rootReducer,
+  persistedState,
   composeEnhancers(applyMiddleware(thunk))
 );
+
+store.subscribe(() => {
+  saveState({
+    currentPattern: store.getState().currentPattern,
+    token: store.getState().auth.token
+  });
+});
 
 ReactDOM.render(
   <React.StrictMode>

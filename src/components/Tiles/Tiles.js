@@ -59,7 +59,7 @@ const SvgWrapper = styled.div`
 `;
 
 const Pattern = props => {
-  const { lockMode } = useContext(StateContext);
+  const { lockMode } = props;
   const NewPattern = patternsArr[props.num];
 
   const switchTileHandler = (e, switchFunc) => {

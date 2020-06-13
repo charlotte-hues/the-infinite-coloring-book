@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { connect } from "react-redux";
 import {
   StateContext,
   DispatchContext
@@ -7,6 +8,7 @@ import styled from "styled-components";
 import Pattern from "../../../../../Tiles/Tiles";
 import Arrow from "../../../../../UI/Icons/Arrows/Arrows";
 import IconButton from "../../../../../UI/Button/IconButton";
+import * as actions from "../../../../../../store/actions/index";
 
 const SelectorWrapper = styled.div`
   display: flex;
@@ -30,10 +32,10 @@ const ArrowSvg = styled.svg`
 
 export const RandomSelector = props => {
   const dispatch = useContext(DispatchContext);
-  const { activePattern } = useContext(StateContext);
+  const { activePattern } = props;
 
   const handleSelectPattern = num => {
-    dispatch({ type: "SET-ACTIVE-PATTERN", num: num });
+    props.onSetActivePattern(num);
   };
 
   return (
@@ -63,7 +65,7 @@ export const RandomSelector = props => {
 
 const TileGroupSelector = props => {
   const dispatch = useContext(DispatchContext);
-  const { activePattern } = useContext(StateContext);
+  const { activePattern } = props;
   const [num, setNum] = useState(
     activePattern >= props.range.low && activePattern <= props.range.high
       ? activePattern
@@ -73,21 +75,19 @@ const TileGroupSelector = props => {
   const handleUpdateForward = () => {
     let newNum = num + 1;
     if (newNum > props.range.high) newNum = props.range.low;
-    if (activePattern === num)
-      dispatch({ type: "SET-ACTIVE-PATTERN", num: newNum });
+    if (activePattern === num) props.onSetActivePattern(newNum);
     setNum(newNum);
   };
 
   const handleUpdateBackward = () => {
     let newNum = num - 1;
     if (newNum < props.range.low) newNum = props.range.high;
-    if (activePattern === num)
-      dispatch({ type: "SET-ACTIVE-PATTERN", num: newNum });
+    if (activePattern === num) props.onSetActivePattern(newNum);
     setNum(newNum);
   };
 
   const handleSelectPattern = num => {
-    dispatch({ type: "SET-ACTIVE-PATTERN", num: num });
+    props.onSetActivePattern(num);
   };
 
   return (
@@ -115,4 +115,15 @@ const TileGroupSelector = props => {
   );
 };
 
-export default TileGroupSelector;
+const mapStateToProps = state => {
+  return {
+    activePattern: state.patternEditing.activePattern
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetActivePattern: num => dispatch(actions.setActivePattern(num))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TileGroupSelector);

@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import { DispatchContext } from "../../../context/PatternContext/PatternContext";
+import React, { useState, useRef, useEffect } from "react";
+import { connect } from "react-redux";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import useWindowSize from "../../../hooks/useWindowSize";
 import styled from "styled-components";
 import PatternControlsHeader from "./PatternControlsHeader/PatternControlsHeader";
 import PatternControlsBody from "./PatternControlsBody/PatternControlsBody";
 import MinimiseButton from "./PatternControlsInputs/Inputs/MinimiseButton/MinimiseButton";
+import * as actions from "../../../store/actions/index";
 
 const Container = styled.div`
   z-index: 10;
@@ -49,7 +50,6 @@ const Container = styled.div`
 `;
 
 const PatternControls = props => {
-  const dispatch = useContext(DispatchContext);
   const [active, setActive] = useState("tilePicker");
   const [open, setOpen] = useState(false);
   const [mobile, setMobile] = useState(true);
@@ -74,9 +74,9 @@ const PatternControls = props => {
 
   const switchControlBodyHandler = group => {
     if (group === "lockMode") {
-      dispatch({ type: "SET-LOCK-MODE", active: true });
+      props.onSetLockMode(true);
     } else {
-      dispatch({ type: "SET-LOCK-MODE", active: false });
+      props.onSetLockMode(false);
     }
     setActive(group);
     setOpen(true);
@@ -95,4 +95,10 @@ const PatternControls = props => {
   );
 };
 
-export default PatternControls;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(PatternControls);

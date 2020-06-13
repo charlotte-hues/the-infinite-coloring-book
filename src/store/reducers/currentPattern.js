@@ -2,35 +2,73 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../../shared/utility";
 
 const initialState = {
-  patterns: randPatternArray("square", 2).map(num => {
-    return { num: num, locked: false };
-  }),
+  pattern: [
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false },
+    { num: 21, locked: false }
+  ],
   orientation: "square",
   complexity: 2,
   columns: 6,
-  colorArray: [...colors.all],
+  colorArray: [],
   activeBackgroundColor: 2,
   activePatternColor: 4,
   patternColor: "#C74F33",
   backgroundColor: "#F7F3EE",
   imageName: "the-infinite-coloring-book",
   patternId: null,
-  edited: false,
-  activeColorSelection: "pattern",
-  lockMode: false,
-  activePattern: 999
+  edited: false
+};
+
+const initPattern = (state, action) => {
+  return updateObject(state, {
+    pattern: action.pattern
+  });
 };
 
 const switchTile = (state, action) => {
   return updateObject(state, {
-    patterns: action.updatedPattern,
+    pattern: action.pattern,
     edited: true
   });
 };
 
 const lockTile = (state, action) => {
   return updateObject(state, {
-    patterns: action.newPattern,
+    pattern: action.pattern,
     edited: true
   });
 };
@@ -38,7 +76,7 @@ const lockTile = (state, action) => {
 const updateComplexity = (state, action) => {
   return updateObject(state, {
     complexity: action.newComplexity,
-    patterns: action.newPattern,
+    pattern: action.newPattern,
     columns: action.columns,
     patternId: null,
     edited: false
@@ -48,8 +86,8 @@ const updateComplexity = (state, action) => {
 const updateOrientation = (state, action) => {
   return updateObject(state, {
     orientation: action.orientation,
-    patterns: action.newPattern,
-    columns: columns,
+    pattern: action.pattern,
+    columns: action.columns,
     patternId: null,
     edited: false
   });
@@ -62,121 +100,77 @@ const updateImageName = (state, newImageName) => {
   });
 };
 
-const updateColor = (state, color, index) => {
-  if (state.activeColorSelection === "pattern") {
-    updateStorage("patternColor", color);
-    updateStorage("activePatternColor", index);
-
-    return { ...state, patternColor: color, activePatternColor: index };
-  } else {
-    updateStorage("backgroundColor", color);
-    updateStorage("activeBackgroundColor", index);
-    return {
-      ...state,
-      backgroundColor: color,
-      activeBackgroundColor: index,
-      edited: true
-    };
-  }
-};
-
-const updateActiveColorSelection = (state, selection) => {
-  return { ...state, activeColorSelection: selection };
-};
-
-const setLockMode = (state, active) => {
-  return { ...state, lockMode: active };
-};
-
-const clearLockedTiles = state => {
-  const updatedPattern = state.patterns.map(patternObj => {
-    return { ...patternObj, locked: false };
+const updateColor = (state, action) => {
+  return updateObject(state, {
+    imageName: action.imageName,
+    backgroundColor: action.color,
+    activeBackgroundColor: action.index,
+    edited: true
   });
-  updateStorage("patterns", updatedPattern);
-  return { ...state, patterns: updatedPattern };
 };
 
-const newTemplate = (state, template) => {
-  updateStorage("patterns", template.patterns);
-  updateStorage("columns", template.columns);
-  updateStorage("complexity", template.complexity);
-  updateStorage("orientation", template.orientation);
-  updateStorage("patternId", null);
-  updateStorage("edited", false);
-  return {
-    ...state,
-    patterns: template.patterns,
-    columns: template.columns,
-    complexity: template.complexity,
-    orientation: template.orientation,
+const clearLockedTiles = (state, action) => {
+  return updateObject(state, {
+    pattern: action.pattern
+  });
+};
+
+const newTemplate = (state, action) => {
+  return updateObject(state, {
+    pattern: action.pattern,
+    columns: action.columns,
+    complexity: action.complexity,
+    orientation: action.orientation,
     patternId: null,
     edited: false
-  };
-};
-
-const setActivePattern = (state, num) => {
-  return {
-    ...state,
-    activePattern: num
-  };
+  });
 };
 
 const savedPattern = (state, action) => {
-  updateStorage("edited", false);
-  updateStorage("patternId", action.id);
-  return { ...state, edited: false, patternId: action.id };
+  return updateObject(state, {
+    edited: false,
+    patternId: action.id
+  });
 };
 
-const loadPattern = (state, data) => {
-  updateStorage("patterns", data.patterns);
-  updateStorage("columns", data.columns);
-  updateStorage("complexity", data.complexity);
-  updateStorage("orientation", data.orientation);
-  updateStorage("patternColor", data.patternColor);
-  updateStorage("activePatternColor", data.activePatternColor);
-  updateStorage("backgroundColor", data.backgroundColor);
-  updateStorage("activeBackgroundColor", data.activeBackgroundColor);
-  updateStorage("imageName", data.imageName);
-  updateStorage("edited", false);
-  updateStorage("patternId", data.id);
-  return {
-    ...data,
+const loadPattern = (state, action) => {
+  return updateObject(state, {
+    ...action.data,
     activePattern: 999,
     lockMode: false,
     activeColorSelection: "pattern",
     edited: false
-  };
+  });
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SWITCH-TILE":
+    case actionTypes.INIT_PATTERN:
+      return initPattern(state, action);
+    case actionTypes.SWITCH_TILE:
       return switchTile(state, action);
-    case "LOCK-TILE":
+    case actionTypes.LOCK_TILE:
       return lockTile(state, action);
-    case "UPDATE-COMPLEXITY":
+    case actionTypes.CLEAR_LOCKED_TILES:
+      return clearLockedTiles(state, action);
+
+    case actionTypes.UPDATE_COMPLEXITY:
       return updateComplexity(state, action);
-    case "UPDATE-ORIENTATION":
+    case actionTypes.UPDATE_ORIENTATION:
       return updateOrientation(state, action);
-    case "SET-LOCK-MODE":
-      return setLockMode(state, action.active);
-    case "SET-ACTIVE-PATTERN":
-      return setActivePattern(state, action.num);
-    case "CLEAR-LOCKED-TILES":
-      return clearLockedTiles(state);
-    case "NEW-TEMPLATE":
-      return newTemplate(state, action.template);
-    case "UPDATE-COLOR":
-      return updateColor(state, action.color, action.index);
-    case "UPDATE-ACTIVE-COLOR-SELECTION":
-      return updateActiveColorSelection(state, action.selection);
-    case "UPDATE-IMAGE-NAME":
-      return updateImageName(state, action.newImageName);
-    case "LOAD-PATTERN":
-      return loadPattern(state, action.data);
-    case "SAVED-PATTERN":
+    case actionTypes.NEW_TEMPLATE:
+      return newTemplate(state, action);
+    case actionTypes.UPDATE_COLOR:
+      return updateColor(state, action);
+    case actionTypes.UPDATE_IMAGE_NAME:
+      return updateImageName(state, action);
+    case actionTypes.LOAD_PATTERN:
+      return loadPattern(state, action);
+    case actionTypes.SAVED_PATTERN:
       return savedPattern(state, action);
     default:
-      throw new Error();
+      return state;
   }
 };
+
+export default reducer;

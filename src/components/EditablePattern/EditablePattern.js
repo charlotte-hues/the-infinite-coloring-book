@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  StateContext,
-  DispatchContext
-} from "../../context/PatternContext/PatternContext";
+import { connect } from "react-redux";
+import { StateContext } from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
+import * as actions from "../../store/actions/index";
 
 const PrintName = styled.footer`
   display: none;
@@ -37,16 +36,27 @@ const PatternWrapper = styled.div`
 `;
 
 const EditablePattern = props => {
-  const dispatch = useContext(DispatchContext);
-  const { imageName, columns, patterns, patternColor, lockMode } = useContext(
-    StateContext
-  );
+  const { imageName, columns, patternColor } = useContext(StateContext);
+  const {
+    currentPattern,
+    edited,
+    patternId,
+    activePattern,
+    lockMode,
+    orientation
+  } = props;
   const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    if (!edited && !patternId) {
+      props.newPattern();
+    }
+  }, [edited, patternId]);
 
   useEffect(() => {
     setVisible(false);
     fadeInAfterChange();
-  }, [props.orientation]);
+  }, [orientation]);
 
   const fadeInAfterChange = () => {
     setTimeout(() => {
@@ -56,19 +66,20 @@ const EditablePattern = props => {
 
   const clickHandler = (i, locked) => {
     !lockMode
-      ? dispatch({ type: "SWITCH-TILE", index: i })
-      : dispatch({ type: "LOCK-TILE", index: i, locked: locked });
+      ? props.onSwitchTile(i, currentPattern, activePattern)
+      : props.onLockTile(i, currentPattern);
   };
 
-  const tiledPatterns = patterns.map((pattern, i) => {
+  const tiledPatterns = currentPattern.map((pattern, i) => {
     return (
       <Pattern
+        lockMode={lockMode}
         key={i}
         id={i}
         patternColor={!lockMode ? patternColor : "red"}
-        num={patterns[i].num}
-        locked={patterns[i].locked}
-        click={() => clickHandler(i, patterns[i].locked)}
+        num={currentPattern[i].num}
+        locked={currentPattern[i].locked}
+        click={() => clickHandler(i, currentPattern[i].locked)}
       />
     );
   });
@@ -83,4 +94,23 @@ const EditablePattern = props => {
   );
 };
 
-export default EditablePattern;
+const mapStateToProps = state => {
+  return {
+    currentPattern: state.currentPattern.pattern,
+    edited: state.currentPattern.edited,
+    patternId: state.currentPattern.patternId,
+    activePattern: state.patternEditing.activePattern,
+    lockMode: state.patternEditing.lockMode
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    newPattern: () => dispatch(actions.initPattern()),
+    onSwitchTile: (index, currentPattern, activePattern) =>
+      dispatch(actions.switchTile(index, currentPattern, activePattern)),
+    onLockTile: (index, currentPattern) =>
+      dispatch(actions.lockTile(index, currentPattern))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditablePattern);

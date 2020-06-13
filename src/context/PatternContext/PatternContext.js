@@ -39,32 +39,6 @@ const initialState = {
   activePattern: 999
 };
 
-const switchTile = (state, action) => {
-  if (state.patterns[action.index].locked) return state;
-  const updatedPattern = [...state.patterns];
-  let newNum;
-  if (state.activePattern < 900) {
-    newNum = state.activePattern;
-  } else {
-    newNum = getRandNum(maxNo);
-    while (state.patterns[action.index].num === newNum) {
-      newNum = getRandNum(maxNo);
-    }
-  }
-  updatedPattern[action.index].num = newNum;
-  updateStorage("patterns", updatedPattern);
-  updateStorage("edited", true);
-  return { ...state, patterns: updatedPattern, edited: true };
-};
-
-const lockTile = (state, action) => {
-  const newPattern = [...state.patterns];
-  newPattern[action.index].locked = !action.locked;
-  updateStorage("patterns", newPattern);
-  updateStorage("edited", true);
-  return { ...state, patterns: newPattern, edited: true };
-};
-
 const updateComplexity = (state, action) => {
   const newPattern = randPatternArray(
     state.orientation,
@@ -138,10 +112,6 @@ const updateActiveColorSelection = (state, selection) => {
   return { ...state, activeColorSelection: selection };
 };
 
-const setLockMode = (state, active) => {
-  return { ...state, lockMode: active };
-};
-
 const clearLockedTiles = state => {
   const updatedPattern = state.patterns.map(patternObj => {
     return { ...patternObj, locked: false };
@@ -204,16 +174,10 @@ const loadPattern = (state, data) => {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SWITCH-TILE":
-      return switchTile(state, action);
-    case "LOCK-TILE":
-      return lockTile(state, action);
     case "UPDATE-COMPLEXITY":
       return updateComplexity(state, action);
     case "UPDATE-ORIENTATION":
       return updateOrientation(state, action);
-    case "SET-LOCK-MODE":
-      return setLockMode(state, action.active);
     case "SET-ACTIVE-PATTERN":
       return setActivePattern(state, action.num);
     case "CLEAR-LOCKED-TILES":
@@ -231,7 +195,7 @@ const reducer = (state, action) => {
     case "SAVED-PATTERN":
       return savedPattern(state, action);
     default:
-      throw new Error();
+      throw console.log("error");
   }
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import sharedButtonStyles from "./sharedButtonStyles";
+import InputWrapper from "../../EditablePattern/PatternControls/PatternControlsInputs/InputWrapper/InputWrapper";
 
 const StyledButton = styled.button`
   ${sharedButtonStyles}
@@ -27,11 +28,21 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = props => {
+const Button = ({ onClick, disabled, children }) => {
   return (
-    <StyledButton onClick={props.onClick} disabled={props.disabled}>
-      {props.children}
+    <StyledButton onClick={onClick} disabled={disabled}>
+      {children}
     </StyledButton>
+  );
+};
+
+export const NewButton = ({ onClick, disabled, children }) => {
+  return (
+    <InputWrapper>
+      <StyledButton onClick={onClick} disabled={disabled}>
+        {children}
+      </StyledButton>
+    </InputWrapper>
   );
 };
 
