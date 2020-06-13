@@ -43,15 +43,16 @@ const EditablePattern = props => {
     patternId,
     activePattern,
     lockMode,
-    orientation
+    orientation,
+    newPattern
   } = props;
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (!edited && !patternId) {
-      props.newPattern();
+      newPattern();
     }
-  }, [edited, patternId]);
+  }, [edited, patternId, newPattern]);
 
   useEffect(() => {
     setVisible(false);

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { StateContext } from "../../context/PatternContext/PatternContext";
+import React from "react";
 import { isFunction } from "../../shared/utility";
 import styled from "styled-components";
 import * as Diagonal from "./Diagonal/Diagonal";

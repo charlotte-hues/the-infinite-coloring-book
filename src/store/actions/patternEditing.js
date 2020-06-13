@@ -13,3 +13,10 @@ export const setActivePattern = index => {
     num: index
   };
 };
+
+export const setActiveColorSelection = activeColorSelection => {
+  return {
+    type: actionTypes.UPDATE_ACTIVE_COLOR_SELECTION,
+    selection: activeColorSelection === "pattern" ? "background" : "pattern"
+  };
+};

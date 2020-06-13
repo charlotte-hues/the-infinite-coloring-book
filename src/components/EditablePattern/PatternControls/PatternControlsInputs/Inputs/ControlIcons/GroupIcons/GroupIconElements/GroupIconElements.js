@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { allPatterns } from "../../../../../../../Tiles/Tiles";
-import { StateContext } from "../../../../../../../../context/PatternContext/PatternContext";
 
 export const NewIcon = (
   <React.Fragment>
@@ -32,10 +31,8 @@ const TransitionPath = styled.path`
   transition: all 0.2s ease;
 `;
 
-export const LockIcon = props => {
-  // const { patterns } = useContext(StateContext);
-  // const locked = patterns.some(patternObj => patternObj.locked === true);
-  let locked = true;
+export const LockIcon = ({ pattern }) => {
+  const locked = pattern.some(patternObj => patternObj.locked === true);
   let path = locked
     ? "M10 36.25L6.25 33.75V16.25H33.75V33.75L30 36.25H10 M12.5 16.25V10C12.5 6.25 16.25 3.75 20 3.75C23.75 3.75 27.5 6.25 27.5 10V16.25"
     : "M10 36.25L6.25 33.75V16.25H33.75V33.75L30 36.25H10 M12.5 16.25V10C12.5 6.25 16.25 3.75 20 3.75C23.75 3.75 27.5 6.25 27.5 10V11";
@@ -66,9 +63,7 @@ for (let key in allPatterns) {
   patternsArray.push(allPatterns[key]);
 }
 
-export const PatternIcon = props => {
-  // const { activePattern } = useContext(StateContext);
-  let activePattern = 999;
+export const PatternIcon = ({ activePattern }) => {
   const random = (
     <React.Fragment>
       <path

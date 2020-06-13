@@ -1,9 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 import { allPatterns } from "../../../../Tiles/Tiles";
 import TileGroupSelector, {
   RandomSelector
 } from "./TileGroupSelector/TileGroupSelector";
 import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
+import * as actions from "../../../../../store/actions/index";
 
 const patternsArray = [];
 
@@ -20,22 +22,44 @@ const getRange = (search, array = patternsArray) => {
 };
 
 const TilePicker = props => {
+  const tileSelectorProps = groupName => {
+    return {
+      onClick: props.onSetActivePattern,
+      activePattern: props.activePattern,
+      range: getRange(groupName)
+    };
+  };
+
   return (
     <React.Fragment>
       <InputWrapper>
-        <RandomSelector />
-        <TileGroupSelector range={getRange("OBJECT")} />
+        <RandomSelector
+          activePattern={props.activePattern}
+          onClick={props.onSetActivePattern}
+        />
+        <TileGroupSelector {...tileSelectorProps("OBJECT")} />
       </InputWrapper>
       <InputWrapper>
-        <TileGroupSelector range={getRange("STRAIGHT")} />
-        <TileGroupSelector range={getRange("CORNER")} />
+        <TileGroupSelector {...tileSelectorProps("STRAIGHT")} />
+        <TileGroupSelector {...tileSelectorProps("CORNER")} />
       </InputWrapper>
       <InputWrapper>
-        <TileGroupSelector range={getRange("DIAGONAL")} />
-        <TileGroupSelector range={getRange("SQUARE")} />
+        <TileGroupSelector {...tileSelectorProps("DIAGONAL")} />
+        <TileGroupSelector {...tileSelectorProps("SQUARE")} />
       </InputWrapper>
     </React.Fragment>
   );
 };
 
-export default TilePicker;
+const mapStateToProps = state => {
+  return {
+    activePattern: state.patternEditing.activePattern
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onSetActivePattern: num => dispatch(actions.setActivePattern(num))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TilePicker);

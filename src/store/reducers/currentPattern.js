@@ -73,6 +73,12 @@ const lockTile = (state, action) => {
   });
 };
 
+const randomisePattern = (state, action) => {
+  return updateObject(state, {
+    pattern: action.pattern
+  });
+};
+
 const updateComplexity = (state, action) => {
   return updateObject(state, {
     complexity: action.newComplexity,
@@ -153,7 +159,8 @@ const reducer = (state = initialState, action) => {
       return lockTile(state, action);
     case actionTypes.CLEAR_LOCKED_TILES:
       return clearLockedTiles(state, action);
-
+    case actionTypes.RANDOMISE_PATTERN:
+      return randomisePattern(state, action);
     case actionTypes.UPDATE_COMPLEXITY:
       return updateComplexity(state, action);
     case actionTypes.UPDATE_ORIENTATION:

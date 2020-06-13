@@ -40,17 +40,26 @@ export const ActiveSwitch = props => {
   );
 };
 
-export const PatternActiveSwitch = props => {
+export const PatternActiveSwitch = ({
+  active,
+  onClick,
+  disabled,
+  background
+}) => {
   return (
-    <SwitchSvg>
-      <ActiveSwitch active={props.active} background={props.background}>
-        <path
-          d="M21 16L17 20M25 2L7.5 19.5M15 2L2.5 14.5"
-          stroke="var(--orange)"
-          strokeLinecap="square"
-        />
-      </ActiveSwitch>
-    </SwitchSvg>
+    <InputWrapper>
+      <IconButton onClick={onClick} disabled={disabled}>
+        <SwitchSvg>
+          <ActiveSwitch active={active} background={background}>
+            <path
+              d="M21 16L17 20M25 2L7.5 19.5M15 2L2.5 14.5"
+              stroke="var(--orange)"
+              strokeLinecap="square"
+            />
+          </ActiveSwitch>
+        </SwitchSvg>
+      </IconButton>
+    </InputWrapper>
   );
 };
 

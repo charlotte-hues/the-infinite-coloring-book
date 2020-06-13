@@ -49,9 +49,19 @@ export const clearLockedTiles = currentPattern => {
   const updatedPattern = currentPattern.map(patternObj => {
     return { ...patternObj, locked: false };
   });
-  console.log(updatedPattern);
   return {
     type: actionTypes.CLEAR_LOCKED_TILES,
     pattern: updatedPattern
+  };
+};
+
+export const randomisePattern = currentPattern => {
+  const newpattern = currentPattern.map(pattern => {
+    const newNum = pattern.locked ? pattern.num : getRandNum(maxNo);
+    return { num: newNum, locked: pattern.locked };
+  });
+  return {
+    type: actionTypes.RANDOMISE_PATTERN,
+    pattern: newpattern
   };
 };

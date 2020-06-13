@@ -29,12 +29,12 @@ const SavedDesigns = props => {
   const dispatch = useContext(DispatchContext);
   const history = useHistory();
 
-  const { uid, authToken, loading } = props;
+  const { uid, authToken, loading, onFetchPatterns } = props;
 
   useEffect(() => {
     if (!uid || !authToken) return;
-    props.onFetchPatterns(authToken, uid);
-  }, [uid, authToken]);
+    onFetchPatterns(authToken, uid);
+  }, [uid, authToken, onFetchPatterns]);
 
   const editHandler = data => {
     dispatch({ type: "LOAD-PATTERN", data: data });

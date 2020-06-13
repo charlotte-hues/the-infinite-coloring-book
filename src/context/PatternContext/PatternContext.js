@@ -1,14 +1,9 @@
 import React, { useReducer } from "react";
 import colors from "./DefaultValues/Colors/Colors";
 import randPatternArray, {
-  maxNo,
   getColumns
 } from "./DefaultValues/RandPatternArray/RandPatternArray";
-import {
-  getFromStorage,
-  updateStorage,
-  getRandNum
-} from "../../shared/utility";
+import { getFromStorage, updateStorage } from "../../shared/utility";
 
 export const StateContext = React.createContext();
 export const DispatchContext = React.createContext();
@@ -108,17 +103,17 @@ const updateColor = (state, color, index) => {
   }
 };
 
-const updateActiveColorSelection = (state, selection) => {
-  return { ...state, activeColorSelection: selection };
-};
+// const updateActiveColorSelection = (state, selection) => {
+//   return { ...state, activeColorSelection: selection };
+// };
 
-const clearLockedTiles = state => {
-  const updatedPattern = state.patterns.map(patternObj => {
-    return { ...patternObj, locked: false };
-  });
-  updateStorage("patterns", updatedPattern);
-  return { ...state, patterns: updatedPattern };
-};
+// const clearLockedTiles = state => {
+//   const updatedPattern = state.patterns.map(patternObj => {
+//     return { ...patternObj, locked: false };
+//   });
+//   updateStorage("patterns", updatedPattern);
+//   return { ...state, patterns: updatedPattern };
+// };
 
 const newTemplate = (state, template) => {
   updateStorage("patterns", template.patterns);
@@ -180,20 +175,20 @@ const reducer = (state, action) => {
       return updateOrientation(state, action);
     case "SET-ACTIVE-PATTERN":
       return setActivePattern(state, action.num);
-    case "CLEAR-LOCKED-TILES":
-      return clearLockedTiles(state);
     case "NEW-TEMPLATE":
       return newTemplate(state, action.template);
     case "UPDATE-COLOR":
       return updateColor(state, action.color, action.index);
-    case "UPDATE-ACTIVE-COLOR-SELECTION":
-      return updateActiveColorSelection(state, action.selection);
     case "UPDATE-IMAGE-NAME":
       return updateImageName(state, action.newImageName);
     case "LOAD-PATTERN":
       return loadPattern(state, action.data);
     case "SAVED-PATTERN":
       return savedPattern(state, action);
+    // case "UPDATE-ACTIVE-COLOR-SELECTION":
+    //   return updateActiveColorSelection(state, action.selection);
+    // case "CLEAR-LOCKED-TILES":
+    //   return clearLockedTiles(state);
     default:
       throw console.log("error");
   }
