@@ -25,6 +25,14 @@ const updateActiveColorSelection = (state, action) => {
   });
 };
 
+const loadPattern = (state, action) => {
+  return updateObject(state, {
+    activePattern: 999,
+    lockMode: false,
+    activeColorSelection: "pattern"
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LOCK_MODE:
@@ -33,6 +41,9 @@ const reducer = (state = initialState, action) => {
       return setActivePattern(state, action);
     case actionTypes.UPDATE_ACTIVE_COLOR_SELECTION:
       return updateActiveColorSelection(state, action);
+
+    case actionTypes.LOAD_PATTERN:
+      return loadPattern(state, action);
     default:
       return state;
   }

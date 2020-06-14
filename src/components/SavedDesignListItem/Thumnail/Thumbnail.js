@@ -60,21 +60,16 @@ const PatternWrapper = styled.div`
 `;
 
 const Thumnail = ({
-  patterns,
+  pattern,
   backgroundColor,
   patternColor,
   columns,
   edit,
   orientation
 }) => {
-  const tiledPatterns = patterns.map((pattern, i) => {
+  const tiledPatterns = pattern.map((tile, i) => {
     return (
-      <Pattern
-        key={i}
-        id={i}
-        patternColor={patternColor}
-        num={patterns[i].num}
-      />
+      <Pattern key={i} id={i} patternColor={patternColor} num={tile.num} />
     );
   });
 

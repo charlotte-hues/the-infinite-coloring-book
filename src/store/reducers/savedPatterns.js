@@ -4,9 +4,7 @@ import { updateObject } from "../../shared/utility";
 const initialState = {
   patterns: [],
   loading: false,
-  error: false,
-  saved: false,
-  patternId: null
+  error: false
 };
 
 const savePatternStart = (state, action) => {
@@ -26,9 +24,7 @@ const savePatternFail = (state, action) => {
 const savePatternSuccess = (state, action) => {
   return updateObject(state, {
     error: false,
-    loading: false,
-    saved: true,
-    patternId: action.patternId
+    loading: false
   });
 };
 

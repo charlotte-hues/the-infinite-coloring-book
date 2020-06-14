@@ -1,18 +1,11 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
-const updateCurrentPattern = id => {
-  return {
-    type: actionTypes.SAVED_PATTERN,
-    id: id
-  };
-};
-
-const savePatternSuccess = (id, patternData) => {
+const savePatternSuccess = id => {
+  console.log({ id });
   return {
     type: actionTypes.SAVE_PATTERN_SUCCESS,
-    patternId: id,
-    patternData: patternData
+    id: id
   };
 };
 
@@ -39,16 +32,14 @@ export const saveNewPattern = (patternData, token) => {
         patternData
       )
       .then(response => {
-        dispatch(updateCurrentPattern(response.data.name));
         dispatch(savePatternSuccess(response.data.name, patternData));
       })
       .catch(error => dispatch(savePatternFail(error)));
   };
 };
 
-export const saveExistingPattern = (patternData, token) => {
-  console.log({ token });
-  const patternId = patternData.patternId;
+export const saveExistingPattern = (patternData, token, patternId) => {
+  console.log(patternData, token);
   return dispatch => {
     dispatch(savePatternStart());
     axios
@@ -60,7 +51,7 @@ export const saveExistingPattern = (patternData, token) => {
         patternData
       )
       .then(response => {
-        dispatch(savePatternSuccess(response.data.name, patternData));
+        dispatch(savePatternSuccess(patternId, patternData));
       })
       .catch(error => dispatch(savePatternFail(error)));
   };

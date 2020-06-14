@@ -56,9 +56,7 @@ const initialState = {
   activePatternColor: 4,
   patternColor: "#C74F33",
   backgroundColor: "#F7F3EE",
-  imageName: "the-infinite-coloring-book",
-  patternId: null,
-  edited: false
+  imageName: "the-infinite-coloring-book"
 };
 
 const initPattern = (state, action) => {
@@ -83,13 +81,15 @@ const lockTile = (state, action) => {
 
 const clearLockedTiles = (state, action) => {
   return updateObject(state, {
-    pattern: action.pattern
+    pattern: action.pattern,
+    edited: true
   });
 };
 
 const randomisePattern = (state, action) => {
   return updateObject(state, {
-    pattern: action.pattern
+    pattern: action.pattern,
+    edited: true
   });
 };
 
@@ -121,8 +121,8 @@ const updateComplexity = (state, action) => {
     complexity: action.complexity,
     pattern: action.pattern,
     columns: action.columns,
-    patternId: null,
-    edited: false
+    edited: false,
+    id: null
   });
 };
 
@@ -131,8 +131,8 @@ const updateOrientation = (state, action) => {
     orientation: action.orientation,
     pattern: action.pattern,
     columns: action.columns,
-    patternId: null,
-    edited: false
+    edited: false,
+    id: null
   });
 };
 
@@ -142,24 +142,23 @@ const newTemplate = (state, action) => {
     columns: action.columns,
     complexity: action.complexity,
     orientation: action.orientation,
-    patternId: null,
-    edited: false
+    edited: false,
+    id: null
   });
 };
 
-const savedPattern = (state, action) => {
+const savePatternSuccess = (state, action) => {
   return updateObject(state, {
     edited: false,
-    patternId: action.id
+    id: action.id
   });
 };
 
 const loadPattern = (state, action) => {
   return updateObject(state, {
     ...action.data,
-    activePattern: 999,
-    lockMode: false,
-    activeColorSelection: "pattern",
+    createdDate: action.createdDate,
+    id: action.id,
     edited: false
   });
 };
@@ -188,8 +187,9 @@ const reducer = (state = initialState, action) => {
       return updateOrientation(state, action);
     case actionTypes.NEW_TEMPLATE:
       return newTemplate(state, action);
-    case actionTypes.SAVED_PATTERN:
-      return savedPattern(state, action);
+
+    case actionTypes.SAVE_PATTERN_SUCCESS:
+      return savePatternSuccess(state, action);
 
     case actionTypes.LOAD_PATTERN:
       return loadPattern(state, action);

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { StateContext } from "../../context/PatternContext/PatternContext";
 import styled from "styled-components";
 import Pattern from "../Tiles/Tiles";
 import * as actions from "../../store/actions/index";
@@ -35,24 +34,28 @@ const PatternWrapper = styled.div`
   }
 `;
 
-const EditablePattern = props => {
-  const { imageName, columns, patternColor } = useContext(StateContext);
-  const {
-    currentPattern,
-    edited,
-    patternId,
-    activePattern,
-    lockMode,
-    orientation,
-    newPattern
-  } = props;
+const EditablePattern = ({
+  currentPattern,
+  edited,
+  patternId,
+  activePattern,
+  lockMode,
+  orientation,
+  newPattern,
+  imageName,
+  columns,
+  patternColor,
+
+  onSwitchTile,
+  onLockTile
+}) => {
   const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    if (!edited && !patternId) {
-      newPattern();
-    }
-  }, [edited, patternId, newPattern]);
+  // useEffect(() => {
+  //   if (!edited && !patternId) {
+  //     newPattern();
+  //   }
+  // }, [edited, patternId, newPattern]);
 
   useEffect(() => {
     setVisible(false);
@@ -67,8 +70,8 @@ const EditablePattern = props => {
 
   const clickHandler = (i, locked) => {
     !lockMode
-      ? props.onSwitchTile(i, currentPattern, activePattern)
-      : props.onLockTile(i, currentPattern);
+      ? onSwitchTile(i, currentPattern, activePattern)
+      : onLockTile(i, currentPattern);
   };
 
   const tiledPatterns = currentPattern.map((pattern, i) => {
@@ -99,9 +102,12 @@ const mapStateToProps = state => {
   return {
     currentPattern: state.currentPattern.pattern,
     edited: state.currentPattern.edited,
-    patternId: state.currentPattern.patternId,
+    patternId: state.currentPattern.id,
     activePattern: state.patternEditing.activePattern,
-    lockMode: state.patternEditing.lockMode
+    lockMode: state.patternEditing.lockMode,
+    imageName: state.currentPattern.imageName,
+    columns: state.currentPattern.columns,
+    patternColor: state.currentPattern.patternColor
   };
 };
 const mapDispatchToProps = dispatch => {

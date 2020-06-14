@@ -1,7 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import { DispatchContext } from "../../../../../../context/PatternContext/PatternContext";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../../UI/Button/Button";
 import { Spacer } from "../../../../../UI/Divider/Divider";
@@ -10,33 +8,60 @@ import * as actions from "../../../../../../store/actions/index";
 const SaveToAccount = ({
   data,
   uid,
-  patternId,
   isAuth,
   authToken,
   onSaveNewPattern,
   onSaveExistingPattern
 }) => {
+  //
   const saveNewPatternHandler = data => {
     const date = new Date();
     const patternData = {
-      ...data,
+      patternData: {
+        pattern: data.pattern,
+        orientation: data.orientation,
+        complexity: data.complexity,
+        columns: data.columns,
+        colorArray: data.colorArray,
+        activeBackgroundColor: data.activeBackgroundColor,
+        activePatternColor: data.activePatternColor,
+        patternColor: data.patternColor,
+        backgroundColor: data.backgroundColor,
+        imageName: data.imageName
+      },
       createdDate: date,
       lastUpdated: date,
       uid: uid
     };
-    onSaveNewPattern(patternData, authToken, patternId);
+    onSaveNewPattern(patternData, authToken);
   };
 
   const saveExistingPatternHandler = data => {
     const date = new Date();
-    const postData = { ...data, lastUpdated: date };
-    onSaveExistingPattern(postData, authToken);
+    const patternData = {
+      patternData: {
+        pattern: data.pattern,
+        orientation: data.orientation,
+        complexity: data.complexity,
+        columns: data.columns,
+        colorArray: data.colorArray,
+        activeBackgroundColor: data.activeBackgroundColor,
+        activePatternColor: data.activePatternColor,
+        patternColor: data.patternColor,
+        backgroundColor: data.backgroundColor,
+        imageName: data.imageName
+      },
+      createdDate: data.createdDate,
+      lastUpdated: date,
+      uid: uid
+    };
+    onSaveExistingPattern(patternData, authToken, data.id);
   };
 
   const options = isAuth ? (
     <React.Fragment>
       <Button
-        disabled={!data.patternId || !data.edited}
+        disabled={!data.id || !data.edited}
         onClick={() => saveExistingPatternHandler(data)}
       >
         Save changes
@@ -66,17 +91,17 @@ const mapStateToProps = state => {
     isAuth: state.auth.token !== null,
     authToken: state.auth.token,
     uid: state.auth.userId,
-    patternId: state.savedPatterns.patternId
+    data: state.currentPattern
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
-    onSaveNewPattern: (patternData, token, patternId) =>
+    onSaveNewPattern: (patternData, token) =>
       dispatch(actions.saveNewPattern(patternData, token)),
-    onSaveExistingPattern: (patternData, token) =>
-      dispatch(actions.saveExistingPattern(patternData, token))
+    onSaveExistingPattern: (patternData, token, patternId) =>
+      dispatch(actions.saveExistingPattern(patternData, token, patternId))
   };
 };
 

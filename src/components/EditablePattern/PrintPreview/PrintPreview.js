@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { StateContext } from "../../../context/PatternContext/PatternContext";
+import React from "react";
+import { connect } from "react-redux";
 import EditablePattern from "../EditablePattern";
 import styled from "styled-components";
 
@@ -82,8 +82,7 @@ const PrintPreviewContainer = styled.div`
   }
 `;
 
-const PrintPreview = props => {
-  const { orientation, backgroundColor, lockMode } = useContext(StateContext);
+const PrintPreview = ({ orientation, backgroundColor, lockMode }) => {
   return (
     <PrintPreviewContainer
       backgroundColor={lockMode ? "white" : backgroundColor}
@@ -93,5 +92,12 @@ const PrintPreview = props => {
     </PrintPreviewContainer>
   );
 };
+const mapStateToProps = state => {
+  return {
+    orientation: state.currentPattern.orientation,
+    backgroundColor: state.currentPattern.backgroundColor,
+    lockMode: state.patternEditing.lockMode
+  };
+};
 
-export default PrintPreview;
+export default connect(mapStateToProps)(PrintPreview);

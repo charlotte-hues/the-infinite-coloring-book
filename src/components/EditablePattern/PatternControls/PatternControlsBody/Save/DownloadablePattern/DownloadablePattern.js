@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { StateContext } from "../../../../../../context/PatternContext/PatternContext";
+import React from "react";
 import styled from "styled-components";
 import Pattern from "../../../../../Tiles/Tiles";
 
@@ -13,9 +12,7 @@ const PatternWrapper = styled.div`
 `;
 
 const DownloadablePattern = React.forwardRef((props, ref) => {
-  const { patterns, columns, patternColor, backgroundColor } = useContext(
-    StateContext
-  );
+  const { patterns, columns, patternColor, backgroundColor } = props;
 
   const tiledPatterns = patterns.map((_, i) => {
     return (

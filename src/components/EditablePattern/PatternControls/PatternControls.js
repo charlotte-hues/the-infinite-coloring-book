@@ -76,7 +76,7 @@ const PatternControls = props => {
     if (group === "lockMode") {
       props.onSetLockMode(true);
     } else {
-      props.onSetLockMode(false);
+      if (active === "lockMode") props.onSetLockMode(false);
     }
     setActive(group);
     setOpen(true);

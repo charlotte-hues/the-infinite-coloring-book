@@ -30,14 +30,20 @@ const Save = props => {
 
   let DownloadableImage = (
     <ImageWrapper>
-      <DownloadablePattern ref={ref} />
+      <DownloadablePattern
+        ref={ref}
+        patterns={props.patterns}
+        columns={props.columns}
+        patternColor={props.patternColor}
+        backgroundColor={props.backgroundColor}
+      />
     </ImageWrapper>
   );
 
   return (
     <React.Fragment>
       <NameImage value={props.imageName} update={props.onUpdateImageName} />
-      <SaveToAccount data={props.data} />
+      <SaveToAccount />
       <NewButton
         onClick={e => downloadImageHandler(e, props.imageName, ref.current)}
       >
@@ -52,12 +58,23 @@ const Save = props => {
 const mapStateToProps = state => {
   return {
     imageName: state.currentPattern.imageName,
-    data: state.currentPattern
+    data: state.currentPattern,
+    edited: state.currentPattern.edited,
+
+    patterns: state.currentPattern.pattern,
+    columns: state.currentPattern.columns,
+    patternColor: state.currentPattern.patternColor,
+    backgroundColor: state.currentPattern.backgroundColor
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdateImageName: newName => dispatch(actions.updateImageName(newName))
+    onUpdateImageName: newName => dispatch(actions.updateImageName(newName)),
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
+    onSaveNewPattern: (patternData, token, patternId) =>
+      dispatch(actions.saveNewPattern(patternData, token)),
+    onSaveExistingPattern: (patternData, token) =>
+      dispatch(actions.saveExistingPattern(patternData, token))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Save);

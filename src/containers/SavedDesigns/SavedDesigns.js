@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import { useHistory } from "react-router-dom";
-import { DispatchContext } from "../../context/PatternContext/PatternContext";
 import axios from "axios";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -26,7 +25,6 @@ const PatternCardContainer = styled.ul`
 
 const SavedDesigns = props => {
   const [savedPatterns, setSavedPatterns] = useState(null);
-  const dispatch = useContext(DispatchContext);
   const history = useHistory();
 
   const { uid, authToken, loading, onFetchPatterns } = props;
@@ -37,7 +35,8 @@ const SavedDesigns = props => {
   }, [uid, authToken, onFetchPatterns]);
 
   const editHandler = data => {
-    dispatch({ type: "LOAD-PATTERN", data: data });
+    console.log(data);
+    props.onLoadPattern(data);
     history.push("/");
   };
 
@@ -49,12 +48,12 @@ const SavedDesigns = props => {
           return (
             <li key={data.id}>
               <SavedDesignListItem
-                name={data.imageName}
-                patterns={data.patterns}
-                backgroundColor={data.backgroundColor}
-                patternColor={data.patternColor}
-                columns={data.columns}
-                orientation={data.orientation}
+                name={data.patternData.imageName}
+                pattern={data.patternData.pattern}
+                backgroundColor={data.patternData.backgroundColor}
+                patternColor={data.patternData.patternColor}
+                columns={data.patternData.columns}
+                orientation={data.patternData.orientation}
                 edit={() => editHandler(data)}
                 delete={() => deleteHandler(data.id)}
                 createdDate={data.createdDate}
@@ -110,7 +109,9 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchPatterns: (token, uid) => dispatch(actions.fetchPatterns(token, uid))
+    onFetchPatterns: (token, uid) =>
+      dispatch(actions.fetchPatterns(token, uid)),
+    onLoadPattern: patternData => dispatch(actions.loadPattern(patternData))
   };
 };
 

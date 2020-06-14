@@ -123,3 +123,12 @@ export const newTemplate = template => {
     orientation: template.orientation
   };
 };
+
+export const loadPattern = data => {
+  return {
+    type: actionTypes.LOAD_PATTERN,
+    data: { ...data.patternData },
+    createdDate: data.createdDate,
+    id: data.id
+  };
+};
