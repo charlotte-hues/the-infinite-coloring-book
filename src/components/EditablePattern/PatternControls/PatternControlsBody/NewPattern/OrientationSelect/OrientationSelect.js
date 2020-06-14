@@ -1,8 +1,4 @@
-import React, { useContext } from "react";
-import {
-  StateContext,
-  DispatchContext
-} from "../../../../../../context/PatternContext/PatternContext";
+import React from "react";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import IconButton from "../../../../../UI/Button/IconButton";
 import IconsContainer from "../../../PatternControlsInputs/InputWrapper/IconContainers/IconsContainer";
@@ -10,20 +6,12 @@ import OrientationIcons from "../../../PatternControlsInputs/Inputs/ControlIcons
 
 const orientations = ["portrait", "landscape", "square"];
 
-const OrientationSelect = props => {
-  const { orientation } = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
-
+const OrientationSelect = ({ complexity, orientation, onUpdate }) => {
   const orientationButtons = orientations.map(ori => {
     const active = orientation === ori;
     return (
       <li key={ori}>
-        <IconButton
-          disabled={active}
-          onClick={() =>
-            dispatch({ type: "UPDATE-ORIENTATION", orientation: ori })
-          }
-        >
+        <IconButton disabled={active} onClick={() => onUpdate(ori, complexity)}>
           <OrientationIcons orientation={ori} active={active} />
         </IconButton>
       </li>

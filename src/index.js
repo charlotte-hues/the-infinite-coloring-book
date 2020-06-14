@@ -15,7 +15,7 @@ import App from "./App";
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  patterns: savedPatternsReducer,
+  savedPatterns: savedPatternsReducer,
   currentPattern: currentPatternReducer,
   patternEditing: patternEditingReducer
 });

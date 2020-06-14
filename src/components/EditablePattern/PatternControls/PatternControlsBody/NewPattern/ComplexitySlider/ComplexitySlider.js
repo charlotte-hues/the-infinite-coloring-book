@@ -1,17 +1,10 @@
-import React, { useContext } from "react";
-import {
-  StateContext,
-  DispatchContext
-} from "../../../../../../context/PatternContext/PatternContext";
+import React from "react";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Slider from "../../../PatternControlsInputs/Inputs/Slider/Slider";
 
-const ComplexitySlider = props => {
-  const { complexity } = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
-
+const ComplexitySlider = ({ complexity, orientation, onUpdate }) => {
   const updateComplexityHandler = e => {
-    dispatch({ type: "UPDATE-COMPLEXITY", newComplexity: e.target.value });
+    onUpdate(e.target.value, orientation);
   };
 
   return (

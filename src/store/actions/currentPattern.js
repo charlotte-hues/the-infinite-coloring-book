@@ -1,7 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import randPatternArray, {
-  maxNo
-  //   getColumns
+  maxNo,
+  getColumns
 } from "../../context/PatternContext/DefaultValues/RandPatternArray/RandPatternArray";
 import { getRandNum } from "../../shared/utility";
 
@@ -88,11 +88,38 @@ export const updateImageName = name => {
   };
 };
 
-export const updateComplexity = () => {
+export const updateComplexity = (orientation, complexity) => {
+  const newPattern = randPatternArray(orientation, complexity).map(num => {
+    return { num: num, locked: false };
+  });
+  const columns = getColumns(orientation, complexity);
   return {
     type: actionTypes.UPDATE_COMPLEXITY,
-    complexity: "newcomplexity",
-    pattern: "newpattern",
-    columns: "newcolumns"
+    complexity: complexity,
+    pattern: newPattern,
+    columns: columns
+  };
+};
+
+export const updateOrientation = (orientation, complexity) => {
+  const newPattern = randPatternArray(orientation, complexity).map(num => {
+    return { num: num, locked: false };
+  });
+  const columns = getColumns(orientation, complexity);
+  return {
+    type: actionTypes.UPDATE_ORIENTATION,
+    orientation: orientation,
+    pattern: newPattern,
+    columns: columns
+  };
+};
+
+export const newTemplate = template => {
+  return {
+    type: actionTypes.NEW_TEMPLATE,
+    pattern: template.patterns,
+    columns: template.columns,
+    complexity: template.complexity,
+    orientation: template.orientation
   };
 };

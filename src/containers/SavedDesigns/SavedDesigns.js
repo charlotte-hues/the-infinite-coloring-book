@@ -102,8 +102,8 @@ const SavedDesigns = props => {
 
 const mapStateToProps = state => {
   return {
-    patterns: state.patterns.patterns,
-    loading: state.patterns.loading,
+    patterns: state.savedPatterns.patterns,
+    loading: state.savedPatterns.loading,
     authToken: state.auth.token,
     uid: state.auth.userId
   };

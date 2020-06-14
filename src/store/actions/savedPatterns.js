@@ -1,6 +1,13 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
+const updateCurrentPattern = id => {
+  return {
+    type: actionTypes.SAVED_PATTERN,
+    id: id
+  };
+};
+
 const savePatternSuccess = (id, patternData) => {
   return {
     type: actionTypes.SAVE_PATTERN_SUCCESS,
@@ -28,6 +35,27 @@ export const saveNewPattern = (patternData, token) => {
     axios
       .post(
         "https://the-infinite-coloring-book.firebaseio.com/patterns.json" +
+          `?auth=${token}`,
+        patternData
+      )
+      .then(response => {
+        dispatch(updateCurrentPattern(response.data.name));
+        dispatch(savePatternSuccess(response.data.name, patternData));
+      })
+      .catch(error => dispatch(savePatternFail(error)));
+  };
+};
+
+export const saveExistingPattern = (patternData, token) => {
+  console.log({ token });
+  const patternId = patternData.patternId;
+  return dispatch => {
+    dispatch(savePatternStart());
+    axios
+      .put(
+        "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
+          patternId +
+          ".json" +
           `?auth=${token}`,
         patternData
       )

@@ -2,11 +2,10 @@ import React, { useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { saveAsPng } from "save-html-as-image";
-import InputWrapper from "../../PatternControlsInputs/InputWrapper/InputWrapper";
 import NameImage from "./NameImage/NameImage";
 import PrintImage from "./PrintImage/PrintImage";
 import SaveToAccount from "./SaveToAccount/SaveToAccount";
-import Button from "../../../../UI/Button/Button";
+import { NewButton } from "../../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
 import * as actions from "../../../../../store/actions/index";
 
@@ -38,14 +37,12 @@ const Save = props => {
   return (
     <React.Fragment>
       <NameImage value={props.imageName} update={props.onUpdateImageName} />
-      <SaveToAccount />
-      <InputWrapper>
-        <Button
-          onClick={e => downloadImageHandler(e, props.imageName, ref.current)}
-        >
-          Download
-        </Button>
-      </InputWrapper>
+      <SaveToAccount data={props.data} />
+      <NewButton
+        onClick={e => downloadImageHandler(e, props.imageName, ref.current)}
+      >
+        Download
+      </NewButton>
       <PrintImage />
       {DownloadableImage}
     </React.Fragment>
@@ -54,7 +51,8 @@ const Save = props => {
 
 const mapStateToProps = state => {
   return {
-    imageName: state.currentPattern.imageName
+    imageName: state.currentPattern.imageName,
+    data: state.currentPattern
   };
 };
 const mapDispatchToProps = dispatch => {

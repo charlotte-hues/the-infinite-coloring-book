@@ -1,15 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import {
-  DispatchContext,
-  StateContext
-} from "../../../../../../context/PatternContext/PatternContext";
+import React, { useEffect, useState } from "react";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Dropdown, { ListItem } from "../../../../../UI/Dropdown/Dropdown";
 import PatternTemplates from "./Templates/Templates";
 
-const TemplateSelect = props => {
-  const dispatch = useContext(DispatchContext);
-  const { complexity, columns, orientation } = useContext(StateContext);
+const TemplateSelect = ({ complexity, columns, orientation, onUpdate }) => {
   const [selected, setSelected] = useState("template - random");
   const optionsArray = [];
 
@@ -31,10 +25,10 @@ const TemplateSelect = props => {
 
   const handleChange = template => {
     setSelected(`template - ${template}`);
-    dispatch({
-      type: "NEW-TEMPLATE",
-      template: PatternTemplates({ complexity, columns, orientation })[template]
-    });
+    const templateData = PatternTemplates({ complexity, columns, orientation })[
+      template
+    ];
+    onUpdate(templateData);
   };
 
   useEffect(() => {

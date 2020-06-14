@@ -1,6 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../../shared/utility";
-import { action } from "popmotion";
 
 const initialState = {
   pattern: [
@@ -183,17 +182,18 @@ const reducer = (state = initialState, action) => {
       return updatePatternColor(state, action);
     case actionTypes.UPDATE_IMAGE_NAME:
       return updateImageName(state, action);
-
     case actionTypes.UPDATE_COMPLEXITY:
       return updateComplexity(state, action);
     case actionTypes.UPDATE_ORIENTATION:
       return updateOrientation(state, action);
     case actionTypes.NEW_TEMPLATE:
       return newTemplate(state, action);
-    case actionTypes.LOAD_PATTERN:
-      return loadPattern(state, action);
     case actionTypes.SAVED_PATTERN:
       return savedPattern(state, action);
+
+    case actionTypes.LOAD_PATTERN:
+      return loadPattern(state, action);
+
     default:
       return state;
   }
