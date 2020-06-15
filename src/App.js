@@ -73,13 +73,14 @@ const App = props => {
   });
   const [previousPath, setPreviousPath] = useState(props.redirectPath);
 
+  const { onSetRedirectPath } = props;
   useEffect(() => {
     if (!(location.state && location.state.modal)) {
       setPreviousLocation(location);
       setPreviousPath(location.pathname);
-      props.onSetRedirectPath(location.pathname);
+      onSetRedirectPath(location.pathname);
     }
-  }, [location]);
+  }, [location, onSetRedirectPath]);
 
   const { onTryAutoSignup } = props;
   useEffect(() => {

@@ -2,35 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { motion } from "framer-motion";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
 
-const Container = styled(motion.div)`
-height: 100%;
-width: 80vw;
-margin: auto;
-}
-`;
-
 const FormContainer = styled.form`
-  // position: absolute;
-  // top: 20%;
-  // left: 50%;
-  // right: 50%;
   height: 200px;
   width: 300px;
   padding: 30px 20px;
-  // background: var(--surface);
-  // border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 100;
-  // box-shadow: var(--shadow);
 `;
 
 const Auth = props => {
@@ -116,26 +101,7 @@ const Auth = props => {
     );
   });
 
-  let loginArea = (
-    <FormContainer onSubmit={submitHandler}>
-      {inputs}
-      <div>
-        <Button disabled={!formIsValid}>
-          {isSignUp ? "Sign Up" : "Log In"}
-        </Button>
-        <Button onClick={e => switchAuthModeHandler(e)}>
-          Switch to {isSignUp ? "Log in" : "Sign Up"}
-        </Button>
-      </div>
-    </FormContainer>
-  );
-
   return (
-    // <Container
-    //   initial={{ opacity: 0 }}
-    //   animate={{ opacity: 1 }}
-    //   exit={{ opacity: 0 }}
-    // >
     <Modal>
       <FormContainer onSubmit={submitHandler}>
         {inputs}
@@ -149,7 +115,6 @@ const Auth = props => {
         </div>
       </FormContainer>
     </Modal>
-    // </Container>
   );
 };
 

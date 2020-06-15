@@ -4,10 +4,10 @@ import { Redirect } from "react-router-dom";
 import * as actions from "../../../store/actions/index";
 import { motion } from "framer-motion";
 
-const Logout = props => {
+const Logout = ({ onLogout }) => {
   useEffect(() => {
-    props.onLogout();
-  }, []);
+    onLogout();
+  }, [onLogout]);
 
   return (
     <motion.div
