@@ -2,7 +2,6 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 
 const savePatternSuccess = id => {
-  console.log({ id });
   return {
     type: actionTypes.SAVE_PATTERN_SUCCESS,
     id: id
@@ -39,7 +38,6 @@ export const saveNewPattern = (patternData, token) => {
 };
 
 export const saveExistingPattern = (patternData, token, patternId) => {
-  console.log(patternData, token);
   return dispatch => {
     dispatch(savePatternStart());
     axios
@@ -99,5 +97,3 @@ export const fetchPatterns = (token, uid) => {
       .catch(error => dispatch(fetchPatternsFail(error)));
   };
 };
-
-// `https://the-infinite-coloring-book.firebaseio.com/patterns.json?orderBy="uid"&equalTo=${uid}`

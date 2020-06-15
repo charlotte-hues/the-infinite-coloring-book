@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import NavigationItem from "./NavigationItem/NavigationItem.js";
+import { useLocation } from "react-router-dom";
 
 const ListContainer = styled.ul`
   display: flex;
@@ -19,20 +20,41 @@ const ListContainer = styled.ul`
 `;
 
 const NavigationItems = props => {
+  const location = useLocation();
+
+  const [previousLocation, setPreviousLocation] = useState(location.pathname);
+
+  useEffect(() => {
+    setPreviousLocation(location.pathname);
+  }, [location]);
+
   return (
     <ListContainer>
-      <NavigationItem link="/" active>
+      <NavigationItem link="/create" active>
         create
       </NavigationItem>
       <NavigationItem link="/mydesigns" active>
         my designs
       </NavigationItem>
-      <NavigationItem link={`/login`} active>
-        login
-      </NavigationItem>
+
       <NavigationItem link="/about" active>
         about
       </NavigationItem>
+      {props.isAuth ? (
+        <NavigationItem link="logout" active>
+          logout
+        </NavigationItem>
+      ) : (
+        <NavigationItem
+          link={{
+            pathname: `${previousLocation}/login`,
+            state: { modal: true }
+          }}
+          active
+        >
+          login
+        </NavigationItem>
+      )}
     </ListContainer>
   );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import InputWrapper from "../../../PatternControlsInputs/InputWrapper/InputWrapper";
 import Button from "../../../../../UI/Button/Button";
@@ -58,6 +59,8 @@ const SaveToAccount = ({
     onSaveExistingPattern(patternData, authToken, data.id);
   };
 
+  const location = useLocation();
+
   const options = isAuth ? (
     <React.Fragment>
       <Button
@@ -70,13 +73,17 @@ const SaveToAccount = ({
       <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
     </React.Fragment>
   ) : (
-    <Button
-      onClick={() => {
-        console.log("login");
-      }}
+    <Link
+      to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
     >
-      Log in to save
-    </Button>
+      <Button
+        onClick={() => {
+          console.log("login");
+        }}
+      >
+        Log in to save
+      </Button>
+    </Link>
   );
 
   return (
@@ -97,7 +104,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
     onSaveNewPattern: (patternData, token) =>
       dispatch(actions.saveNewPattern(patternData, token)),
     onSaveExistingPattern: (patternData, token, patternId) =>

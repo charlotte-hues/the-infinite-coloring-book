@@ -57,7 +57,7 @@ const StyledLink = styled(NavLink)`
 
 const navigationItem = props => (
   <NavLi>
-    <StyledLink to={props.link} exact activeClassName="Active">
+    <StyledLink to={props.link} activeClassName="Active">
       {props.children}
     </StyledLink>
   </NavLi>

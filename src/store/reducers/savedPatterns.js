@@ -50,6 +50,12 @@ const fetchPatternsSuccess = (state, action) => {
   });
 };
 
+const authLogout = (state, action) => {
+  return updateObject(state, {
+    patterns: []
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SAVE_PATTERN_START:
@@ -65,6 +71,9 @@ const reducer = (state = initialState, action) => {
       return fetchPatternsFail(state, action);
     case actionTypes.FETCH_PATTERNS_SUCCESS:
       return fetchPatternsSuccess(state, action);
+
+    case actionTypes.AUTH_LOGOUT:
+      return authLogout(state, action);
 
     default:
       return state;

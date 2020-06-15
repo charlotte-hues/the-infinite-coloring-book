@@ -27,7 +27,7 @@ const Toolbar = props => {
       closeIcon={props.sideDrawerOpen}
     />
   ) : (
-    <NavigationItems />
+    <NavigationItems isAuth={props.isAuth} />
   );
 
   useEffect(() => {

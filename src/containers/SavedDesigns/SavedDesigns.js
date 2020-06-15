@@ -35,7 +35,6 @@ const SavedDesigns = props => {
   }, [uid, authToken, onFetchPatterns]);
 
   const editHandler = data => {
-    console.log(data);
     props.onLoadPattern(data);
     history.push("/");
   };

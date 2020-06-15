@@ -1,14 +1,12 @@
 import React from "react";
 import { AnimatePresence } from "framer-motion";
-import { Switch, useLocation } from "react-router-dom";
+import { Switch } from "react-router-dom";
 
-export const AnimatedRoutesWrapper = props => {
-  const location = useLocation();
+export const AnimatedRoutesWrapper = ({ location, children }) => {
+  console.log(location);
   return (
     <AnimatePresence exitBeforeEnter initial={false}>
-      <Switch location={location} key={location.pathname}>
-        {props.children}
-      </Switch>
+      <Switch location={location}>{children}</Switch>
     </AnimatePresence>
   );
 };

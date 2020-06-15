@@ -70,7 +70,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onUpdateImageName: newName => dispatch(actions.updateImageName(newName)),
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
     onSaveNewPattern: (patternData, token, patternId) =>
       dispatch(actions.saveNewPattern(patternData, token)),
     onSaveExistingPattern: (patternData, token) =>

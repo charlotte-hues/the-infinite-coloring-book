@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
+import Modal from "../../components/UI/Modal/Modal";
 import Button from "../../components/UI/Button/Button";
 
 const Container = styled(motion.div)`
@@ -15,14 +17,20 @@ margin: auto;
 `;
 
 const FormContainer = styled.form`
+  // position: absolute;
+  // top: 20%;
+  // left: 50%;
+  // right: 50%;
   height: 200px;
   width: 300px;
   padding: 30px 20px;
-  background: var(--surface);
-  border-radius: 4px;
+  // background: var(--surface);
+  // border-radius: 4px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  z-index: 100;
+  // box-shadow: var(--shadow);
 `;
 
 const Auth = props => {
@@ -53,9 +61,16 @@ const Auth = props => {
     }
   });
 
+  const history = useHistory();
   const [isSignUp, setIsSignUp] = useState(true);
+  const { isAuth, authRedirectPath } = props;
 
-  const switchAuthModeHandler = () => {
+  useEffect(() => {
+    if (isAuth) history.push(authRedirectPath);
+  }, [isAuth, authRedirectPath, history]);
+
+  const switchAuthModeHandler = e => {
+    e.preventDefault();
     setIsSignUp(prevState => !prevState);
   };
 
@@ -65,6 +80,7 @@ const Auth = props => {
   };
 
   const inputChangedHandler = (e, input) => {
+    e.preventDefault();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
@@ -107,7 +123,7 @@ const Auth = props => {
         <Button disabled={!formIsValid}>
           {isSignUp ? "Sign Up" : "Log In"}
         </Button>
-        <Button onClick={switchAuthModeHandler}>
+        <Button onClick={e => switchAuthModeHandler(e)}>
           Switch to {isSignUp ? "Log in" : "Sign Up"}
         </Button>
       </div>
@@ -115,14 +131,25 @@ const Auth = props => {
   );
 
   return (
-    <Container
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-    >
-      <h4>Login page and sign up page</h4>
-      {loginArea}
-    </Container>
+    // <Container
+    //   initial={{ opacity: 0 }}
+    //   animate={{ opacity: 1 }}
+    //   exit={{ opacity: 0 }}
+    // >
+    <Modal>
+      <FormContainer onSubmit={submitHandler}>
+        {inputs}
+        <div>
+          <Button disabled={!formIsValid}>
+            {isSignUp ? "Sign Up" : "Log In"}
+          </Button>
+          <Button onClick={switchAuthModeHandler}>
+            Switch to {isSignUp ? "Log in" : "Sign Up"}
+          </Button>
+        </div>
+      </FormContainer>
+    </Modal>
+    // </Container>
   );
 };
 

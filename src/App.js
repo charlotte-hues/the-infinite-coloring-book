@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Redirect, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
-import PatternContextProvider from "./context/PatternContext/PatternContext";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
@@ -9,6 +9,7 @@ import EditPattern from "./containers/EditPattern/EditPattern";
 import SavedDesigns from "./containers/SavedDesigns/SavedDesigns";
 import About from "./containers/About/About";
 import Auth from "./containers/Auth/Auth";
+import Logout from "./containers/Auth/Logout/Logout";
 import { createGlobalStyle } from "styled-components";
 import * as actions from "./store/actions/index";
 
@@ -65,18 +66,32 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = props => {
-  //
+  const location = useLocation();
+  const [previousLocation, setPreviousLocation] = useState({
+    ...location,
+    pathname: props.redirectPath
+  });
+  const [previousPath, setPreviousPath] = useState(props.redirectPath);
+
+  useEffect(() => {
+    if (!(location.state && location.state.modal)) {
+      setPreviousLocation(location);
+      setPreviousPath(location.pathname);
+      props.onSetRedirectPath(location.pathname);
+    }
+  }, [location]);
+
   const { onTryAutoSignup } = props;
   useEffect(() => {
     onTryAutoSignup();
   }, [onTryAutoSignup]);
 
   let routes = (
-    <AnimatedRoutesWrapper>
-      <Route path="/login" exact component={Auth} />
-      <Route path="/about" exact component={About} />
-      <Route path="/myDesigns" exact component={SavedDesigns} />
-
+    <AnimatedRoutesWrapper location={previousLocation}>
+      <Route path="/logout" component={Logout} />
+      <Route exact path="/about" component={About} />
+      <Route exact path="/myDesigns" component={SavedDesigns} />
+      <Route path="/login" component={Auth} />
       <Route path="/" component={EditPattern} />
       <Redirect to="/" />
     </AnimatedRoutesWrapper>
@@ -85,20 +100,25 @@ const App = props => {
   return (
     <Layout>
       <GlobalStyle />
-      <PatternContextProvider>{routes}</PatternContextProvider>
+      {routes}
+      <AnimatePresence>
+        <Route path={`${previousPath}/login`} component={Auth} />
+      </AnimatePresence>
     </Layout>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.token !== null
+    token: state.auth.token !== null,
+    redirectPath: state.auth.authRedirectPath
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    onSetRedirectPath: path => dispatch(actions.setAuthRedirect(path))
   };
 };
 
