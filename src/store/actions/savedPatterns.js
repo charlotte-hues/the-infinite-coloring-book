@@ -21,6 +21,13 @@ const savePatternStart = () => {
   };
 };
 
+export const deletePatternSuccess = newPatternsArray => {
+  return {
+    type: actionTypes.DELETE_PATTERN,
+    patterns: newPatternsArray
+  };
+};
+
 export const saveNewPattern = (patternData, token) => {
   return dispatch => {
     dispatch(savePatternStart());
@@ -50,6 +57,25 @@ export const saveExistingPattern = (patternData, token, patternId) => {
       )
       .then(response => {
         dispatch(savePatternSuccess(patternId, patternData));
+      })
+      .catch(error => dispatch(savePatternFail(error)));
+  };
+};
+
+export const deletePattern = (patternId, token, patterns) => {
+  return dispatch => {
+    axios
+      .delete(
+        "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
+          patternId +
+          ".json" +
+          `?auth=${token}`
+      )
+      .then(response => {
+        const newPatternsArray = [...patterns].filter(
+          patternObj => patternObj.id !== patternId
+        );
+        dispatch(deletePatternSuccess(newPatternsArray));
       })
       .catch(error => dispatch(savePatternFail(error)));
   };

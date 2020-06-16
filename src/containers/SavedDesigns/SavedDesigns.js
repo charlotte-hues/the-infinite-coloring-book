@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PatternContextProvider from "../../context/PatternContext/PatternContext";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import SavedDesignListItem from "../../components/SavedDesignListItem/SavedDesignListItem";
@@ -24,7 +23,6 @@ const PatternCardContainer = styled.ul`
 `;
 
 const SavedDesigns = props => {
-  const [savedPatterns, setSavedPatterns] = useState(null);
   const history = useHistory();
 
   const { uid, authToken, loading, onFetchPatterns } = props;
@@ -37,6 +35,10 @@ const SavedDesigns = props => {
   const editHandler = data => {
     props.onLoadPattern(data);
     history.push("/");
+  };
+
+  const deleteHandler = id => {
+    props.onDeletePattern(id, authToken, props.patterns);
   };
 
   const designListItems = !props.patterns
@@ -68,22 +70,6 @@ const SavedDesigns = props => {
     <PatternCardContainer>{designListItems}</PatternCardContainer>
   );
 
-  const deleteHandler = id => {
-    axios
-      .delete(
-        "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
-          id +
-          ".json"
-      )
-      .then(response => {
-        const newPatternsArray = [...savedPatterns].filter(
-          patternObj => patternObj.id !== id
-        );
-        setSavedPatterns(newPatternsArray);
-      })
-      .catch(error => console.log(error));
-  };
-
   return (
     <PatternContextProvider>
       <Container
@@ -110,7 +96,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchPatterns: (token, uid) =>
       dispatch(actions.fetchPatterns(token, uid)),
-    onLoadPattern: patternData => dispatch(actions.loadPattern(patternData))
+    onLoadPattern: patternData => dispatch(actions.loadPattern(patternData)),
+    onDeletePattern: (id, token, patterns) =>
+      dispatch(actions.deletePattern(id, token, patterns))
   };
 };
 

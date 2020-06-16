@@ -50,6 +50,14 @@ const fetchPatternsSuccess = (state, action) => {
   });
 };
 
+const deletePatternSuccess = (state, action) => {
+  return updateObject(state, {
+    patterns: action.patterns,
+    loading: false,
+    error: false
+  });
+};
+
 const authLogout = (state, action) => {
   return updateObject(state, {
     patterns: []
@@ -71,6 +79,9 @@ const reducer = (state = initialState, action) => {
       return fetchPatternsFail(state, action);
     case actionTypes.FETCH_PATTERNS_SUCCESS:
       return fetchPatternsSuccess(state, action);
+
+    case actionTypes.DELETE_PATTERN:
+      return deletePatternSuccess(state, action);
 
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);

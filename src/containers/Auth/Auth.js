@@ -6,12 +6,12 @@ import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
-import Button from "../../components/UI/Button/Button";
+import { NewButton } from "../../components/UI/Button/Button";
 
 const FormContainer = styled.form`
   height: 200px;
   width: 300px;
-  padding: 30px 20px;
+  // padding: 30px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,6 +29,7 @@ const Auth = props => {
       },
       value: "",
       validation: {
+        includes: ["@", "."],
         required: true
       }
     },
@@ -69,7 +70,8 @@ const Auth = props => {
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
-        valid: checkValidity(e.target.value, controls[input].validation)
+        valid: checkValidity(e.target.value, controls[input].validation),
+        changed: true
       })
     });
     let validity = true;
@@ -97,6 +99,9 @@ const Auth = props => {
         placeholder={input.config.elementConfig.placeholder}
         value={input.config.value}
         onChange={e => inputChangedHandler(e, input.id)}
+        isValid={checkValidity(input.config.value, input.config.validation)}
+        shouldValidate={input.config.validation.required}
+        touched={input.config.changed}
       ></Input>
     );
   });
@@ -106,12 +111,12 @@ const Auth = props => {
       <FormContainer onSubmit={submitHandler}>
         {inputs}
         <div>
-          <Button disabled={!formIsValid}>
+          <NewButton disabled={!formIsValid}>
             {isSignUp ? "Sign Up" : "Log In"}
-          </Button>
-          <Button onClick={switchAuthModeHandler}>
+          </NewButton>
+          <NewButton onClick={switchAuthModeHandler}>
             Switch to {isSignUp ? "Log in" : "Sign Up"}
-          </Button>
+          </NewButton>
         </div>
       </FormContainer>
     </Modal>

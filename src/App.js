@@ -21,6 +21,8 @@ const GlobalStyle = createGlobalStyle`
     --dark: #BCB3B1;
     --background: #F0EAE1;
     --orange: #C74F33;
+    --success: #33AE9A;
+    --error: #D3200F;
     --smallestFont: 0.7rem;
     --shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
     0 4px 4px rgba(0, 0, 0, 0.11), 0 6px 8px rgba(0, 0, 0, 0.11),
@@ -73,14 +75,15 @@ const App = props => {
   });
   const [previousPath, setPreviousPath] = useState(props.redirectPath);
 
-  const { onSetRedirectPath } = props;
+  const { onSetRedirectPath, onSetLockMode } = props;
   useEffect(() => {
     if (!(location.state && location.state.modal)) {
       setPreviousLocation(location);
       setPreviousPath(location.pathname);
       onSetRedirectPath(location.pathname);
+      onSetLockMode(false);
     }
-  }, [location, onSetRedirectPath]);
+  }, [location, onSetRedirectPath, onSetLockMode]);
 
   const { onTryAutoSignup } = props;
   useEffect(() => {
@@ -119,7 +122,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    onSetRedirectPath: path => dispatch(actions.setAuthRedirect(path))
+    onSetRedirectPath: path => dispatch(actions.setAuthRedirect(path)),
+    onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode))
   };
 };
 

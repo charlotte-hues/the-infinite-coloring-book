@@ -40,5 +40,11 @@ export const checkValidity = (value, rules) => {
   if (rules.minLength) {
     isValid = value.length > rules.minLength;
   }
+
+  if (rules.includes) {
+    isValid = rules.includes.every(character => {
+      return value.includes(character);
+    });
+  }
   return isValid;
 };
