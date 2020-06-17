@@ -75,6 +75,8 @@ const App = props => {
   });
   const [previousPath, setPreviousPath] = useState(props.redirectPath);
 
+  console.log(location.pathname);
+
   const { onSetRedirectPath, onSetLockMode } = props;
   useEffect(() => {
     if (!(location.state && location.state.modal)) {
@@ -96,8 +98,8 @@ const App = props => {
       <Route exact path="/about" component={About} />
       <Route exact path="/myDesigns" component={SavedDesigns} />
       <Route path="/login" component={Auth} />
-      <Route path="/" component={EditPattern} />
-      <Redirect to="/" />
+      <Route path="/create" component={EditPattern} />
+      <Redirect to="/create" />
     </AnimatedRoutesWrapper>
   );
 
@@ -115,6 +117,8 @@ const App = props => {
 const mapStateToProps = state => {
   return {
     token: state.auth.token !== null,
+    expirationTime: state.auth.expirationTime,
+    userId: state.auth.userId,
     redirectPath: state.auth.authRedirectPath
   };
 };

@@ -23,7 +23,11 @@ const Layout = props => {
         sideDrawerOpen={sideDrawerOpen}
         isAuth={props.isAuthenticated}
       />
-      <SideDrawer open={sideDrawerOpen} onClick={sideDrawerOpenHandler} />
+      <SideDrawer
+        open={sideDrawerOpen}
+        onClick={sideDrawerOpenHandler}
+        isAuth={props.isAuthenticated}
+      />
       <Main>{props.children}</Main>
     </React.Fragment>
   );
