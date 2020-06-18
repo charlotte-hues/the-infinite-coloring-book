@@ -5,8 +5,8 @@ import randPatternArray, {
 } from "../../context/PatternContext/DefaultValues/RandPatternArray/RandPatternArray";
 import { getRandNum } from "../../shared/utility";
 
-export const initPattern = () => {
-  const pattern = randPatternArray("square", 2).map(num => {
+export const initPattern = (orientation, complexity) => {
+  const pattern = randPatternArray(orientation, complexity).map(num => {
     return { num: num, locked: false };
   });
   return {

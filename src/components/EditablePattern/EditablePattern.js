@@ -45,17 +45,18 @@ const EditablePattern = ({
   imageName,
   columns,
   patternColor,
+  complexity,
 
   onSwitchTile,
   onLockTile
 }) => {
   const [visible, setVisible] = useState(true);
 
-  // useEffect(() => {
-  //   if (!edited && !patternId) {
-  //     newPattern();
-  //   }
-  // }, [edited, patternId, newPattern]);
+  useEffect(() => {
+    if (!edited && !patternId) {
+      newPattern(orientation, complexity);
+    }
+  }, [edited, patternId, newPattern, orientation, complexity]);
 
   useEffect(() => {
     setVisible(false);
@@ -68,7 +69,7 @@ const EditablePattern = ({
     }, 200);
   };
 
-  const clickHandler = (i, locked) => {
+  const clickHandler = (i, currentPattern, activePattern) => {
     !lockMode
       ? onSwitchTile(i, currentPattern, activePattern)
       : onLockTile(i, currentPattern);
@@ -83,7 +84,7 @@ const EditablePattern = ({
         patternColor={!lockMode ? patternColor : "red"}
         num={currentPattern[i].num}
         locked={currentPattern[i].locked}
-        click={() => clickHandler(i, currentPattern[i].locked)}
+        click={() => clickHandler(i, currentPattern, activePattern)}
       />
     );
   });
@@ -107,12 +108,14 @@ const mapStateToProps = state => {
     lockMode: state.patternEditing.lockMode,
     imageName: state.currentPattern.imageName,
     columns: state.currentPattern.columns,
+    complexity: state.currentPattern.complexity,
     patternColor: state.currentPattern.patternColor
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    newPattern: () => dispatch(actions.initPattern()),
+    newPattern: (orientation, complexity) =>
+      dispatch(actions.initPattern(orientation, complexity)),
     onSwitchTile: (index, currentPattern, activePattern) =>
       dispatch(actions.switchTile(index, currentPattern, activePattern)),
     onLockTile: (index, currentPattern) =>

@@ -75,8 +75,6 @@ const App = props => {
   });
   const [previousPath, setPreviousPath] = useState(props.redirectPath);
 
-  console.log(location.pathname);
-
   const { onSetRedirectPath, onSetLockMode } = props;
   useEffect(() => {
     if (!(location.state && location.state.modal)) {
