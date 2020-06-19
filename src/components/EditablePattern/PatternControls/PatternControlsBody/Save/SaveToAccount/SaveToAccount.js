@@ -76,13 +76,7 @@ const SaveToAccount = ({
     <Link
       to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
     >
-      <Button
-        onClick={() => {
-          console.log("login");
-        }}
-      >
-        Log in to save
-      </Button>
+      <Button>Log in to save</Button>
     </Link>
   );
 

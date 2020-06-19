@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
 import EditPattern from "./containers/EditPattern/EditPattern";
-import SavedDesigns from "./containers/SavedDesigns/SavedDesigns";
-import About from "./containers/About/About";
-import Auth from "./containers/Auth/Auth";
 import Logout from "./containers/Auth/Logout/Logout";
 import { createGlobalStyle } from "styled-components";
 import * as actions from "./store/actions/index";
+
+const SavedDesigns = React.lazy(() => {
+  return import("./containers/SavedDesigns/SavedDesigns");
+});
+
+const About = React.lazy(() => {
+  return import("./containers/About/About");
+});
+
+const Auth = React.lazy(() => {
+  return import("./containers/Auth/Auth");
+});
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -103,8 +112,10 @@ const App = props => {
   return (
     <Layout>
       <GlobalStyle />
-      {routes}
-      <Route path={`${previousPath}/login`} component={Auth} />
+      <Suspense fallback={<p>Loading...</p>}>
+        {routes}
+        <Route path={`${previousPath}/login`} component={Auth} />
+      </Suspense>
     </Layout>
   );
 };

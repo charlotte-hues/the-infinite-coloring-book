@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import SavedDesignListItem from "../../components/SavedDesignListItem/SavedDesignListItem";
 import * as actions from "../../store/actions/index";
+import withErrorHandler from "../../hoc/withErrorHandler";
+import axios from "axios";
 
 const Container = styled(motion.div)`
 height: 100%;
@@ -102,4 +104,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SavedDesigns);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(SavedDesigns, axios));

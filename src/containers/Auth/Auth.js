@@ -7,6 +7,8 @@ import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
 import { NewButton } from "../../components/UI/Button/Button";
+import useHttpError from "../../hooks/httpError";
+import axios from "axios";
 
 const FormContainer = styled.form`
   height: 200px;
@@ -16,6 +18,11 @@ const FormContainer = styled.form`
   flex-direction: column;
   justify-content: space-between;
   z-index: 100;
+`;
+
+const StyledErrorMessage = styled.p`
+  color: var(--error);
+  font-size: 0.7rem;
 `;
 
 const Auth = props => {
@@ -51,6 +58,7 @@ const Auth = props => {
   const [isSignUp, setIsSignUp] = useState(true);
   const { isAuth, authRedirectPath } = props;
   const [showModal, setShowModal] = useState(true);
+  const [error, errorConfirmedHandler] = useHttpError(axios);
 
   useEffect(() => {
     if (isAuth) {
@@ -65,6 +73,7 @@ const Auth = props => {
 
   const inputChangedHandler = (e, input) => {
     e.preventDefault();
+    if (error) errorConfirmedHandler();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
@@ -119,10 +128,15 @@ const Auth = props => {
     }
   };
 
+  const errorMessage = error ? (
+    <StyledErrorMessage>{error.response.data.error.message}</StyledErrorMessage>
+  ) : null;
+
   return (
     <Modal modalClosed={closeModalHandler} show={showModal}>
       <FormContainer onSubmit={submitHandler}>
         {inputs}
+        {errorMessage}
         <div>
           <NewButton disabled={!formIsValid}>
             {isSignUp ? "Sign Up" : "Log In"}
