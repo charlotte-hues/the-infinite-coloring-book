@@ -59,15 +59,16 @@ const EditablePattern = ({
   }, [edited, patternId, newPattern, orientation, complexity]);
 
   useEffect(() => {
+    let mounted = true;
     setVisible(false);
-    fadeInAfterChange();
-  }, [orientation]);
-
-  const fadeInAfterChange = () => {
     setTimeout(() => {
-      setVisible(true);
+      if (mounted) {
+        setVisible(true);
+      }
     }, 200);
-  };
+
+    return () => (mounted = false);
+  }, [orientation]);
 
   const clickHandler = (i, currentPattern, activePattern) => {
     !lockMode

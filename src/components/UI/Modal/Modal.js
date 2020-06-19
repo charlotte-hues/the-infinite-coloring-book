@@ -1,74 +1,73 @@
-import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 
 const Container = styled(motion.div)`
   position: absolute;
+  display: flex;
+  justify-content: space-around;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: ${props =>
-    props.exiting ? "rgba(225,219,210,0)" : "rgba(225,219,210,0.5)"};
+  background: rgba(225, 219, 210, 0.5);
   transition: all 0.5s ease;
+  overflow: hidden;
   z-index: 99;
 `;
 
 const StyledDiv = styled(motion.div)`
-  position: absolute;
   margin: auto;
   height: auto;
   width: auto;
-  top: 20%;
-  left: 30px;
-  transform: translate(-50%, -50%);
+  max-width: fit-content;
   padding: 30px 20px;
-  background: ${props =>
-    props.exiting ? "rgba(247,243,238,0)" : "rgba(247,243,238,1)"};
-  border: 2px solid
-    ${props => (props.exiting ? "rgba(225,219,210,0)" : "rgba(225,219,210,1)")};
+  background: var(--surface);
+  border: 2px solid var(--trim);
   border-radius: 4px;
-  box-shadow: ${props => (props.exiting ? "none" : "var(--shadow)")};
+  box-shadow: var(--shadow);
   z-index: 100;
-  transition: all 0.5s ease;
-
-  & > * {
-    opacity: ${props => (!props.exiting ? 1 : 0)};
-  }
 `;
 
-const Modal = ({ children }) => {
+const Modal = props => {
   const ref = useRef();
-  const history = useHistory();
-  let [exiting, setExiting] = useState(false);
 
-  const closeModalHandler = () => {
-    setExiting(true);
-    setTimeout(() => {
-      history.goBack();
-    }, 500);
+  const closeModalHandler = mounted => {
+    props.modalClosed(mounted);
   };
 
-  useOnClickOutside(ref, closeModalHandler);
+  useOnClickOutside(ref, () => closeModalHandler(true));
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { delayChildren: 0.4 }
+    }
+  };
+
+  const item = {
+    hidden: { y: -200, opacity: 0 },
+    show: { y: 0, opacity: 1 }
+  };
 
   return (
-    <Container
-      exiting={exiting}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <StyledDiv
-        initial={{ y: "-20vh", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: "-20vh", opacity: 0 }}
-        ref={ref}
-        exiting={exiting}
-      >
-        {children}
-      </StyledDiv>
-    </Container>
+    <AnimatePresence onExitComplete={() => closeModalHandler(false)}>
+      {props.show && (
+        <Container
+          key="backdrop"
+          variants={container}
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+        >
+          <StyledDiv key="modal" variants={item} ref={ref}>
+            {props.children}
+          </StyledDiv>
+        </Container>
+      )}
+    </AnimatePresence>
   );
 };
 

@@ -50,19 +50,17 @@ const Auth = props => {
   const history = useHistory();
   const [isSignUp, setIsSignUp] = useState(true);
   const { isAuth, authRedirectPath } = props;
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
-    if (isAuth) history.push(authRedirectPath);
-  }, [isAuth, authRedirectPath, history]);
+    if (isAuth) {
+      setShowModal(false);
+    }
+  }, [isAuth]);
 
   const switchAuthModeHandler = e => {
     e.preventDefault();
     setIsSignUp(prevState => !prevState);
-  };
-
-  const submitHandler = e => {
-    e.preventDefault();
-    props.onAuth(controls.email.value, controls.password.value, isSignUp);
   };
 
   const inputChangedHandler = (e, input) => {
@@ -106,8 +104,23 @@ const Auth = props => {
     );
   });
 
+  const submitHandler = e => {
+    e.preventDefault();
+    props.onAuth(controls.email.value, controls.password.value, isSignUp);
+  };
+
+  const closeModalHandler = (mounted = true) => {
+    if (mounted) {
+      setShowModal(false);
+    } else {
+      if (isAuth) {
+        history.push(authRedirectPath);
+      } else history.goBack();
+    }
+  };
+
   return (
-    <Modal>
+    <Modal modalClosed={closeModalHandler} show={showModal}>
       <FormContainer onSubmit={submitHandler}>
         {inputs}
         <div>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
@@ -105,9 +104,7 @@ const App = props => {
     <Layout>
       <GlobalStyle />
       {routes}
-      <AnimatePresence>
-        <Route path={`${previousPath}/login`} component={Auth} />
-      </AnimatePresence>
+      <Route path={`${previousPath}/login`} component={Auth} />
     </Layout>
   );
 };
