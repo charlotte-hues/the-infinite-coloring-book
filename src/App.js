@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { AnimatedRoutesWrapper } from "./components/animations/animatedRoutes/animatedRoutes";
 import Layout from "./hoc/Layout/Layout";
-import EditPattern from "./containers/EditPattern/EditPattern";
+import EditPattern from "./containers/CurrentPattern/CurrentPattern";
 import Logout from "./containers/Auth/Logout/Logout";
 import { createGlobalStyle } from "styled-components";
 import * as actions from "./store/actions/index";

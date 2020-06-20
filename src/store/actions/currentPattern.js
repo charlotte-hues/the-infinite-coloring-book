@@ -2,7 +2,7 @@ import * as actionTypes from "./actionTypes";
 import randPatternArray, {
   maxNo,
   getColumns
-} from "../../context/PatternContext/DefaultValues/RandPatternArray/RandPatternArray";
+} from "../../shared/RandPatternArray/RandPatternArray";
 import { getRandNum } from "../../shared/utility";
 
 export const initPattern = (orientation, complexity) => {

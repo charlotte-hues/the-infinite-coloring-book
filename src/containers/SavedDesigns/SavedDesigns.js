@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import PatternContextProvider from "../../context/PatternContext/PatternContext";
+import { useLocation, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import styled from "styled-components";
@@ -26,6 +26,7 @@ const PatternCardContainer = styled.ul`
 
 const SavedDesigns = props => {
   const history = useHistory();
+  const location = useLocation();
 
   const { uid, authToken, loading, onFetchPatterns } = props;
 
@@ -68,21 +69,25 @@ const SavedDesigns = props => {
 
   const designs = loading ? (
     <h4>Loading...</h4>
+  ) : !authToken ? (
+    <Link
+      to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
+    >
+      <button>Log in to see your saved designs</button>
+    </Link>
   ) : (
     <PatternCardContainer>{designListItems}</PatternCardContainer>
   );
 
   return (
-    <PatternContextProvider>
-      <Container
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <h1>My Designs</h1>
-        {designs}
-      </Container>
-    </PatternContextProvider>
+    <Container
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <h1>My Designs</h1>
+      {designs}
+    </Container>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import sharedButtonStyles from "./sharedButtonStyles";
-import InputWrapper from "../../EditablePattern/PatternControls/PatternControlsInputs/InputWrapper/InputWrapper";
+import InputWrapper from "../InputWrapper/InputWrapper";
 
 const StyledButton = styled.button`
   ${sharedButtonStyles}
