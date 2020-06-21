@@ -1,10 +1,10 @@
 import React from "react";
-import { NewButton } from "../../../../UI/Button/Button";
+import { WrappedButton } from "../../../../UI/Button/Button";
 
 const PrintImage = props => {
   return (
     <React.Fragment>
-      <NewButton onClick={() => window.print()}>Print</NewButton>
+      <WrappedButton onClick={() => window.print()}>Print</WrappedButton>
     </React.Fragment>
   );
 };

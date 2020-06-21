@@ -30,6 +30,11 @@ const StyledDiv = styled(motion.div)`
   z-index: 100;
 `;
 
+const Title = styled.h4`
+  color: var(--black);
+  margin: 0 0 20px;
+`;
+
 const Modal = props => {
   const ref = useRef();
 
@@ -63,6 +68,7 @@ const Modal = props => {
           exit="hidden"
         >
           <StyledDiv key="modal" variants={item} ref={ref}>
+            <Title>{props.title}</Title>
             {props.children}
           </StyledDiv>
         </Container>

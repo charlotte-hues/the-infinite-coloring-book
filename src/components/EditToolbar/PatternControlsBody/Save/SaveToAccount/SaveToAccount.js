@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import InputWrapper from "../../../../UI/InputWrapper/InputWrapper";
-import Button from "../../../../UI/Button/Button";
+import Button, { WrappedButton } from "../../../../UI/Button/Button";
 import { Spacer } from "../../../../UI/Divider/Divider";
 import * as actions from "../../../../../store/actions/index";
 
@@ -63,28 +63,26 @@ const SaveToAccount = ({
 
   const options = isAuth ? (
     <React.Fragment>
-      <Button
-        disabled={!data.id || !data.edited}
-        onClick={() => saveExistingPatternHandler(data)}
-      >
-        Save changes
-      </Button>
-      <Spacer width="20px" />
-      <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
+      <InputWrapper>
+        <Button
+          disabled={!data.id || !data.edited}
+          onClick={() => saveExistingPatternHandler(data)}
+        >
+          Save changes
+        </Button>
+        <Spacer width="20px" />
+        <Button onClick={() => saveNewPatternHandler(data)}>Save as new</Button>
+      </InputWrapper>
     </React.Fragment>
   ) : (
     <Link
       to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
     >
-      <Button>Log in to save</Button>
+      <WrappedButton>Log in to save</WrappedButton>
     </Link>
   );
 
-  return (
-    <React.Fragment>
-      <InputWrapper>{options}</InputWrapper>
-    </React.Fragment>
-  );
+  return <React.Fragment>{options}</React.Fragment>;
 };
 
 const mapStateToProps = state => {

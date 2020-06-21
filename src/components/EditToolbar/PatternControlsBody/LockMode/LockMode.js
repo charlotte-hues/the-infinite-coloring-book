@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { OnOffSwitch } from "../../../UI/Switch/Switch";
-import { NewButton } from "../../../UI/Button/Button";
+import { WrappedButton } from "../../../UI/Button/Button";
 import * as actions from "../../../../store/actions/index";
 
 const LockMode = props => {
@@ -14,15 +14,15 @@ const LockMode = props => {
         active={lockMode}
         onClick={() => props.onSetLockMode(!lockMode)}
       />
-      <NewButton
+      <WrappedButton
         onClick={() => props.onClearLockedTiles(props.pattern)}
         disabled={!locked}
       >
         Clear Locked Tiles
-      </NewButton>
-      {/* <NewButton onClick={() => props.onRandomisePattern(props.pattern)}>
+      </WrappedButton>
+      {/* <WrappedButton onClick={() => props.onRandomisePattern(props.pattern)}>
         Randomise Unlocked Tiles
-      </NewButton> */}
+      </WrappedButton> */}
     </React.Fragment>
   );
 };

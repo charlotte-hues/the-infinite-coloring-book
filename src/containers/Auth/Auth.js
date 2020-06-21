@@ -6,7 +6,8 @@ import * as actions from "../../store/actions/index";
 import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
-import { NewButton } from "../../components/UI/Button/Button";
+import { WrappedButton } from "../../components/UI/Button/Button";
+import InputWrapper from "../../components/UI/InputWrapper/InputWrapper";
 import useHttpError from "../../hooks/httpError";
 import axios from "axios";
 
@@ -133,17 +134,21 @@ const Auth = props => {
   ) : null;
 
   return (
-    <Modal modalClosed={closeModalHandler} show={showModal}>
+    <Modal
+      modalClosed={closeModalHandler}
+      show={showModal}
+      title={isSignUp ? "Sign Up" : "Log in"}
+    >
       <FormContainer onSubmit={submitHandler}>
         {inputs}
         {errorMessage}
         <div>
-          <NewButton disabled={!formIsValid}>
+          <WrappedButton disabled={!formIsValid}>
             {isSignUp ? "Sign Up" : "Log In"}
-          </NewButton>
-          <NewButton onClick={switchAuthModeHandler}>
+          </WrappedButton>
+          <WrappedButton onClick={switchAuthModeHandler}>
             Switch to {isSignUp ? "Log in" : "Sign Up"}
-          </NewButton>
+          </WrappedButton>
         </div>
       </FormContainer>
     </Modal>

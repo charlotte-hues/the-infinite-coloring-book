@@ -5,7 +5,7 @@ import { saveAsPng } from "save-html-as-image";
 import NameImage from "./NameImage/NameImage";
 import PrintImage from "./PrintImage/PrintImage";
 import SaveToAccount from "./SaveToAccount/SaveToAccount";
-import { NewButton } from "../../../UI/Button/Button";
+import { WrappedButton } from "../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
 import * as actions from "../../../../store/actions/index";
 
@@ -57,11 +57,11 @@ const Save = props => {
     <React.Fragment>
       <NameImage value={props.imageName} update={props.onUpdateImageName} />
       <SaveToAccount />
-      <NewButton
+      <WrappedButton
         onClick={e => downloadImageHandler(e, props.imageName, ref.current)}
       >
         Download
-      </NewButton>
+      </WrappedButton>
       <PrintImage />
       {DownloadableImage}
     </React.Fragment>
