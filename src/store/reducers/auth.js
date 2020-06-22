@@ -2,12 +2,9 @@ import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../../shared/utility";
 
 const initialState = {
-  token: null,
-  expirationTime: null,
-  userId: null,
+  currentUser: null,
   loading: false,
-  error: null,
-  authRedirectPath: "/"
+  error: null
 };
 
 const authStart = (state, action) => {
@@ -24,27 +21,33 @@ const authFail = (state, action) => {
   });
 };
 
-const authSuccess = (state, action) => {
+const setCurrentUser = (state, action) => {
   return updateObject(state, {
-    token: action.token,
-    userId: action.userId,
-    expirationTime: action.expirationTime,
+    currentUser: action.currentUser,
+    loading: false,
+    error: false
+  });
+};
+
+const clearCurrentUser = (state, action) => {
+  return updateObject(state, {
+    currentUser: null,
     loading: false,
     error: null
   });
 };
 
-const authLogout = (state, action) => {
+const clearAuthError = (state, action) => {
   return updateObject(state, {
-    token: null,
-    userId: null,
-    expirationTime: null
+    error: null
   });
 };
 
-const setAuthPathRedirect = (state, action) => {
+const logout = (state, action) => {
   return updateObject(state, {
-    authRedirectPath: action.path
+    error: null,
+    loading: false,
+    currentUser: null
   });
 };
 
@@ -54,12 +57,14 @@ const reducer = (state = initialState, action) => {
       return authStart(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
-    case actionTypes.AUTH_SUCCESS:
-      return authSuccess(state, action);
+    case actionTypes.CLEAR_AUTH_ERROR:
+      return clearAuthError(state, action);
+    case actionTypes.SET_CURRENT_USER:
+      return setCurrentUser(state, action);
+    case actionTypes.CLEAR_CURRENT_USER:
+      return clearCurrentUser(state, action);
     case actionTypes.AUTH_LOGOUT:
-      return authLogout(state, action);
-    case actionTypes.SET_AUTH_REDIRECT_PATH:
-      return setAuthPathRedirect(state, action);
+      return logout(state, action);
     default:
       return state;
   }

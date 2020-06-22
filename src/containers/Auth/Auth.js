@@ -7,14 +7,10 @@ import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
 import { WrappedButton } from "../../components/UI/Button/Button";
-import InputWrapper from "../../components/UI/InputWrapper/InputWrapper";
-import useHttpError from "../../hooks/httpError";
-import axios from "axios";
 
 const FormContainer = styled.form`
   height: 200px;
   width: 300px;
-  // padding: 30px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,6 +25,18 @@ const StyledErrorMessage = styled.p`
 const Auth = props => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [controls, setControls] = useState({
+    name: {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: "display name"
+      },
+      value: "",
+      validation: {
+        minLength: 0,
+        required: true
+      }
+    },
     email: {
       elementType: "input",
       elementConfig: {
@@ -59,7 +67,6 @@ const Auth = props => {
   const [isSignUp, setIsSignUp] = useState(true);
   const { isAuth, authRedirectPath } = props;
   const [showModal, setShowModal] = useState(true);
-  const [error, errorConfirmedHandler] = useHttpError(axios);
 
   useEffect(() => {
     if (isAuth) {
@@ -74,7 +81,8 @@ const Auth = props => {
 
   const inputChangedHandler = (e, input) => {
     e.preventDefault();
-    if (error) errorConfirmedHandler();
+    console.log(input);
+    if (props.error) props.confirmAuthError();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
@@ -86,6 +94,7 @@ const Auth = props => {
     for (let key in updatedControls) {
       validity = updatedControls[key].valid && validity;
     }
+    console.log(validity);
     setFormIsValid(validity);
     setControls(updatedControls);
   };
@@ -116,7 +125,12 @@ const Auth = props => {
 
   const submitHandler = e => {
     e.preventDefault();
-    props.onAuth(controls.email.value, controls.password.value, isSignUp);
+    props.onAuth(
+      controls.email.value,
+      controls.password.value,
+      isSignUp,
+      controls.name.value
+    );
   };
 
   const closeModalHandler = (mounted = true) => {
@@ -129,8 +143,8 @@ const Auth = props => {
     }
   };
 
-  const errorMessage = error ? (
-    <StyledErrorMessage>{error.response.data.error.message}</StyledErrorMessage>
+  const errorMessage = props.error ? (
+    <StyledErrorMessage>{props.error}</StyledErrorMessage>
   ) : null;
 
   return (
@@ -158,7 +172,7 @@ const Auth = props => {
 const mapStateToProps = state => {
   return {
     isLoading: state.auth.loading,
-    isAuth: state.auth.token !== null,
+    isAuth: state.auth.currentUser !== null,
     error: state.auth.error,
     authRedirectPath: state.auth.authRedirectPath
   };
@@ -168,7 +182,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actions.auth(email, password, isSignUp)),
-    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/"))
+    onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
+    confirmAuthError: () => dispatch(actions.clearAuthError())
   };
 };
 

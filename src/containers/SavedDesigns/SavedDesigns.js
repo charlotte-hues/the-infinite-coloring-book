@@ -8,6 +8,7 @@ import SavedDesignListItem from "../../components/SavedDesignListItem/SavedDesig
 import * as actions from "../../store/actions/index";
 import withErrorHandler from "../../hoc/withErrorHandler";
 import axios from "axios";
+import { fbAuth } from "../../configs/firebase.config";
 
 const Container = styled(motion.div)`
 height: 100%;
@@ -28,12 +29,12 @@ const SavedDesigns = props => {
   const history = useHistory();
   const location = useLocation();
 
-  const { uid, authToken, loading, onFetchPatterns } = props;
+  const { loading, onFetchPatterns, isAuth, currentUser } = props;
 
   useEffect(() => {
-    if (!uid || !authToken) return;
-    onFetchPatterns(authToken, uid);
-  }, [uid, authToken, onFetchPatterns]);
+    if (!currentUser) return;
+    onFetchPatterns(currentUser);
+  }, [currentUser, onFetchPatterns]);
 
   const editHandler = data => {
     props.onLoadPattern(data);
@@ -41,7 +42,7 @@ const SavedDesigns = props => {
   };
 
   const deleteHandler = id => {
-    props.onDeletePattern(id, authToken, props.patterns);
+    props.onDeletePattern(id, currentUser.xa, props.patterns);
   };
 
   const designListItems = !props.patterns
@@ -69,7 +70,7 @@ const SavedDesigns = props => {
 
   const designs = loading ? (
     <h4>Loading...</h4>
-  ) : !authToken ? (
+  ) : !isAuth ? (
     <Link
       to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
     >
@@ -87,6 +88,15 @@ const SavedDesigns = props => {
     >
       <h1>My Designs</h1>
       {designs}
+      <button
+        onClick={() =>
+          fbAuth
+            .sendPasswordResetEmail(currentUser.email)
+            .then(response => console.log(response))
+        }
+      >
+        ResetPassword
+      </button>
     </Container>
   );
 };
@@ -95,8 +105,8 @@ const mapStateToProps = state => {
   return {
     patterns: state.savedPatterns.patterns,
     loading: state.savedPatterns.loading,
-    authToken: state.auth.token,
-    uid: state.auth.userId
+    isAuth: state.auth.currentUser !== null,
+    currentUser: state.auth.currentUser
   };
 };
 const mapDispatchToProps = dispatch => {

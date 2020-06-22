@@ -21,7 +21,7 @@ const store = createStore(
 store.subscribe(() => {
   saveState({
     currentPattern: store.getState().currentPattern,
-    auth: store.getState().auth
+    redirect: store.getState().redirect
   });
 });
 

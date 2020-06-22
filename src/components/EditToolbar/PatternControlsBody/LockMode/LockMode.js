@@ -20,9 +20,6 @@ const LockMode = props => {
       >
         Clear Locked Tiles
       </WrappedButton>
-      {/* <WrappedButton onClick={() => props.onRandomisePattern(props.pattern)}>
-        Randomise Unlocked Tiles
-      </WrappedButton> */}
     </React.Fragment>
   );
 };
@@ -38,8 +35,6 @@ const mapDispatchToProps = dispatch => {
     onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode)),
     onClearLockedTiles: currentPattern =>
       dispatch(actions.clearLockedTiles(currentPattern))
-    // onRandomisePattern: currentPattern =>
-    //   dispatch(actions.randomisePattern(currentPattern))
   };
 };
 

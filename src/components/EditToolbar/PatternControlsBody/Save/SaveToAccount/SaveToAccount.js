@@ -5,12 +5,12 @@ import InputWrapper from "../../../../UI/InputWrapper/InputWrapper";
 import Button, { WrappedButton } from "../../../../UI/Button/Button";
 import { Spacer } from "../../../../UI/Divider/Divider";
 import * as actions from "../../../../../store/actions/index";
+import { fbDatabase } from "../../../../../configs/firebase.config";
 
 const SaveToAccount = ({
   data,
-  uid,
+  currentUser,
   isAuth,
-  authToken,
   onSaveNewPattern,
   onSaveExistingPattern
 }) => {
@@ -32,9 +32,9 @@ const SaveToAccount = ({
       },
       createdDate: date,
       lastUpdated: date,
-      uid: uid
+      uid: currentUser.uid
     };
-    onSaveNewPattern(patternData, authToken);
+    onSaveNewPattern(patternData, currentUser.xa);
   };
 
   const saveExistingPatternHandler = data => {
@@ -54,9 +54,9 @@ const SaveToAccount = ({
       },
       createdDate: data.createdDate,
       lastUpdated: date,
-      uid: uid
+      uid: currentUser.uid
     };
-    onSaveExistingPattern(patternData, authToken, data.id);
+    onSaveExistingPattern(patternData, currentUser, data.id);
   };
 
   const location = useLocation();
@@ -87,9 +87,8 @@ const SaveToAccount = ({
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.token !== null,
-    authToken: state.auth.token,
-    uid: state.auth.userId,
+    isAuth: state.auth.currentUser !== null,
+    currentUser: state.auth.currentUser,
     data: state.currentPattern
   };
 };

@@ -8,6 +8,7 @@ import EditPattern from "./containers/CurrentPattern/CurrentPattern";
 import Logout from "./containers/Auth/Logout/Logout";
 import { createGlobalStyle } from "styled-components";
 import * as actions from "./store/actions/index";
+import { fbAuth } from "./configs/firebase.config";
 
 const SavedDesigns = React.lazy(() => {
   return import("./containers/SavedDesigns/SavedDesigns");
@@ -83,7 +84,13 @@ const App = props => {
   });
   const [previousPath, setPreviousPath] = useState(props.redirectPath);
 
-  const { onSetRedirectPath, onSetLockMode } = props;
+  const {
+    onSetRedirectPath,
+    onSetLockMode,
+    setCurrentUser,
+    clearCurrentUser,
+    currentUser
+  } = props;
   useEffect(() => {
     if (!(location.state && location.state.modal)) {
       setPreviousLocation(location);
@@ -93,10 +100,17 @@ const App = props => {
     }
   }, [location, onSetRedirectPath, onSetLockMode]);
 
-  const { onTryAutoSignup } = props;
   useEffect(() => {
-    onTryAutoSignup();
-  }, [onTryAutoSignup]);
+    let unsubscribeFromAuth = null;
+    unsubscribeFromAuth = fbAuth.onAuthStateChanged(user => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        clearCurrentUser();
+      }
+      return () => unsubscribeFromAuth();
+    });
+  }, [setCurrentUser, clearCurrentUser, currentUser]);
 
   let routes = (
     <AnimatedRoutesWrapper location={previousLocation}>
@@ -125,15 +139,17 @@ const mapStateToProps = state => {
     token: state.auth.token !== null,
     expirationTime: state.auth.expirationTime,
     userId: state.auth.userId,
-    redirectPath: state.auth.authRedirectPath
+    redirectPath: state.redirect.authRedirectPath,
+    currentUser: state.auth.currentUser
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState()),
     onSetRedirectPath: path => dispatch(actions.setAuthRedirect(path)),
-    onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode))
+    onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode)),
+    clearCurrentUser: () => dispatch(actions.clearCurrentUser()),
+    setCurrentUser: user => dispatch(actions.setCurrentUser(user))
   };
 };
 
