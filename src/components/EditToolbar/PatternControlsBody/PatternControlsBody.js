@@ -74,11 +74,13 @@ const PatternControlsBody = props => {
   }
 
   useEffect(() => {
+    let mounted = true;
     if (props.open) {
       setTimeout(() => {
-        setIsVisible(true);
+        if (mounted) setIsVisible(true);
       }, 300);
-    } else setIsVisible(false);
+    } else if (mounted) setIsVisible(false);
+    return () => (mounted = false);
   }, [props.open]);
 
   return (

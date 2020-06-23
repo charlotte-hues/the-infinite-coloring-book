@@ -17,6 +17,11 @@ const FormContainer = styled.form`
   z-index: 100;
 `;
 
+const SuccessContainer = styled.div`
+  height: 200px;
+  width: 300px;
+`;
+
 const StyledErrorMessage = styled.p`
   color: var(--error);
   font-size: 0.7rem;
@@ -24,6 +29,8 @@ const StyledErrorMessage = styled.p`
 
 const Auth = props => {
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [controls, setControls] = useState({
     name: {
       elementType: "input",
@@ -32,6 +39,7 @@ const Auth = props => {
         placeholder: "display name"
       },
       value: "",
+      signIn: false,
       validation: {
         minLength: 0,
         required: true
@@ -44,6 +52,7 @@ const Auth = props => {
         placeholder: "email address"
       },
       value: "",
+      signIn: true,
       validation: {
         includes: ["@", "."],
         required: true
@@ -56,23 +65,21 @@ const Auth = props => {
         placeholder: "******"
       },
       value: "",
+      signIn: true,
       validation: {
         minLength: 6,
         required: true
       }
     }
   });
-
   const history = useHistory();
-  const [isSignUp, setIsSignUp] = useState(true);
-  const { isAuth, authRedirectPath } = props;
-  const [showModal, setShowModal] = useState(true);
+  const { isAuth, authRedirectPath, displayName } = props;
 
-  useEffect(() => {
-    if (isAuth) {
-      setShowModal(false);
-    }
-  }, [isAuth]);
+  // useEffect(() => {
+  //   if (isAuth) {
+  //     setShowModal(false);
+  //   }
+  // }, [isAuth]);
 
   const switchAuthModeHandler = e => {
     e.preventDefault();
@@ -81,7 +88,6 @@ const Auth = props => {
 
   const inputChangedHandler = (e, input) => {
     e.preventDefault();
-    console.log(input);
     if (props.error) props.confirmAuthError();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
@@ -92,19 +98,23 @@ const Auth = props => {
     });
     let validity = true;
     for (let key in updatedControls) {
-      validity = updatedControls[key].valid && validity;
+      validity =
+        !isSignUp && updatedControls[key].signIn === false
+          ? validity
+          : updatedControls[key].valid && validity;
     }
-    console.log(validity);
     setFormIsValid(validity);
     setControls(updatedControls);
   };
 
   let formElementsArray = [];
   for (let key in controls) {
-    formElementsArray.push({
-      id: key,
-      config: controls[key]
-    });
+    if (isSignUp || (!isSignUp && controls[key].signIn !== false)) {
+      formElementsArray.push({
+        id: key,
+        config: controls[key]
+      });
+    }
   }
 
   let inputs = formElementsArray.map(input => {
@@ -125,12 +135,15 @@ const Auth = props => {
 
   const submitHandler = e => {
     e.preventDefault();
-    props.onAuth(
-      controls.email.value,
-      controls.password.value,
-      isSignUp,
-      controls.name.value
-    );
+    if (isSignUp) {
+      props.createUser(
+        controls.email.value,
+        controls.password.value,
+        controls.name.value
+      );
+    } else {
+      props.loginUser(controls.email.value, controls.password.value);
+    }
   };
 
   const closeModalHandler = (mounted = true) => {
@@ -147,24 +160,46 @@ const Auth = props => {
     <StyledErrorMessage>{props.error}</StyledErrorMessage>
   ) : null;
 
+  const form = (
+    <FormContainer onSubmit={submitHandler}>
+      {inputs}
+      {errorMessage}
+      <div>
+        <WrappedButton disabled={!formIsValid}>
+          {isSignUp ? "Sign Up" : "Log In"}
+        </WrappedButton>
+        <WrappedButton onClick={switchAuthModeHandler}>
+          Switch to {isSignUp ? "Log in" : "Sign Up"}
+        </WrappedButton>
+      </div>
+    </FormContainer>
+  );
+
+  const successfulAuth = (
+    <SuccessContainer>
+      <p>
+        {isSignUp
+          ? `Hello ${displayName ? displayName : ""}`
+          : `Welcome back ${displayName ? displayName : ""}`}
+      </p>
+
+      {isSignUp ? (
+        <p>An email has been sent to your inbox to verify your email.</p>
+      ) : null}
+    </SuccessContainer>
+  );
+
   return (
     <Modal
       modalClosed={closeModalHandler}
       show={showModal}
-      title={isSignUp ? "Sign Up" : "Log in"}
+      title={
+        isSignUp
+          ? `Sign Up${isAuth ? " Successful" : ""}`
+          : `Log in${isAuth ? " Successful" : ""}`
+      }
     >
-      <FormContainer onSubmit={submitHandler}>
-        {inputs}
-        {errorMessage}
-        <div>
-          <WrappedButton disabled={!formIsValid}>
-            {isSignUp ? "Sign Up" : "Log In"}
-          </WrappedButton>
-          <WrappedButton onClick={switchAuthModeHandler}>
-            Switch to {isSignUp ? "Log in" : "Sign Up"}
-          </WrappedButton>
-        </div>
-      </FormContainer>
+      {isAuth ? successfulAuth : form}
     </Modal>
   );
 };
@@ -174,14 +209,18 @@ const mapStateToProps = state => {
     isLoading: state.auth.loading,
     isAuth: state.auth.currentUser !== null,
     error: state.auth.error,
-    authRedirectPath: state.auth.authRedirectPath
+    authRedirectPath: state.redirect.authRedirectPath,
+    displayName: state.auth.displayName,
+    isSuccessfulSignUp: state.auth.lastLoginAt === state.auth.createdAt
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAuth: (email, password, isSignUp) =>
-      dispatch(actions.auth(email, password, isSignUp)),
+    createUser: (email, password, name) =>
+      dispatch(actions.createUser(email, password, name)),
+    loginUser: (email, password) =>
+      dispatch(actions.loginUser(email, password)),
     onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
     confirmAuthError: () => dispatch(actions.clearAuthError())
   };

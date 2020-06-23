@@ -5,11 +5,11 @@ import InputWrapper from "../../../../UI/InputWrapper/InputWrapper";
 import Button, { WrappedButton } from "../../../../UI/Button/Button";
 import { Spacer } from "../../../../UI/Divider/Divider";
 import * as actions from "../../../../../store/actions/index";
-import { fbDatabase } from "../../../../../configs/firebase.config";
 
 const SaveToAccount = ({
   data,
-  currentUser,
+  uid,
+  token,
   isAuth,
   onSaveNewPattern,
   onSaveExistingPattern
@@ -32,9 +32,9 @@ const SaveToAccount = ({
       },
       createdDate: date,
       lastUpdated: date,
-      uid: currentUser.uid
+      uid: uid
     };
-    onSaveNewPattern(patternData, currentUser.xa);
+    onSaveNewPattern(patternData, token);
   };
 
   const saveExistingPatternHandler = data => {
@@ -54,9 +54,9 @@ const SaveToAccount = ({
       },
       createdDate: data.createdDate,
       lastUpdated: date,
-      uid: currentUser.uid
+      uid: uid
     };
-    onSaveExistingPattern(patternData, currentUser, data.id);
+    onSaveExistingPattern(patternData, token, data.id);
   };
 
   const location = useLocation();
@@ -88,7 +88,8 @@ const SaveToAccount = ({
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.currentUser !== null,
-    currentUser: state.auth.currentUser,
+    uid: state.auth.uid,
+    token: state.auth.token,
     data: state.currentPattern
   };
 };

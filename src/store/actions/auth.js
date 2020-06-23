@@ -20,56 +20,71 @@ export const clearAuthError = () => {
   };
 };
 
-export const logout = () => {
-  fbAuth.signOut();
-  return {
-    type: actionTypes.AUTH_LOGOUT
-  };
-};
-
-export const setCurrentUser = user => {
-  return {
-    type: actionTypes.SET_CURRENT_USER,
-    currentUser: user
-  };
-};
-
 export const clearCurrentUser = () => {
   return {
     type: actionTypes.CLEAR_CURRENT_USER
   };
 };
 
-export const auth = (email, password, isSignUp, name) => {
+export const logout = () => {
+  return dispatch => {
+    fbAuth.signOut().then(() => dispatch(clearCurrentUser()));
+  };
+};
+
+const setCurrentUser = (user, token, firstTime) => {
+  return {
+    type: actionTypes.SET_CURRENT_USER,
+    currentUser: user,
+    displayName: user.displayName,
+    uid: user.uid,
+    token: token,
+    isFirstTime: firstTime
+  };
+};
+
+export const getCurrentUser = user => {
+  return dispatch => {
+    user
+      .getIdToken(true)
+      .then(idToken => {
+        dispatch(setCurrentUser(user, idToken));
+      })
+      .catch(error => {
+        dispatch(authFail(error.message));
+      });
+  };
+};
+
+export const createUser = (email, password, name) => {
+  let currentUser = null;
   return dispatch => {
     dispatch(authStart());
-    if (isSignUp) {
-      // fbAuth
-      //   .sendSignInLinkToEmail(email, actionCodeSettings)
-      //   .then(response => console.log(response))
-      //   .catch(error => console.log(error));
-      fbAuth
-        .createUserWithEmailAndPassword(email, password)
-        .then(user => {
-          dispatch(setCurrentUser(user));
-          fbAuth.currentUser.updateProfile({
-            displayName: name
-          });
-        })
-        .catch(error => {
-          dispatch(authFail(error.message));
+    fbAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => {
+        currentUser = user.user;
+      })
+      .then(() => {
+        currentUser.updateProfile({
+          displayName: name
         });
-    } else {
-      fbAuth
-        .signInWithEmailAndPassword(email, password)
-        .then(user => {
-          console.log(user);
-          dispatch(setCurrentUser(user));
-        })
-        .catch(error => {
-          dispatch(authFail(error.message));
-        });
-    }
+      })
+      .then(() => {
+        currentUser.sendEmailVerification();
+      })
+      .catch(error => {
+        dispatch(authFail(error.message));
+      });
+  };
+};
+
+export const loginUser = (email, password) => {
+  return dispatch => {
+    dispatch(authStart());
+    fbAuth.signInWithEmailAndPassword(email, password).catch(error => {
+      dispatch(authFail(error.message));
+    });
   };
 };
 

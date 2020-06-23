@@ -87,7 +87,7 @@ const App = props => {
   const {
     onSetRedirectPath,
     onSetLockMode,
-    setCurrentUser,
+    getCurrentUser,
     clearCurrentUser,
     currentUser
   } = props;
@@ -104,13 +104,13 @@ const App = props => {
     let unsubscribeFromAuth = null;
     unsubscribeFromAuth = fbAuth.onAuthStateChanged(user => {
       if (user) {
-        setCurrentUser(user);
+        getCurrentUser(user);
       } else {
         clearCurrentUser();
       }
       return () => unsubscribeFromAuth();
     });
-  }, [setCurrentUser, clearCurrentUser, currentUser]);
+  }, [getCurrentUser, clearCurrentUser, currentUser]);
 
   let routes = (
     <AnimatedRoutesWrapper location={previousLocation}>
@@ -149,7 +149,7 @@ const mapDispatchToProps = dispatch => {
     onSetRedirectPath: path => dispatch(actions.setAuthRedirect(path)),
     onSetLockMode: lockMode => dispatch(actions.setLockMode(lockMode)),
     clearCurrentUser: () => dispatch(actions.clearCurrentUser()),
-    setCurrentUser: user => dispatch(actions.setCurrentUser(user))
+    getCurrentUser: user => dispatch(actions.getCurrentUser(user))
   };
 };
 

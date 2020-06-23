@@ -60,7 +60,7 @@ const EditablePattern = ({
 
   useEffect(() => {
     let mounted = true;
-    setVisible(false);
+    mounted && setVisible(false);
     setTimeout(() => {
       if (mounted) {
         setVisible(true);

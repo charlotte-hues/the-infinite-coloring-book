@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
-import { fbAuth } from "../../configs/firebase.config";
 
 const savePatternSuccess = id => {
   return {
@@ -45,24 +44,19 @@ export const saveNewPattern = (patternData, token) => {
   };
 };
 
-export const saveExistingPattern = (patternData, currentUser, patternId) => {
+export const saveExistingPattern = (patternData, token, patternId) => {
   return dispatch => {
     dispatch(savePatternStart());
-    fbAuth.currentUser
-      .getIdToken(true)
-      .then(idToken => {
-        axios
-          .put(
-            "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
-              patternId +
-              ".json" +
-              `?auth=${idToken}`,
-            patternData
-          )
-          .then(response => {
-            dispatch(savePatternSuccess(patternId, patternData));
-          })
-          .catch(error => dispatch(savePatternFail(error)));
+    axios
+      .put(
+        "https://the-infinite-coloring-book.firebaseio.com/patterns/" +
+          patternId +
+          ".json" +
+          `?auth=${token}`,
+        patternData
+      )
+      .then(response => {
+        dispatch(savePatternSuccess(patternId, patternData));
       })
       .catch(error => dispatch(savePatternFail(error)));
   };
@@ -87,7 +81,6 @@ export const deletePattern = (patternId, token, patterns) => {
   };
 };
 
-//
 const fetchPatternsSuccess = patterns => {
   return {
     type: actionTypes.FETCH_PATTERNS_SUCCESS,
@@ -108,31 +101,24 @@ const fetchPatternsStart = () => {
   };
 };
 
-export const fetchPatterns = currentUser => {
+export const fetchPatterns = (token, uid) => {
   return dispatch => {
     dispatch(fetchPatternsStart());
-    fbAuth.currentUser
-      .getIdToken(true)
-      .then(idToken => {
-        const queryParams = `?auth=${idToken}&orderBy="uid"&equalTo="${currentUser.uid}"`;
-        axios
-          .get(
-            "https://the-infinite-coloring-book.firebaseio.com/patterns.json" +
-              queryParams
-          )
-          .then(response => {
-            const fetchedPatterns = [];
-            for (let key in response.data) {
-              if (response.data[key].uid === currentUser.uid) {
-                fetchedPatterns.push({ ...response.data[key], id: key });
-              }
-            }
-            dispatch(fetchPatternsSuccess(fetchedPatterns));
-          })
-          .catch(error => dispatch(fetchPatternsFail(error)));
+    const queryParams = `?auth=${token}&orderBy="uid"&equalTo="${uid}"`;
+    axios
+      .get(
+        "https://the-infinite-coloring-book.firebaseio.com/patterns.json" +
+          queryParams
+      )
+      .then(response => {
+        const fetchedPatterns = [];
+        for (let key in response.data) {
+          if (response.data[key].uid === uid) {
+            fetchedPatterns.push({ ...response.data[key], id: key });
+          }
+        }
+        dispatch(fetchPatternsSuccess(fetchedPatterns));
       })
-      .catch(function(error) {
-        dispatch(fetchPatternsFail(error));
-      });
+      .catch(error => dispatch(fetchPatternsFail(error)));
   };
 };

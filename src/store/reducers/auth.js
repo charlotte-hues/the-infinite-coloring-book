@@ -4,7 +4,10 @@ import { updateObject } from "../../shared/utility";
 const initialState = {
   currentUser: null,
   loading: false,
-  error: null
+  error: null,
+  uid: null,
+  token: null,
+  displayName: null
 };
 
 const authStart = (state, action) => {
@@ -24,6 +27,9 @@ const authFail = (state, action) => {
 const setCurrentUser = (state, action) => {
   return updateObject(state, {
     currentUser: action.currentUser,
+    uid: action.uid,
+    token: action.token,
+    displayName: action.displayName,
     loading: false,
     error: false
   });
@@ -32,6 +38,9 @@ const setCurrentUser = (state, action) => {
 const clearCurrentUser = (state, action) => {
   return updateObject(state, {
     currentUser: null,
+    uid: null,
+    token: null,
+    displayName: null,
     loading: false,
     error: null
   });
@@ -40,14 +49,6 @@ const clearCurrentUser = (state, action) => {
 const clearAuthError = (state, action) => {
   return updateObject(state, {
     error: null
-  });
-};
-
-const logout = (state, action) => {
-  return updateObject(state, {
-    error: null,
-    loading: false,
-    currentUser: null
   });
 };
 
@@ -63,8 +64,6 @@ const reducer = (state = initialState, action) => {
       return setCurrentUser(state, action);
     case actionTypes.CLEAR_CURRENT_USER:
       return clearCurrentUser(state, action);
-    case actionTypes.AUTH_LOGOUT:
-      return logout(state, action);
     default:
       return state;
   }
