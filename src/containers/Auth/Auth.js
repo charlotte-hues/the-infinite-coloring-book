@@ -18,7 +18,7 @@ const FormContainer = styled.form`
 `;
 
 const SuccessContainer = styled.div`
-  height: 200px;
+  height: 90px;
   width: 300px;
 `;
 
@@ -193,6 +193,7 @@ const Auth = props => {
     <Modal
       modalClosed={closeModalHandler}
       show={showModal}
+      indicate={isAuth && "smile"}
       title={
         isSignUp
           ? `Sign Up${isAuth ? " Successful" : ""}`

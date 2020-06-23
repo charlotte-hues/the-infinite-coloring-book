@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import TileIndicator from "../TileIndicator/TileIndicator";
 
 const Container = styled(motion.div)`
   position: absolute;
@@ -57,6 +58,10 @@ const Modal = props => {
     show: { y: 0, opacity: 1 }
   };
 
+  const indicator = (
+    <TileIndicator indicate={props.indicate} patternColor="var(--orange)" />
+  );
+
   return (
     <AnimatePresence onExitComplete={() => closeModalHandler(false)}>
       {props.show && (
@@ -70,6 +75,7 @@ const Modal = props => {
           <StyledDiv key="modal" variants={item} ref={ref}>
             <Title>{props.title}</Title>
             {props.children}
+            {props.indicate ? indicator : null}
           </StyledDiv>
         </Container>
       )}

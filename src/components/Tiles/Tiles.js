@@ -75,7 +75,6 @@ const Pattern = props => {
     >
       <SVG
         id={props.id}
-        rotation={props.rotation}
         name={patternsArr[props.num].name}
         patternColor={props.patternColor}
       >
