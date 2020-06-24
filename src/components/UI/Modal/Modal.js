@@ -22,6 +22,8 @@ const StyledDiv = styled(motion.div)`
   margin: auto;
   height: auto;
   width: auto;
+  min-width: 300px;
+  min-height: 100px;
   max-width: fit-content;
   padding: 30px 20px;
   background: var(--surface);

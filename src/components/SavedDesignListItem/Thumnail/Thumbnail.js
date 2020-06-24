@@ -37,7 +37,7 @@ const PatternThumbContainer = styled.div`
       ? "130px"
       : "120px"};
   background-color: ${props => props.backgroundColor};
-  border: 2px solid var(--trim);
+  // border: 2px solid var(--trim);
 `;
 
 const PatternWrapper = styled.div`

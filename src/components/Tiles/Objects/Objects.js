@@ -10,6 +10,36 @@ export const Square = props => (
   </React.Fragment>
 );
 
+export const Square2 = props => (
+  <React.Fragment>
+    <path d="M30 30 L30 0.5 L0.5 0.5 L0.5 30 L30 30Z" />
+    <path
+      d="M30 -4.37114e-07L40 10M30.5 10.5L40 20M30.5 20.5L40 30M20.5 30.5L30 40M30.5 30.5L40 40M10.5 30.5L20 40M-1.31134e-06 30L10 40"
+      strokeLinecap="square"
+    />
+  </React.Fragment>
+);
+
+export const Square3 = props => (
+  <React.Fragment>
+    <path d="M10 30L39.5 30L39.5 0.5L10 0.5L10 30Z" />
+    <path
+      d="M40 30L30 40M29.5 30.5L20 40M19.5 30.5L10 40M9.5 20.5L8.74228e-07 30M9.5 30.5L0 40M9.5 10.5L1.74846e-06 20M10 -2.62268e-06L2.62268e-06 10"
+      strokeLinecap="square"
+    />
+  </React.Fragment>
+);
+
+export const Square4 = props => (
+  <React.Fragment>
+    <path d="M10 10L10 39.5L39.5 39.5L39.5 10L10 10Z" />
+    <path
+      d="M10 40L-4.37114e-07 30M9.5 29.5L-8.74228e-07 20M9.5 19.5L-1.31134e-06 10M19.5 9.5L10 -4.37114e-07M9.5 9.5L-1.74846e-06 0M29.5 9.5L20 -8.74228e-07M40 10L30 -1.31134e-06"
+      strokeLinecap="square"
+    />
+  </React.Fragment>
+);
+
 export const Circles = props => (
   <React.Fragment>
     <circle cx="10" cy="10" r="9.5" />
@@ -89,5 +119,16 @@ export const Eye = props => (
     <path d="M0.5 20C5.26065 14.6835 12.3019 11 20 11C27.6999 11 34.7392 14.6813 39.5 20" />
     <path d="M0.5 20C5.25921 25.288 12.3257 29 20 29C27.7055 29 34.7389 25.3253 39.5 20" />
     <circle cx="20" cy="20" r="19.5" />
+  </React.Fragment>
+);
+
+export const Blink = props => (
+  <React.Fragment>
+    <path d="M0 40L6 34" />
+    <path d="M0 -2.62268e-07L6 6" />
+    <path d="M40 0L34 6" />
+    <path d="M40 40L34 34" />
+    <circle cx="20" cy="20" r="19.5" />
+    <path d="M1 20H39" />
   </React.Fragment>
 );

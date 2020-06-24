@@ -86,3 +86,80 @@ export const CrosshatchCrossCutout = props => (
     />
   </React.Fragment>
 );
+
+export const CircleTrack = props => (
+  <React.Fragment>
+    <path d="M0 30H10V40M30 40V30H40M30 0V10H40M0 10H10V0" />
+    <path d="M0 20H6" />
+    <path d="M34 20H40" />
+    <path d="M20 6L20 0" />
+    <path d="M20 40L20 34" />
+    <circle cx="20" cy="20" r="5" />
+    <circle cx="20" cy="20" r="12" />
+  </React.Fragment>
+);
+
+export const DiamondTrack = props => (
+  <React.Fragment>
+    <path d="M0 30H10V40M30 40V30H40M30 0V10H40M0 10H10V0" />
+    <path d="M0 20H6" />
+    <path d="M34 20H40" />
+    <path d="M20 6L20 0" />
+    <path d="M20 40L20 34" />
+    <rect
+      x="20.1421"
+      y="6"
+      width="20"
+      height="20"
+      transform="rotate(45 20.1421 6)"
+    />
+    <path d="M14 20L20 14L26 20L20 26L14 20Z" />
+  </React.Fragment>
+);
+
+export const JoinCircle = props => (
+  <React.Fragment>
+    <path d="M10 40C10 34.4772 5.52285 30 0 30" />
+    <path d="M40 30C34.4772 30 30 34.4772 30 40" />
+    <path d="M30 8.74228e-07C30 5.52285 34.4772 10 40 10" />
+    <path d="M-4.37114e-07 10C5.52285 10 10 5.52285 10 0" />
+    <circle cx="20" cy="20" r="10" />
+    <path d="M0 20L10 20" />
+    <path d="M30 20H40" />
+    <path d="M20 40L20 30" />
+    <path d="M20 10L20 2.38419e-07" />
+  </React.Fragment>
+);
+
+export const JoinCurve = props => (
+  <React.Fragment>
+    <path d="M10 40C10 34.4772 5.52285 30 0 30" />
+    <path d="M40 30C34.4772 30 30 34.4772 30 40" />
+    <path d="M30 8.74228e-07C30 5.52285 34.4772 10 40 10" />
+    <path d="M-4.37114e-07 10C5.52285 10 10 5.52285 10 0" />
+    <path d="M20 0C20 11.0457 11.0457 20 0 20" />
+    <path d="M-8.74228e-07 20C11.0457 20 20 28.9543 20 40" />
+    <path d="M20 40C20 28.9543 28.9543 20 40 20" />
+    <path d="M40 20C28.9543 20 20 11.0457 20 -8.74228e-07" />
+  </React.Fragment>
+);
+
+export const JoinCircleCap = props => (
+  <React.Fragment>
+    <path d="M30 40C30 34.4772 25.5228 30 20 30C14.4772 30 10 34.4772 10 40" />
+    <path d="M10 -1.74846e-06C10 5.52285 14.4772 10 20 10C25.5228 10 30 5.52285 30 0" />
+    <path d="M40 10C34.4772 10 30 14.4772 30 20C30 25.5228 34.4772 30 40 30" />
+    <path d="M-8.74228e-07 30C5.52285 30 10 25.5228 10 20C10 14.4772 5.52285 10 0 10" />
+  </React.Fragment>
+);
+
+export const JoinDiamondCap = props => (
+  <React.Fragment>
+    <path d="M-8.74228e-07 30L10 20L0 10" strokeLinecap="square" />
+    <path d="M30 40L20 30L10 40" strokeLinecap="square" />
+    <path d="M40 10L30 20L40 30" strokeLinecap="square" />
+    <path d="M10 -1.74846e-06L20 10L30 0" strokeLinecap="square" />
+    <path d="M0 0L40 40" />
+    <path d="M40 0L-1.74846e-06 40" />
+  </React.Fragment>
+);

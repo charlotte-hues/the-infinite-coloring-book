@@ -18,6 +18,34 @@ export const Diagonal2 = props => (
   </React.Fragment>
 );
 
+export const CornerCap = () => (
+  <React.Fragment>
+    <path d="M30 8.74228e-07C30 5.52285 34.4772 10 40 10" />
+    <path d="M10 40C10 34.4772 5.52285 30 0 30" />
+    <path d="M-8.74228e-07 20C11.0457 20 20 28.9543 20 40" />
+    <path d="M40 20C28.9543 20 20 11.0457 20 2.62268e-06" />
+    <path
+      d="M0 9.99999L10 10C10 6.66667 10 -4.37114e-07 10 -4.37114e-07"
+      strokeLinecap="square"
+    />
+    <path d="M40 30L30 30C30 33.3333 30 40 30 40" strokeLinecap="square" />
+  </React.Fragment>
+);
+
+export const CornerCapAlt = () => (
+  <React.Fragment>
+    <path d="M40 30C34.4772 30 30 34.4772 30 40" />
+    <path d="M-4.37114e-07 10C5.52285 10 10 5.52285 10 0" />
+    <path d="M20 0C20 11.0457 11.0457 20 0 20" />
+    <path d="M20 40C20 28.9543 28.9543 20 40 20" />
+    <path d="M30 0L30 10C33.3333 10 40 10 40 10" strokeLinecap="square" />
+    <path
+      d="M9.99999 40L10 30C6.66667 30 8.74227e-07 30 8.74227e-07 30"
+      strokeLinecap="square"
+    />
+  </React.Fragment>
+);
+
 export const DiagonalCut = props => (
   <React.Fragment>
     <path
@@ -85,44 +113,5 @@ export const DiagonalCircleCutoutAlt = props => (
       strokeLinecap="square"
     />
     <circle cx="20" cy="20" r="10" />
-  </React.Fragment>
-);
-
-export const Zigzag1 = props => (
-  <React.Fragment>
-    <path d="M0 30L10 39.5L20 30L30 39.5L40 30" strokeLinecap="square" />
-    <path d="M0 20L10 29.5L20 20L30 29.5L40 20" strokeLinecap="square" />
-    <path d="M0 10L10 19.5L20 10L30 19.5L40 10" strokeLinecap="square" />
-    <path d="M0 0L10 9.5L20 0L30 9.5L40 0" />
-  </React.Fragment>
-);
-
-export const Zigzag2 = props => (
-  <React.Fragment>
-    <path d="M30 40L39.5 30L30 20L39.5 10L30 0" strokeLinecap="square" />
-    <path d="M20 40L29.5 30L20 20L29.5 10L20 0" strokeLinecap="square" />
-    <path d="M10 40L19.5 30L10 20L19.5 10L10 0" strokeLinecap="square" />
-    <path d="M0 40L9.5 30L-8.74228e-07 20L9.5 10L-1.74846e-06 0" />
-  </React.Fragment>
-);
-
-export const Zigzag3 = props => (
-  <React.Fragment>
-    <path
-      d="M40 10L30 0.499999L20 10L10 0.499997L0 10"
-      strokeLinecap="square"
-    />
-    <path d="M40 20L30 10.5L20 20L10 10.5L0 20" strokeLinecap="square" />
-    <path d="M40 30L30 20.5L20 30L10 20.5L0 30" strokeLinecap="square" />
-    <path d="M40 40L30 30.5L20 40L10 30.5L0 40" />
-  </React.Fragment>
-);
-
-export const Zigzag4 = props => (
-  <React.Fragment>
-    <path d="M10 0L0.5 10L10 20L0.499999 30L10 40" strokeLinecap="square" />
-    <path d="M20 0L10.5 10L20 20L10.5 30L20 40" strokeLinecap="square" />
-    <path d="M30 0L20.5 10L30 20L20.5 30L30 40" strokeLinecap="square" />
-    <path d="M40 0L30.5 10L40 20L30.5 30L40 40" />
   </React.Fragment>
 );

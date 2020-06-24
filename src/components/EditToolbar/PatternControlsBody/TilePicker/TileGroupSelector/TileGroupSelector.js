@@ -64,14 +64,14 @@ const TileGroupSelector = ({ range, activePattern, onClick }) => {
   const handleUpdateForward = () => {
     let newNum = num + 1;
     if (newNum > range.high) newNum = range.low;
-    if (activePattern === num) onClick(newNum);
+    onClick(newNum);
     setNum(newNum);
   };
 
   const handleUpdateBackward = () => {
     let newNum = num - 1;
     if (newNum < range.low) newNum = range.high;
-    if (activePattern === num) onClick(newNum);
+    onClick(newNum);
     setNum(newNum);
   };
 

@@ -18,6 +18,12 @@ const StyledButton = styled.button`
 
   transition: all 0.2s ease-in;
 
+  &.secondary {
+    border: 2px solid ${props =>
+      props.disabled ? "var(--trim)" : "var(--dark)"};
+    color: ${props => (props.disabled ? "var(--trim)" : "var(--dark)")};
+  }
+
   &:hover {
     background: ${props => (props.disabled ? "none" : "var(--trim)")};
   }
@@ -28,9 +34,13 @@ const StyledButton = styled.button`
   }
 `;
 
-const Button = ({ onClick, disabled, children }) => {
+const Button = ({ onClick, disabled, children, secondary }) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled}>
+    <StyledButton
+      onClick={onClick}
+      disabled={disabled}
+      className={secondary ? "secondary" : null}
+    >
       {children}
     </StyledButton>
   );

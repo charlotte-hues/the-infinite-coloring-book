@@ -13,11 +13,14 @@ const PatternWrapper = styled.div`
 
 const indicators = {
   smile: [
-    [29, 29, 43, 40],
-    [28, 28, 43, 40],
-    [23, 23, 43, 40]
+    [36, 36, 43, 40],
+    [37, 37, 43, 40],
+    [35, 35, 43, 40]
   ],
-  sad: [29, 29, 44, 39]
+  sad: [
+    [35, 35, 52, 47],
+    [37, 37, 52, 47]
+  ]
 };
 
 const TileIndicator = props => {
@@ -32,9 +35,10 @@ const TileIndicator = props => {
     }
   };
 
-  const tiles = indicators[props.indicate][instance].map(tile => {
+  const tiles = indicators[props.indicate][instance].map((tile, i) => {
     return (
       <Tile
+        key={i}
         click={onClickHandler}
         num={tile}
         patternColor={props.patternColor}

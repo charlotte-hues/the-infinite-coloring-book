@@ -68,6 +68,11 @@ const GlobalStyle = createGlobalStyle`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   @media print {

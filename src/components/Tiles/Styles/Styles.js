@@ -53,5 +53,5 @@ export const SVG = props => {
 
 export const DiagonalPath = styled.path`
   stroke-width: 1;
-  stroke-linecap: square;
+  strokelinecap: square;
 `;
