@@ -5,12 +5,13 @@ import thunk from "redux-thunk";
 
 import rootReducer from "./reducers/rootReducer";
 
-const persistedState = loadState();
-
 const composeEnhancers =
-  process.env.NODE_ENV === "development"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
+  (process.env.NODE_ENV !== "production" &&
+    typeof window !== "undefined" &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
+
+const persistedState = loadState();
 
 const store = createStore(
   rootReducer,
