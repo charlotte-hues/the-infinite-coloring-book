@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import TileIndicator from "../TileIndicator/TileIndicator";
+import CloseIcon from "../Icons/Actions/Close/Close";
 
 const Container = styled(motion.div)`
   position: absolute;
@@ -18,7 +19,18 @@ const Container = styled(motion.div)`
   z-index: 99;
 `;
 
+const CloseContainer = styled.div`
+  position: absolute;
+  display: flex;
+
+  height: 40px;
+  padding: 10px 2px;
+  top: 0;
+  right: 0;
+`;
+
 const StyledDiv = styled(motion.div)`
+  position: relative;
   margin: auto;
   height: auto;
   width: auto;
@@ -75,6 +87,9 @@ const Modal = props => {
           exit="hidden"
         >
           <StyledDiv key="modal" variants={item} ref={ref}>
+            <CloseContainer>
+              <CloseIcon onClick={closeModalHandler} />
+            </CloseContainer>
             <Title>{props.title}</Title>
             {props.children}
             {props.indicate ? indicator : null}
