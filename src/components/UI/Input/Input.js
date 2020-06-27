@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import InputWrapper from "../InputWrapper/InputWrapper";
 
 const sharedStyles = css`
   background-color: var(--background);
@@ -12,7 +13,7 @@ const sharedStyles = css`
 `;
 
 const StyledInput = styled.input`
-  display: block;
+  display: inline-block;
   width: 100%;
   ${sharedStyles};
 
@@ -35,17 +36,19 @@ const Input = props => {
   }
 
   return (
-    <StyledInput
-      className={classes.join(" ")}
-      type={props.type}
-      name={props.name}
-      value={props.value}
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      maxLength={props.maxlength}
-    >
-      {props.children}
-    </StyledInput>
+    <InputWrapper label={props.label} color={props.labelColor} multi>
+      <StyledInput
+        className={classes.join(" ")}
+        type={props.type}
+        name={props.name}
+        value={props.value}
+        placeholder={props.placeholder}
+        onChange={props.onChange}
+        maxLength={props.maxlength}
+      >
+        {props.children}
+      </StyledInput>
+    </InputWrapper>
   );
 };
 

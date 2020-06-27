@@ -7,33 +7,29 @@ import { updateObject, checkValidity } from "../../shared/utility";
 import Input from "../../components/UI/Input/Input";
 import Modal from "../../components/UI/Modal/Modal";
 import { WrappedButton } from "../../components/UI/Button/Button";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import SwitchAuth from "../../components/Auth/SwitchAuth";
+import Success from "../../components/Auth/Success";
+import ErrorMessage from "../../components/Auth/errorMessage";
 
 const FormContainer = styled.form`
-  height: 200px;
+  height: ${props => (props.isSignUp ? "300px" : "270px")};
   width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 100;
-`;
-
-const SuccessContainer = styled.div`
-  height: 90px;
-  width: 300px;
-`;
-
-const StyledErrorMessage = styled.p`
-  color: var(--error);
-  font-size: 0.7rem;
+  transition: all 0.2s ease;
 `;
 
 const Auth = props => {
   const [formIsValid, setFormIsValid] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [showModal, setShowModal] = useState(true);
+  const [forgotPassword, setForgotPassword] = useState(false);
   const [controls, setControls] = useState({
     name: {
       elementType: "input",
+      label: "display name",
       elementConfig: {
         type: "text",
         placeholder: "display name"
@@ -47,6 +43,7 @@ const Auth = props => {
     },
     email: {
       elementType: "input",
+      label: "email address",
       elementConfig: {
         type: "email",
         placeholder: "email address"
@@ -60,6 +57,7 @@ const Auth = props => {
     },
     password: {
       elementType: "input",
+      label: "password",
       elementConfig: {
         type: "password",
         placeholder: "******"
@@ -75,15 +73,17 @@ const Auth = props => {
   const history = useHistory();
   const { isAuth, authRedirectPath, displayName } = props;
 
-  // useEffect(() => {
-  //   if (isAuth) {
-  //     setShowModal(false);
-  //   }
-  // }, [isAuth]);
-
   const switchAuthModeHandler = e => {
     e.preventDefault();
     setIsSignUp(prevState => !prevState);
+    props.confirmAuthError();
+  };
+
+  const forgotPasswordHandler = () => {
+    setForgotPassword(prevState => {
+      return !prevState;
+    });
+    props.confirmAuthError();
   };
 
   const inputChangedHandler = (e, input) => {
@@ -107,32 +107,6 @@ const Auth = props => {
     setControls(updatedControls);
   };
 
-  let formElementsArray = [];
-  for (let key in controls) {
-    if (isSignUp || (!isSignUp && controls[key].signIn !== false)) {
-      formElementsArray.push({
-        id: key,
-        config: controls[key]
-      });
-    }
-  }
-
-  let inputs = formElementsArray.map(input => {
-    return (
-      <Input
-        key={input.id}
-        name={input.config.elementConfig.type}
-        type={input.config.elementConfig.type}
-        placeholder={input.config.elementConfig.placeholder}
-        value={input.config.value}
-        onChange={e => inputChangedHandler(e, input.id)}
-        isValid={checkValidity(input.config.value, input.config.validation)}
-        shouldValidate={input.config.validation.required}
-        touched={input.config.changed}
-      ></Input>
-    );
-  });
-
   const submitHandler = e => {
     e.preventDefault();
     if (isSignUp) {
@@ -149,6 +123,7 @@ const Auth = props => {
   const closeModalHandler = (mounted = true) => {
     if (mounted) {
       setShowModal(false);
+      props.confirmAuthError();
     } else {
       if (isAuth) {
         history.push(authRedirectPath);
@@ -156,51 +131,83 @@ const Auth = props => {
     }
   };
 
-  const errorMessage = props.error ? (
-    <StyledErrorMessage>{props.error}</StyledErrorMessage>
-  ) : null;
+  let formElementsArray = [];
+  for (let key in controls) {
+    if (isSignUp || (!isSignUp && controls[key].signIn !== false)) {
+      formElementsArray.push({
+        id: key,
+        config: controls[key]
+      });
+    }
+  }
+
+  let inputs = formElementsArray.map(input => {
+    return (
+      <Input
+        label={input.config.label}
+        labelColor="var(--dark)"
+        key={input.id}
+        name={input.config.elementConfig.type}
+        type={input.config.elementConfig.type}
+        placeholder={input.config.elementConfig.placeholder}
+        value={input.config.value}
+        onChange={e => inputChangedHandler(e, input.id)}
+        isValid={checkValidity(input.config.value, input.config.validation)}
+        shouldValidate={input.config.validation.required}
+        touched={input.config.changed}
+      ></Input>
+    );
+  });
 
   const form = (
-    <FormContainer onSubmit={submitHandler}>
+    <FormContainer onSubmit={submitHandler} isSignUp={isSignUp}>
       {inputs}
-      {errorMessage}
-      <div>
-        <WrappedButton disabled={!formIsValid}>
-          {isSignUp ? "Sign Up" : "Log In"}
-        </WrappedButton>
-        <WrappedButton onClick={switchAuthModeHandler}>
-          Switch to {isSignUp ? "Log in" : "Sign Up"}
-        </WrappedButton>
-      </div>
+      <ErrorMessage>{props.error}</ErrorMessage>
+      <WrappedButton disabled={!formIsValid}>
+        {isSignUp ? "Sign Up" : "Log In"}
+      </WrappedButton>
+      <SwitchAuth
+        isSignUp={isSignUp}
+        onForgotPassword={forgotPasswordHandler}
+        onClickSwitch={switchAuthModeHandler}
+      />
     </FormContainer>
-  );
-
-  const successfulAuth = (
-    <SuccessContainer>
-      <p>
-        {isSignUp
-          ? `Hello ${displayName ? displayName : ""}`
-          : `Welcome back ${displayName ? displayName : ""}`}
-      </p>
-
-      {isSignUp ? (
-        <p>An email has been sent to your inbox to verify your email.</p>
-      ) : null}
-    </SuccessContainer>
   );
 
   return (
     <Modal
       modalClosed={closeModalHandler}
       show={showModal}
-      indicate={isAuth && "smile"}
+      indicate={isAuth || (props.passwordReset && "smile")}
       title={
-        isSignUp
+        forgotPassword
+          ? "Forgot Password"
+          : isSignUp
           ? `Sign Up${isAuth ? " Successful" : ""}`
           : `Log in${isAuth ? " Successful" : ""}`
       }
     >
-      {isAuth ? successfulAuth : form}
+      {isAuth || props.passwordReset ? (
+        <Success
+          displayName={displayName}
+          isSignUp={isSignUp}
+          resetPassword={props.passwordReset}
+          backToLogin={() => {
+            forgotPasswordHandler();
+            props.confirmAuthError();
+          }}
+        />
+      ) : forgotPassword ? (
+        <ForgotPassword
+          email={controls.email.value}
+          error={props.error}
+          clearError={props.confirmAuthError}
+          rememberedPassword={forgotPasswordHandler}
+          sendPasswordReset={props.sendPasswordReset}
+        />
+      ) : (
+        form
+      )}
     </Modal>
   );
 };
@@ -209,10 +216,10 @@ const mapStateToProps = state => {
   return {
     isLoading: state.auth.loading,
     isAuth: state.auth.currentUser !== null,
+    passwordReset: state.auth.passwordReset,
     error: state.auth.error,
     authRedirectPath: state.redirect.authRedirectPath,
-    displayName: state.auth.displayName,
-    isSuccessfulSignUp: state.auth.lastLoginAt === state.auth.createdAt
+    displayName: state.auth.displayName
   };
 };
 
@@ -223,7 +230,8 @@ const mapDispatchToProps = dispatch => {
     loginUser: (email, password) =>
       dispatch(actions.loginUser(email, password)),
     onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
-    confirmAuthError: () => dispatch(actions.clearAuthError())
+    confirmAuthError: () => dispatch(actions.clearAuthError()),
+    sendPasswordReset: email => dispatch(actions.sendPasswordReset(email))
   };
 };
 

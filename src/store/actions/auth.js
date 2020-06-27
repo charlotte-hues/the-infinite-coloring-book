@@ -94,3 +94,21 @@ export const setAuthRedirect = path => {
     path: path
   };
 };
+
+const passwordResetSuccess = () => {
+  return {
+    type: actionTypes.PASSWORD_RESET_SUCCESS
+  };
+};
+
+export const sendPasswordReset = email => {
+  return dispatch => {
+    dispatch(authStart());
+    fbAuth
+      .sendPasswordResetEmail(email)
+      .then(response => {
+        dispatch(passwordResetSuccess());
+      })
+      .catch(error => dispatch(authFail(error.message)));
+  };
+};

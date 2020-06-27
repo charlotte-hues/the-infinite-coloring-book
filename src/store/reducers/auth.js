@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   uid: null,
   token: null,
-  displayName: null
+  displayName: null,
+  passwordReset: null
 };
 
 const authStart = (state, action) => {
@@ -48,7 +49,16 @@ const clearCurrentUser = (state, action) => {
 
 const clearAuthError = (state, action) => {
   return updateObject(state, {
-    error: null
+    error: null,
+    passwordReset: null
+  });
+};
+
+const resetPasswordSuccess = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: null,
+    passwordReset: true
   });
 };
 
@@ -64,6 +74,8 @@ const reducer = (state = initialState, action) => {
       return setCurrentUser(state, action);
     case actionTypes.CLEAR_CURRENT_USER:
       return clearCurrentUser(state, action);
+    case actionTypes.PASSWORD_RESET_SUCCESS:
+      return resetPasswordSuccess(state, action);
     default:
       return state;
   }
