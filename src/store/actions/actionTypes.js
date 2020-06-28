@@ -1,7 +1,7 @@
 export const AUTH_START = "AUTH_START";
 export const AUTH_FAIL = "AUTH_FAIL";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
-export const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
+export const CLEAR_AUTH_NOTICE = "CLEAR_AUTH_NOTICE";
 
 export const PASSWORD_RESET_SUCCESS = "PASSWORD_RESET_SUCCESS";
 

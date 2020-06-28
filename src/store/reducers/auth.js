@@ -47,7 +47,7 @@ const clearCurrentUser = (state, action) => {
   });
 };
 
-const clearAuthError = (state, action) => {
+const clearNotice = (state, action) => {
   return updateObject(state, {
     error: null,
     passwordReset: null
@@ -68,8 +68,8 @@ const reducer = (state = initialState, action) => {
       return authStart(state, action);
     case actionTypes.AUTH_FAIL:
       return authFail(state, action);
-    case actionTypes.CLEAR_AUTH_ERROR:
-      return clearAuthError(state, action);
+    case actionTypes.CLEAR_AUTH_NOTICE:
+      return clearNotice(state, action);
     case actionTypes.SET_CURRENT_USER:
       return setCurrentUser(state, action);
     case actionTypes.CLEAR_CURRENT_USER:

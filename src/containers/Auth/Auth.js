@@ -76,19 +76,19 @@ const Auth = props => {
   const switchAuthModeHandler = e => {
     e.preventDefault();
     setIsSignUp(prevState => !prevState);
-    props.confirmAuthError();
+    props.confirmNotice();
   };
 
   const forgotPasswordHandler = () => {
     setForgotPassword(prevState => {
       return !prevState;
     });
-    props.confirmAuthError();
+    props.confirmNotice();
   };
 
   const inputChangedHandler = (e, input) => {
     e.preventDefault();
-    if (props.error) props.confirmAuthError();
+    if (props.error) props.confirmNotice();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
@@ -123,7 +123,7 @@ const Auth = props => {
   const closeModalHandler = (mounted = true) => {
     if (mounted) {
       setShowModal(false);
-      props.confirmAuthError();
+      props.confirmNotice();
     } else {
       if (isAuth) {
         history.push(authRedirectPath);
@@ -178,7 +178,7 @@ const Auth = props => {
     <Modal
       modalClosed={closeModalHandler}
       show={showModal}
-      indicate={isAuth || (props.passwordReset && "smile")}
+      indicate={(isAuth || props.passwordReset) && "smile"}
       title={
         forgotPassword
           ? "Forgot Password"
@@ -194,14 +194,14 @@ const Auth = props => {
           resetPassword={props.passwordReset}
           backToLogin={() => {
             forgotPasswordHandler();
-            props.confirmAuthError();
+            props.confirmNotice();
           }}
         />
       ) : forgotPassword ? (
         <ForgotPassword
           email={controls.email.value}
           error={props.error}
-          clearError={props.confirmAuthError}
+          clearError={props.confirmNotice}
           rememberedPassword={forgotPasswordHandler}
           sendPasswordReset={props.sendPasswordReset}
         />
@@ -230,7 +230,7 @@ const mapDispatchToProps = dispatch => {
     loginUser: (email, password) =>
       dispatch(actions.loginUser(email, password)),
     onSetRedirectPath: () => dispatch(actions.setAuthRedirect("/")),
-    confirmAuthError: () => dispatch(actions.clearAuthError()),
+    confirmNotice: () => dispatch(actions.clearAuthNotice()),
     sendPasswordReset: email => dispatch(actions.sendPasswordReset(email))
   };
 };

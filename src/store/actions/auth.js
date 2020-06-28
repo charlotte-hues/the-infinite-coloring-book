@@ -14,9 +14,9 @@ const authFail = error => {
   };
 };
 
-export const clearAuthError = () => {
+export const clearAuthNotice = () => {
   return {
-    type: actionTypes.CLEAR_AUTH_ERROR
+    type: actionTypes.CLEAR_AUTH_NOTICE
   };
 };
 
