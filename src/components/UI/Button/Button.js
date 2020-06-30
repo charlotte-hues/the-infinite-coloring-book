@@ -46,12 +46,12 @@ const Button = ({ onClick, disabled, children, secondary }) => {
   );
 };
 
-export const WrappedButton = ({ onClick, disabled, children }) => {
+export const WrappedButton = ({ onClick, disabled, children, secondary }) => {
   return (
     <InputWrapper>
-      <StyledButton onClick={onClick} disabled={disabled}>
+      <Button onClick={onClick} disabled={disabled} secondary={secondary}>
         {children}
-      </StyledButton>
+      </Button>
     </InputWrapper>
   );
 };

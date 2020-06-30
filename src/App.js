@@ -10,17 +10,20 @@ import { createGlobalStyle } from "styled-components";
 import * as actions from "./store/actions/index";
 import { fbAuth } from "./configs/firebase.config";
 
+import Account from "./containers/Account/Account";
+
 const SavedDesigns = React.lazy(() => {
   return import("./containers/SavedDesigns/SavedDesigns");
 });
-
 const About = React.lazy(() => {
   return import("./containers/About/About");
 });
-
 const Auth = React.lazy(() => {
   return import("./containers/Auth/Auth");
 });
+// const Account = React.lazy(() => {
+//   return import("./containers/Account/Account");
+// });
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -122,6 +125,7 @@ const App = props => {
       <Route path="/logout" component={Logout} />
       <Route exact path="/about" component={About} />
       <Route exact path="/myDesigns" component={SavedDesigns} />
+      {/* <Route path="/account" component={Account} /> */}
       <Route path="/login" component={Auth} />
       <Route path="/create" component={EditPattern} />
       <Redirect to="/create" />
@@ -134,6 +138,7 @@ const App = props => {
       <Suspense fallback={<p>Loading...</p>}>
         {routes}
         <Route path={`${previousPath}/login`} component={Auth} />
+        <Route path={`${previousPath}/account`} component={Account} />
       </Suspense>
     </Layout>
   );
@@ -141,9 +146,6 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token !== null,
-    expirationTime: state.auth.expirationTime,
-    userId: state.auth.userId,
     redirectPath: state.redirect.authRedirectPath,
     currentUser: state.auth.currentUser
   };

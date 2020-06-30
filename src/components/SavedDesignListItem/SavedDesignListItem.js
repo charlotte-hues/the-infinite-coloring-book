@@ -8,12 +8,14 @@ const Container = styled.div`
   position: relative;
   padding: 4px 4px 16px 4px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   background: var(--surface);
-  align-items: center;
-  border: 2px solid var(--trim);
+  // border: 1px solid var(--trim);
   border-radius: 4px;
-  width: 320px;
-  justify-content: space-between;
+  width: 260px;
+
   box-shadow: var(--shadowSmall);
   margin: 0 20px 20px 0;
 

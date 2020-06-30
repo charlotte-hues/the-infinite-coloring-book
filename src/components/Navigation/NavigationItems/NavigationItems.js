@@ -41,9 +41,20 @@ const NavigationItems = props => {
         about
       </NavigationItem>
       {props.isAuth ? (
-        <NavigationItem link="logout" active>
-          logout
-        </NavigationItem>
+        <React.Fragment>
+          <NavigationItem
+            link={{
+              pathname: `${previousLocation}/account`,
+              state: { modal: true }
+            }}
+            active
+          >
+            account
+          </NavigationItem>
+          <NavigationItem link="/logout" active>
+            logout
+          </NavigationItem>
+        </React.Fragment>
       ) : (
         <NavigationItem
           link={{

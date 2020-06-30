@@ -9,7 +9,7 @@ const Container = styled.div`
 
   height: 40px;
   padding: 10px;
-  bottom: 0;
+  top: 0;
   right: 0;
 `;
 

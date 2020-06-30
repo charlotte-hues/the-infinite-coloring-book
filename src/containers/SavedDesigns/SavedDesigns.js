@@ -15,7 +15,7 @@ import Button from "../../components/UI/Button/Button";
 
 const Container = styled(motion.div)`
 height: 100%;
-width: 80vw;
+width: 90vw;
 margin: auto;
 }
 `;
@@ -112,13 +112,15 @@ const SavedDesigns = props => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <Modal
-        title="Are you sure you want to delete?"
-        show={patternId}
-        modalClosed={modalCloseHandler}
-      >
-        {deleteConfirm}
-      </Modal>
+      {patternId ? (
+        <Modal
+          title="Are you sure you want to delete?"
+          show={patternId}
+          modalClosed={modalCloseHandler}
+        >
+          {deleteConfirm}
+        </Modal>
+      ) : null}
       <h1>My Designs</h1>
       {designs}
     </Container>

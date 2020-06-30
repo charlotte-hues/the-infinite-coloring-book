@@ -9,8 +9,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 240px;
-  height: 140px;
-  padding: 20px 0 16px 5px;
+  height: 50px;
+  padding: 5px 0 16px 5px;
 `;
 
 const CardHeading = styled.h4`

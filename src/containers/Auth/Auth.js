@@ -144,9 +144,9 @@ const Auth = props => {
   let inputs = formElementsArray.map(input => {
     return (
       <Input
+        key={input.id}
         label={input.config.label}
         labelColor="var(--dark)"
-        key={input.id}
         name={input.config.elementConfig.type}
         type={input.config.elementConfig.type}
         placeholder={input.config.elementConfig.placeholder}
@@ -155,7 +155,7 @@ const Auth = props => {
         isValid={checkValidity(input.config.value, input.config.validation)}
         shouldValidate={input.config.validation.required}
         touched={input.config.changed}
-      ></Input>
+      />
     );
   });
 
