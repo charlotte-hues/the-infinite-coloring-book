@@ -7,7 +7,6 @@ const initialState = {
   error: null,
   uid: null,
   token: null,
-  displayName: null,
   passwordReset: null
 };
 
@@ -30,7 +29,6 @@ const setCurrentUser = (state, action) => {
     currentUser: action.currentUser,
     uid: action.uid,
     token: action.token,
-    displayName: action.displayName,
     loading: false,
     error: false
   });
@@ -41,7 +39,6 @@ const clearCurrentUser = (state, action) => {
     currentUser: null,
     uid: null,
     token: null,
-    displayName: null,
     loading: false,
     error: null
   });

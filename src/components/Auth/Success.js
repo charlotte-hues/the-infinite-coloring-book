@@ -13,6 +13,7 @@ const successfulAuth = ({
   resetPassword,
   backToLogin
 }) => {
+  console.log(displayName);
   const logIn = <p>Welcome back {displayName ? displayName : ""}</p>;
 
   const signUp = (

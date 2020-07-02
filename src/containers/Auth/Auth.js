@@ -219,7 +219,7 @@ const mapStateToProps = state => {
     passwordReset: state.auth.passwordReset,
     error: state.auth.error,
     authRedirectPath: state.redirect.authRedirectPath,
-    displayName: state.auth.displayName
+    displayName: state.auth.currentUser && state.auth.currentUser.displayName
   };
 };
 

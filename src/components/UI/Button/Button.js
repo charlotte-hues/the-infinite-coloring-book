@@ -22,8 +22,9 @@ const StyledButton = styled.button`
     border: 2px solid ${props =>
       props.disabled ? "var(--trim)" : "var(--dark)"};
     color: ${props => (props.disabled ? "var(--trim)" : "var(--dark)")};
-  }
-
+    
+  } 
+ 
   &:hover {
     background: ${props => (props.disabled ? "none" : "var(--trim)")};
   }

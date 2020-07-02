@@ -36,7 +36,6 @@ const setCurrentUser = (user, token, firstTime) => {
   return {
     type: actionTypes.SET_CURRENT_USER,
     currentUser: user,
-    displayName: user.displayName,
     uid: user.uid,
     token: token,
     isFirstTime: firstTime
