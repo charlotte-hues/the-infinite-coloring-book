@@ -111,3 +111,15 @@ export const sendPasswordReset = email => {
       .catch(error => dispatch(authFail(error.message)));
   };
 };
+
+export const deleteCurrentUser = () => {
+  return dispatch => {
+    dispatch(authStart());
+    fbAuth.currentUser
+      .delete()
+      .then(response => {
+        dispatch(clearCurrentUser());
+      })
+      .catch(error => dispatch(authFail(error.message)));
+  };
+};

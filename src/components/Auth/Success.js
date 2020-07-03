@@ -7,13 +7,12 @@ const SuccessContainer = styled.div`
   width: 300px;
 `;
 
-const successfulAuth = ({
+const SuccessfulAuth = ({
   displayName,
   isSignUp,
   resetPassword,
   backToLogin
 }) => {
-  console.log(displayName);
   const logIn = <p>Welcome back {displayName ? displayName : ""}</p>;
 
   const signUp = (
@@ -39,4 +38,4 @@ const successfulAuth = ({
   );
 };
 
-export default successfulAuth;
+export default SuccessfulAuth;

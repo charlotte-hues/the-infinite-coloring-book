@@ -21,6 +21,20 @@ const SVG = styled.svg.attrs({
         props.hoverColor ? props.hoverColor : "var(--orange)"};
     }
   }
+
+  &.Disabled {
+    path {
+      stroke: ${props =>
+        props.disabledColor ? props.disabledColor : "var(--trim)"};
+    }
+
+    &:hover {
+      path {
+        stroke: ${props =>
+          props.disabledColor ? props.disabledColor : "var(--trim)"};
+      }
+    }
+  }
 `;
 
 const CloseIcon = props => (
@@ -29,6 +43,7 @@ const CloseIcon = props => (
       iconColor={props.iconColor}
       hoverColor={props.hoverColor}
       disabledColor={props.disabledColor}
+      className={props.disabled && "Disabled"}
     >
       <path
         d="M12 10L28 30 M28 10L12 30"

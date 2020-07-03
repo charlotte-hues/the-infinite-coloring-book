@@ -173,7 +173,6 @@ const Auth = props => {
       />
     </FormContainer>
   );
-
   return (
     <Modal
       modalClosed={closeModalHandler}
