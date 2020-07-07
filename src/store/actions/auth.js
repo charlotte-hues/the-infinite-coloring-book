@@ -1,5 +1,5 @@
 import * as actionTypes from "./actionTypes";
-import { fbAuth } from "../../configs/firebase.config";
+import firebase, { fbAuth } from "../../configs/firebase.config";
 
 const authStart = () => {
   return {
@@ -8,6 +8,7 @@ const authStart = () => {
 };
 
 const authFail = error => {
+  console.log(error);
   return {
     type: actionTypes.AUTH_FAIL,
     error: error
@@ -100,6 +101,12 @@ const passwordResetSuccess = () => {
   };
 };
 
+const deleteCurrentUserSuccess = () => {
+  return {
+    type: actionTypes.DELETE_CURRENT_USER_SUCCESS
+  };
+};
+
 export const sendPasswordReset = email => {
   return dispatch => {
     dispatch(authStart());
@@ -112,14 +119,62 @@ export const sendPasswordReset = email => {
   };
 };
 
-export const deleteCurrentUser = () => {
+export const deleteCurrentUser = password => {
+  const currentUser = fbAuth.currentUser;
+  const cred = firebase.auth.EmailAuthProvider.credential(
+    currentUser.email,
+    password
+  );
   return dispatch => {
     dispatch(authStart());
-    fbAuth.currentUser
-      .delete()
+    currentUser
+      .reauthenticateWithCredential(cred)
       .then(response => {
-        dispatch(clearCurrentUser());
+        response.user.delete();
+      })
+      .then(response => {
+        dispatch(deleteCurrentUserSuccess());
       })
       .catch(error => dispatch(authFail(error.message)));
   };
+};
+
+const updateCurrentUser = user => {
+  return {
+    type: actionTypes.UPDATE_CURRENT_USER,
+    currentUser: user
+  };
+};
+
+export const updateUserDetails = (details, email, password) => {
+  let currentUser = fbAuth.currentUser;
+  if (email) {
+    const cred = firebase.auth.EmailAuthProvider.credential(
+      currentUser.email,
+      password
+    );
+    return dispatch => {
+      dispatch(authStart());
+      currentUser
+        .updateProfile({
+          ...details
+        })
+        .then(() => currentUser.reauthenticateWithCredential(cred))
+
+        .then(response => response.user.updateEmail(email))
+        .then(() => dispatch(updateCurrentUser(fbAuth.currentUser)))
+        .catch(error => dispatch(authFail(error.message)));
+    };
+  } else {
+    return dispatch => {
+      dispatch(authStart());
+      currentUser
+        .updateProfile({
+          ...details
+        })
+
+        .then(() => dispatch(updateCurrentUser(fbAuth.currentUser)))
+        .catch(error => dispatch(authFail(error.message)));
+    };
+  }
 };

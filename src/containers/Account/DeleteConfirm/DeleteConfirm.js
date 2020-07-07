@@ -1,33 +1,54 @@
-import React from "react";
-import Modal from "../../../components/UI/Modal/Modal";
+import React, { useState } from "react";
 import Input from "../../../components/UI/Input/Input";
 import { WrappedButton } from "../../../components/UI/Button/Button";
+import ErrorMessage from "../../../components/Auth/errorMessage";
 
-const deleteConfirm = props => {
+const DeleteConfirm = props => {
+  const { FormContainer } = props;
+  const [password, setPassword] = useState("");
+  const [touched, setTouched] = useState(false);
   const inputChangedHandler = e => {
     e.preventDefault();
+    if (props.error) props.confirmNotice();
+    setPassword(e.target.value);
+    setTouched(true);
   };
 
-  return (
+  const confirmDeleteHandler = e => {
+    e.preventDefault();
+    props.deleteUser(password);
+  };
+
+  const deleteSuccess = <h5>Your account has been deleted.</h5>;
+
+  const deleteConfirm = (
     <React.Fragment>
-      <p>
-        This action can't be undone.
-        <br />
-        <br /> Enter your password to confirm.
-      </p>
-      <Input
-        name="password"
-        type="password"
-        value=""
-        onChange={inputChangedHandler}
-        placeholder="******"
-        // isValid={valid}
-        // shouldValidate={input.config.validation.required}
-        // touched={input.config.changed}
-      />
+      <FormContainer>
+        <div>
+          <h5>Warning! This action can't be undone.</h5>
+          <h5>Enter your password to delete account:</h5>
+        </div>
+
+        <Input
+          name="password"
+          type="password"
+          value={password}
+          onChange={inputChangedHandler}
+          placeholder="******"
+          touched={touched}
+        />
+        <ErrorMessage>{props.error}</ErrorMessage>
+      </FormContainer>
       <WrappedButton onClick={props.cancel}>I've changed my mind</WrappedButton>
-      <WrappedButton>Delete Account</WrappedButton>
+      <WrappedButton
+        disabled={!(touched && password.length >= 6)}
+        onClick={confirmDeleteHandler}
+      >
+        Delete Account
+      </WrappedButton>
     </React.Fragment>
   );
+
+  return props.currentUser ? deleteConfirm : deleteSuccess;
 };
-export default deleteConfirm;
+export default DeleteConfirm;

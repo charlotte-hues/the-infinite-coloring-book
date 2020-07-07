@@ -9,27 +9,29 @@ import Modal from "../../components/UI/Modal/Modal";
 import Input from "../../components/UI/Input/Input";
 import { WrappedButton } from "../../components/UI/Button/Button";
 import CancelIcon from "../../components/UI/Icons/Actions/Close/Close";
+import ErrorMessage from "../../components/Auth/errorMessage";
 import useWhyDidYouUpdate from "../../hooks/whyDidYouUpdate";
 
 const FormContainer = styled.form`
-  height: 280px;
+  height: 200px;
   width: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   transition: all 0.2s ease;
+`;
 
-  & p {
-    font-size: 0.8rem;
-    color: var(--dark);
-    transition: all 0.2s ease;
-    text-align: center;
+const DeleteAccountLink = styled.p`
+  font-size: 0.8rem;
+  color: var(--dark);
+  transition: all 0.2s ease;
+  text-align: center;
 
-    &:hover {
-      color: var(--orange);
-      cursor: pointer;
-    }
+  &:hover {
+    color: var(--orange);
+    cursor: pointer;
   }
+}
 `;
 
 const InputEditContainer = styled.div`
@@ -55,7 +57,6 @@ const InputContainer = styled.div`
 const Account = props => {
   const [showModal, setShowModal] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
   const [controls, setControls] = useState({
     displayName: {
@@ -85,30 +86,58 @@ const Account = props => {
       },
       valid: true,
       changed: false
+    },
+    password: {
+      elementType: "input",
+      label: "re-enter password to update email",
+      elementConfig: {
+        type: "password"
+      },
+      value: "",
+      validation: {
+        minLength: 6,
+        required: true
+      },
+      valid: true,
+      changed: false
     }
   });
   const history = useHistory();
 
   useEffect(() => {
+    if (!showDeleteModal && !props.currentUser) setShowModal(false);
     setControls(prevState => {
       if (!props.currentUser) return prevState;
+
       const updatedControls = updateObject(prevState, {
         displayName: updateObject(prevState.displayName, {
           value: props.currentUser.displayName,
-          changed: false
+          changed: prevState.displayName.value !== props.currentUser.displayName
         }),
         email: updateObject(prevState.email, {
           value: props.currentUser.email,
+          changed: prevState.email.value !== props.currentUser.email
+        }),
+        password: updateObject(prevState.password, {
+          value: "",
           changed: false
         })
       });
       return updatedControls;
     });
-  }, [props.currentUser]);
+  }, [props.currentUser, props.updatedUser, showDeleteModal]);
+
+  let formElementsArray = [];
+  for (let key in controls) {
+    formElementsArray.push({
+      id: key,
+      config: controls[key]
+    });
+  }
 
   const inputChangedHandler = (e, input) => {
     e.preventDefault();
-    if (props.error) props.confirmNotice();
+    if (props.error || props.updatedUser) props.confirmNotice();
     const updatedControls = updateObject(controls, {
       [input]: updateObject(controls[input], {
         value: e.target.value,
@@ -116,12 +145,17 @@ const Account = props => {
         valid: checkValidity(e.target.value, controls[input].validation)
       })
     });
+    if (input === "email") {
+      updatedControls.password.valid =
+        e.target.value !== props.currentUser.email
+          ? checkValidity(controls.password.value, controls.password.validation)
+          : true;
+    }
     let validity =
       updatedControls.email.changed || updatedControls.displayName.changed;
     for (let key in updatedControls) {
       validity = updatedControls[key].valid && validity;
     }
-    console.log(validity);
     setFormIsValid(validity);
     setControls(updatedControls);
   };
@@ -135,6 +169,15 @@ const Account = props => {
         changed: false
       })
     });
+    if (input === "email") {
+      updatedControls.password.valid = true;
+    }
+    let validity =
+      updatedControls.email.changed || updatedControls.displayName.changed;
+    for (let key in updatedControls) {
+      validity = updatedControls[key].valid && validity;
+    }
+    setFormIsValid(validity);
     setControls(updatedControls);
   };
 
@@ -142,21 +185,37 @@ const Account = props => {
     if (mounted) {
       setShowModal(false);
       props.confirmNotice();
-    } else history.goBack();
+    } else
+      props.currentUser && showDeleteModal
+        ? history.replace("./create")
+        : history.goBack();
   };
 
-  let formElementsArray = [];
-  for (let key in controls) {
-    formElementsArray.push({
-      id: key,
-      config: controls[key]
-    });
-  }
+  const resetPasswordHandler = e => {
+    e.preventDefault();
+    props.sendPasswordReset(props.currentUser.email);
+  };
 
   const logOutHandler = e => {
     e.preventDefault();
     props.logout();
     setShowModal(false);
+  };
+
+  const updateUserDetailsHandler = e => {
+    e.preventDefault();
+    const details = {
+      displayName: controls.displayName.value
+    };
+    if (controls.email.changed) {
+      props.updateUserDetails(
+        details,
+        controls.email.value,
+        controls.password.value
+      );
+    } else {
+      props.updateUserDetails(details, null, null);
+    }
   };
 
   const cancelDeleteAccountHandler = e => {
@@ -166,7 +225,6 @@ const Account = props => {
 
   const deleteConfirmHandler = e => {
     e.preventDefault();
-    setConfirmDelete(true);
     setShowDeleteModal(true);
   };
 
@@ -190,7 +248,9 @@ const Account = props => {
         <CancelContainer>
           <CancelIcon
             onClick={e => cancelChangesHandler(e, input.id)}
-            disabled={!input.config.changed || !valid}
+            disabled={
+              !input.config.changed || !valid || input.id === "password"
+            }
             disabledColor="rgba(255,255,255,0)"
           />
         </CancelContainer>
@@ -200,18 +260,26 @@ const Account = props => {
 
   const buttons = (
     <div>
-      <WrappedButton disabled={!formIsValid} onClick={() => {}}>
+      <WrappedButton disabled={!formIsValid} onClick={updateUserDetailsHandler}>
         Save Changes
       </WrappedButton>
-      <WrappedButton onClick={() => {}}>Reset Password</WrappedButton>
+      <WrappedButton
+        disabled={props.passwordReset}
+        onClick={resetPasswordHandler}
+      >
+        {props.passwordReset
+          ? "Reset password link sent to your inbox"
+          : "Reset Password"}
+      </WrappedButton>
       <WrappedButton onClick={logOutHandler}>Log Out</WrappedButton>
-      <p color="var(--dark)" onClick={deleteConfirmHandler}>
+      <DeleteAccountLink onClick={deleteConfirmHandler}>
         Delete My Account
-      </p>
+      </DeleteAccountLink>
     </div>
   );
-  const allProps = { ...props, controls, showModal, history, confirmDelete };
+  const allProps = { ...props, controls, showModal, history };
   useWhyDidYouUpdate("Account", allProps);
+
   return (
     <React.Fragment>
       <Modal
@@ -219,14 +287,24 @@ const Account = props => {
         modalClosed={closeModalHandler}
         title={showDeleteModal ? "Delete Account" : "Account Settings"}
       >
-        <FormContainer>
-          {showDeleteModal ? (
-            <DeleteConfirm cancel={cancelDeleteAccountHandler} />
-          ) : (
-            form
-          )}
-          {!showDeleteModal && buttons}
-        </FormContainer>
+        {showDeleteModal ? (
+          <DeleteConfirm
+            cancel={cancelDeleteAccountHandler}
+            deleteUser={props.deleteUser}
+            error={props.error}
+            confirmNotice={props.confirmNotice}
+            currentUser={props.currentUser}
+            FormContainer={FormContainer}
+          />
+        ) : (
+          <FormContainer>
+            {" "}
+            {form}
+            <ErrorMessage>{props.error}</ErrorMessage>
+          </FormContainer>
+        )}
+
+        {!showDeleteModal && buttons}
       </Modal>
     </React.Fragment>
   );
@@ -235,7 +313,9 @@ const Account = props => {
 const mapStateToProps = state => {
   return {
     currentUser: state.auth.currentUser,
-    error: state.auth.error
+    error: state.auth.error,
+    passwordReset: state.auth.passwordReset,
+    updatedUser: state.auth.updated
   };
 };
 
@@ -243,8 +323,10 @@ const mapDispatchToProps = dispatch => {
   return {
     sendPasswordReset: email => dispatch(actions.sendPasswordReset(email)),
     logout: () => dispatch(actions.logout()),
-    deleteUser: () => dispatch(actions.deleteCurrentUser()),
-    confirmNotice: () => dispatch(actions.clearAuthNotice())
+    deleteUser: password => dispatch(actions.deleteCurrentUser(password)),
+    confirmNotice: () => dispatch(actions.clearAuthNotice()),
+    updateUserDetails: (details, emailUpdate, password) =>
+      dispatch(actions.updateUserDetails(details, emailUpdate, password))
   };
 };
 

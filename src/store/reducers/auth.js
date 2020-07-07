@@ -7,7 +7,8 @@ const initialState = {
   error: null,
   uid: null,
   token: null,
-  passwordReset: null
+  passwordReset: null,
+  updated: null
 };
 
 const authStart = (state, action) => {
@@ -30,7 +31,15 @@ const setCurrentUser = (state, action) => {
     uid: action.uid,
     token: action.token,
     loading: false,
-    error: false
+    error: null
+  });
+};
+
+const updateCurrentUser = (state, action) => {
+  return updateObject(state, {
+    currentUser: action.currentUser,
+    loading: false,
+    updated: true
   });
 };
 
@@ -47,7 +56,9 @@ const clearCurrentUser = (state, action) => {
 const clearNotice = (state, action) => {
   return updateObject(state, {
     error: null,
-    passwordReset: null
+    loading: false,
+    passwordReset: null,
+    updated: null
   });
 };
 
@@ -56,6 +67,13 @@ const resetPasswordSuccess = (state, action) => {
     error: null,
     loading: null,
     passwordReset: true
+  });
+};
+
+const deleteCurrentUserSuccess = (state, action) => {
+  return updateObject(state, {
+    error: null,
+    loading: null
   });
 };
 
@@ -71,8 +89,12 @@ const reducer = (state = initialState, action) => {
       return setCurrentUser(state, action);
     case actionTypes.CLEAR_CURRENT_USER:
       return clearCurrentUser(state, action);
+    case actionTypes.UPDATE_CURRENT_USER:
+      return updateCurrentUser(state, action);
     case actionTypes.PASSWORD_RESET_SUCCESS:
       return resetPasswordSuccess(state, action);
+    case actionTypes.DELETE_CURRENT_USER_SUCCESS:
+      return deleteCurrentUserSuccess(state, action);
     default:
       return state;
   }

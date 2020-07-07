@@ -131,6 +131,11 @@ const Auth = props => {
     }
   };
 
+  const backToLoginHandler = () => {
+    forgotPasswordHandler();
+    props.confirmNotice();
+  };
+
   let formElementsArray = [];
   for (let key in controls) {
     if (isSignUp || (!isSignUp && controls[key].signIn !== false)) {
@@ -191,10 +196,7 @@ const Auth = props => {
           displayName={displayName}
           isSignUp={isSignUp}
           resetPassword={props.passwordReset}
-          backToLogin={() => {
-            forgotPasswordHandler();
-            props.confirmNotice();
-          }}
+          backToLogin={backToLoginHandler}
         />
       ) : forgotPassword ? (
         <ForgotPassword

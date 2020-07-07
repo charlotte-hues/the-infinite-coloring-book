@@ -14,7 +14,7 @@ const inputWrapper = props => {
   return (
     <StyledDiv multi={props.multi}>
       {props.label ? (
-        <Label for={props.label} color={props.color}>
+        <Label for={props.label} color={props.color} fullWidth={props.multi}>
           {props.label}
         </Label>
       ) : null}

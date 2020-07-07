@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 const ErrorContainer = styled.div`
-  height: 30px;
+  min-height: 30px;
+  height: 100%;
   width: 100%;
+  max-width: 280px;
 `;
 
 const StyledErrorMessage = styled.p`
