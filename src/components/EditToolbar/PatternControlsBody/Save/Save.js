@@ -22,7 +22,6 @@ const Container = styled.div`
 `;
 
 const ImageWrapper = styled.div`
-  // position: absolute;
   width: 1920px;
   height: 1920px;
   opacity: 0;

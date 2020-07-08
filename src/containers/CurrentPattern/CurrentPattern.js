@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import PrintPreview from "./PrintPreview/PrintPreview";
 import PatternControls from "./EditPatternToolbar/EditPatternToolbar";
-//change this back to the component version to fix
 
 const Container = styled(motion.div)`
   display: flex;

@@ -14,18 +14,37 @@ import { Spacer } from "../../components/UI/Divider/Divider";
 import Button from "../../components/UI/Button/Button";
 
 const Container = styled(motion.div)`
-height: 100%;
-width: 90vw;
-margin: auto;
-}
+  height: 100%;
+  width: 90vw;
+  margin: auto;
+`;
+
+const StyledLink = styled(Link)`
+  margin: auto;
+  min-width: 280px;
+  max-width: 400px;
 `;
 
 const PatternCardContainer = styled.ul`
+  padding-top: 50px;
   display: flex;
   width: 100%;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
+`;
+const BodyContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 200px;
+  padding-top: 50px;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  h3 {
+    margin: auto;
+  }
 `;
 
 const SavedDesigns = props => {
@@ -71,6 +90,32 @@ const SavedDesigns = props => {
     </React.Fragment>
   );
 
+  const noneSaved = (
+    <BodyContainer>
+      <h3>You haven't saved any patterns yet</h3>
+      <StyledLink to="/create">
+        <Button>Get creating!</Button>
+      </StyledLink>
+    </BodyContainer>
+  );
+
+  const notSignedIn = (
+    <BodyContainer>
+      <h3>You need an account to save and edit patterns</h3>
+      <StyledLink
+        to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
+      >
+        <Button>Log in or sign up</Button>
+      </StyledLink>
+    </BodyContainer>
+  );
+
+  const loadingContent = (
+    <BodyContainer>
+      <h3>Loading...</h3>
+    </BodyContainer>
+  );
+
   const designListItems = !props.patterns
     ? null
     : props.patterns
@@ -94,17 +139,25 @@ const SavedDesigns = props => {
           );
         });
 
-  const designs = loading ? (
-    <h4>Loading...</h4>
+  const body = loading ? (
+    loadingContent
   ) : !isAuth ? (
-    <Link
-      to={{ pathname: `${location.pathname}/login`, state: { modal: true } }}
-    >
-      <button>Log in to see your saved designs</button>
-    </Link>
+    notSignedIn
+  ) : props.patterns.length < 1 ? (
+    noneSaved
   ) : (
     <PatternCardContainer>{designListItems}</PatternCardContainer>
   );
+
+  const deleteModal = patternId ? (
+    <Modal
+      title="Are you sure you want to delete?"
+      show={patternId}
+      modalClosed={modalCloseHandler}
+    >
+      {deleteConfirm}
+    </Modal>
+  ) : null;
 
   return (
     <Container
@@ -112,17 +165,8 @@ const SavedDesigns = props => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      {patternId ? (
-        <Modal
-          title="Are you sure you want to delete?"
-          show={patternId}
-          modalClosed={modalCloseHandler}
-        >
-          {deleteConfirm}
-        </Modal>
-      ) : null}
-      <h1>My Designs</h1>
-      {designs}
+      {deleteModal}
+      {body}
     </Container>
   );
 };

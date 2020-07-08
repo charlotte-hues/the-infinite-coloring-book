@@ -36,8 +36,5 @@ export const UPDATE_COMPLEXITY = "UPDATE_COMPLEXITY";
 export const UPDATE_ORIENTATION = "UPDATE_ORIENTATION";
 export const NEW_TEMPLATE = "NEW_TEMPLATE";
 export const SAVED_PATTERN = "SAVED_PATTERN";
-
-// Need to do below...
-
 export const LOAD_PATTERN = "LOAD_PATTERN";
 export const DELETE_PATTERN = "DELETE_PATTERN";

@@ -10,7 +10,6 @@ import Input from "../../components/UI/Input/Input";
 import { WrappedButton } from "../../components/UI/Button/Button";
 import CancelIcon from "../../components/UI/Icons/Actions/Close/Close";
 import ErrorMessage from "../../components/Auth/errorMessage";
-import useWhyDidYouUpdate from "../../hooks/whyDidYouUpdate";
 
 const FormContainer = styled.form`
   height: 200px;
@@ -277,8 +276,6 @@ const Account = props => {
       </DeleteAccountLink>
     </div>
   );
-  const allProps = { ...props, controls, showModal, history };
-  useWhyDidYouUpdate("Account", allProps);
 
   return (
     <React.Fragment>

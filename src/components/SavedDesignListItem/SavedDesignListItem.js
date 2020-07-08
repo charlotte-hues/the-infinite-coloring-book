@@ -12,7 +12,6 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   background: var(--surface);
-  // border: 1px solid var(--trim);
   border-radius: 4px;
   width: 260px;
 

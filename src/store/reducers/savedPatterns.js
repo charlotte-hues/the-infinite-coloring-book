@@ -3,7 +3,7 @@ import { updateObject } from "../../shared/utility";
 
 const initialState = {
   patterns: [],
-  loading: false,
+  loading: true,
   error: false
 };
 
@@ -64,6 +64,18 @@ const authLogout = (state, action) => {
   });
 };
 
+const setCurrentUser = (state, action) => {
+  return updateObject(state, {
+    loading: false
+  });
+};
+
+const clearCurrentUser = (state, action) => {
+  return updateObject(state, {
+    loading: false
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SAVE_PATTERN_START:
@@ -85,6 +97,10 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.AUTH_LOGOUT:
       return authLogout(state, action);
+    case actionTypes.SET_CURRENT_USER:
+      return setCurrentUser(state, action);
+    case actionTypes.CLEAR_CURRENT_USER:
+      return clearCurrentUser(state, action);
 
     default:
       return state;

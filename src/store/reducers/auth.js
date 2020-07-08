@@ -3,7 +3,7 @@ import { updateObject } from "../../shared/utility";
 
 const initialState = {
   currentUser: null,
-  loading: false,
+  loading: true,
   error: null,
   uid: null,
   token: null,
