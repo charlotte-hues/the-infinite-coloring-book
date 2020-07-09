@@ -16,12 +16,12 @@ const NewPattern = props => {
   } = props;
   return (
     <React.Fragment>
-      <TemplateSelect
+      {/* <TemplateSelect
         complexity={complexity}
         columns={columns}
         orientation={orientation}
         onUpdate={onUpdateTemplate}
-      />
+      /> */}
       <OrientationSelect
         complexity={complexity}
         orientation={orientation}
