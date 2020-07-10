@@ -20,3 +20,9 @@ export const setActiveColorSelection = activeColorSelection => {
     selection: activeColorSelection === "pattern" ? "background" : "pattern"
   };
 };
+
+export const clearNotice = () => {
+  return {
+    type: actionTypes.CLEAR_NOTICE
+  };
+};

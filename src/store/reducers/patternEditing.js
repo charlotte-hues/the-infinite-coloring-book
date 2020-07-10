@@ -4,7 +4,8 @@ import { updateObject } from "../../shared/utility";
 const initialState = {
   activeColorSelection: "pattern",
   lockMode: false,
-  activePattern: 999
+  activePattern: 999,
+  saved: false
 };
 
 const setLockMode = (state, action) => {
@@ -33,6 +34,18 @@ const loadPattern = (state, action) => {
   });
 };
 
+const saveNewPatternSuccess = (state, action) => {
+  return updateObject(state, {
+    saved: true
+  });
+};
+
+const clearNotice = (state, action) => {
+  return updateObject(state, {
+    saved: false
+  });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LOCK_MODE:
@@ -44,6 +57,10 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.LOAD_PATTERN:
       return loadPattern(state, action);
+    case actionTypes.SAVE_NEW_PATTERN_SUCCESS:
+      return saveNewPatternSuccess(state, action);
+    case actionTypes.CLEAR_NOTICE:
+      return clearNotice(state, action);
     default:
       return state;
   }

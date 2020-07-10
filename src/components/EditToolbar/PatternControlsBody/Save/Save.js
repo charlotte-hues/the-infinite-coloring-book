@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { saveAsPng } from "save-html-as-image";
@@ -7,6 +8,8 @@ import PrintImage from "./PrintImage/PrintImage";
 import SaveToAccount from "./SaveToAccount/SaveToAccount";
 import { WrappedButton } from "../../../UI/Button/Button";
 import DownloadablePattern from "./DownloadablePattern/DownloadablePattern";
+import Modal from "../../../../components/UI/Modal/Modal";
+import SaveSuccessful from "./SaveSuccessful/SaveSuccessful";
 import * as actions from "../../../../store/actions/index";
 
 const Container = styled.div`
@@ -36,7 +39,9 @@ const downloadImageHandler = (e, name = "the-infinite-coloring-book", ref) => {
 };
 
 const Save = props => {
+  const history = useHistory();
   const ref = useRef();
+  const [viewDesigns, setViewDesigns] = useState(false);
 
   let DownloadableImage = (
     <Container>
@@ -52,8 +57,33 @@ const Save = props => {
     </Container>
   );
 
+  const closeModalHandler = mounted => {
+    if (mounted) {
+      props.confirmNotice();
+    } else {
+      if (viewDesigns) {
+        history.replace("/mydesigns");
+      }
+    }
+  };
+
+  const viewDesignsHandler = () => {
+    setViewDesigns(true);
+    props.confirmNotice();
+  };
+
   return (
     <React.Fragment>
+      <Modal
+        show={props.saved}
+        modalClosed={closeModalHandler}
+        title="Save Successful"
+      >
+        <SaveSuccessful
+          closeModal={closeModalHandler}
+          viewDesigns={viewDesignsHandler}
+        />
+      </Modal>
       <NameImage value={props.imageName} update={props.onUpdateImageName} />
       <SaveToAccount />
       <WrappedButton
@@ -72,6 +102,7 @@ const mapStateToProps = state => {
     imageName: state.currentPattern.imageName,
     data: state.currentPattern,
     edited: state.currentPattern.edited,
+    saved: state.patternEditing.saved,
 
     patterns: state.currentPattern.pattern,
     columns: state.currentPattern.columns,
@@ -85,7 +116,8 @@ const mapDispatchToProps = dispatch => {
     onSaveNewPattern: (patternData, token, patternId) =>
       dispatch(actions.saveNewPattern(patternData, token)),
     onSaveExistingPattern: (patternData, token) =>
-      dispatch(actions.saveExistingPattern(patternData, token))
+      dispatch(actions.saveExistingPattern(patternData, token)),
+    confirmNotice: () => dispatch(actions.clearNotice())
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Save);

@@ -8,6 +8,13 @@ const savePatternSuccess = id => {
   };
 };
 
+const saveNewPatternSuccess = id => {
+  return {
+    type: actionTypes.SAVE_NEW_PATTERN_SUCCESS,
+    id: id
+  };
+};
+
 const savePatternFail = error => {
   return {
     type: actionTypes.SAVE_PATTERN_FAIL,
@@ -40,6 +47,7 @@ export const saveNewPattern = (patternData, token) => {
       .then(response => {
         dispatch(savePatternSuccess(response.data.name, patternData));
       })
+      .then(() => dispatch(saveNewPatternSuccess()))
       .catch(error => dispatch(savePatternFail(error)));
   };
 };

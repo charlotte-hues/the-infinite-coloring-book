@@ -56,7 +56,9 @@ const initialState = {
   activePatternColor: 4,
   patternColor: "#C74F33",
   backgroundColor: "#F7F3EE",
-  imageName: "the-infinite-coloring-book"
+  imageName: "the-infinite-coloring-book",
+  id: null,
+  edited: false
 };
 
 const initPattern = (state, action) => {
@@ -142,7 +144,7 @@ const newTemplate = (state, action) => {
     columns: action.columns,
     complexity: action.complexity,
     orientation: action.orientation,
-    edited: false,
+    edited: true,
     id: null
   });
 };
